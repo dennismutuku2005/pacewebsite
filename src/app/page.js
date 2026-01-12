@@ -23,7 +23,7 @@ export default function Home() {
                 transition={{ duration: 0.6 }}
               >
                 <div className="inline-block bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-6">
-                  🚀 Trusted by 500+ WISPs Across Africa
+                  Trusted by 500+ WISPs Across Africa
                 </div>
               </motion.div>
 
