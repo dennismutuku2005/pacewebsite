@@ -65,12 +65,12 @@ export default function Home() {
                 {/* Background Glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-purple-600/30 blur-[80px] rounded-full pointer-events-none"></div>
 
-                <div className="relative z-10 w-64 h-64 lg:w-96 lg:h-96">
+                <div className="relative z-10 w-[500px] h-[500px] lg:w-96 lg:h-96">
                   <Image
                     src="/hero-phone.png"
-                    alt="Pace WISP Logo"
-                    width={400}
-                    height={400}
+                    alt="Hero phone"
+                    width={500}
+                    height={500}
                     className="w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
                     priority
                   />
