@@ -16,7 +16,7 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
 
             {/* Left Content */}
-            <ScrollReveal className="flex-1 max-w-2xl pt-8 text-center lg:text-left z-10 w-full">
+            <ScrollReveal className="flex-1 pb-8 max-w-2xl pt-8 text-center lg:text-left z-10 w-full">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -41,9 +41,6 @@ export default function Home() {
                 <Link href="/apply">
                   <button className="w-full sm:w-auto bg-tappi-green text-white px-8 py-3.5 rounded-xl font-bold text-lg hover:bg-green-600 transition-all hover:-translate-y-1 shadow-[0_8px_30px_rgba(44,179,74,0.3)] flex items-center justify-center gap-2">
                     Get Started Free
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
                   </button>
                 </Link>
                 <Link href="/pricing">
@@ -65,12 +62,12 @@ export default function Home() {
                 {/* Background Glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-purple-600/30 blur-[80px] rounded-full pointer-events-none"></div>
 
-                <div className="relative z-10 w-[500px] h-[500px] lg:w-96 lg:h-96">
+                <div className="relative z-10 w-[600px] h-[600px] lg:w-96 lg:h-96">
                   <Image
                     src="/hero-phone.png"
                     alt="Hero phone"
-                    width={500}
-                    height={500}
+                    width={600}
+                    height={600}
                     className="w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
                     priority
                   />
