@@ -5,7 +5,7 @@ export default function FAQPage() {
         <div className="bg-white">
             <PageHero
                 title="Frequently Asked Questions"
-                subtitle="Find answers to common questions about Tappi's services and features."
+                subtitle="Find answers to common questions about Pace WISP's billing systems, pricing, and features."
             />
 
             {/* 

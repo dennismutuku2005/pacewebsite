@@ -3,20 +3,28 @@ import React, { useState } from 'react';
 
 const faqs = [
     {
-        question: "How does Tappi help my business?",
-        answer: "Tappi provides tools to help you build an online presence, gather customer reviews, and launch effective ads on social media to find and retain customers."
+        question: "What billing systems does Pace WISP support?",
+        answer: "Pace WISP supports both Hotspot and PPPoE billing systems, giving you complete flexibility to manage your wireless internet service provider operations efficiently."
     },
     {
-        question: "Is Tappi free to use?",
-        answer: "Tappi offers a free tier that gives you a business website. We also have premium plans for advanced features like ad management and deeper customer insights."
+        question: "How much does Pace WISP cost?",
+        answer: "Our pricing is simple and transparent: 3% of your Hotspot revenue and 28 KES per PPPoE user. This ensures our success is directly tied to yours, with no hidden fees."
     },
     {
-        question: "Can I manage my ads from Tappi?",
-        answer: "Yes! You can create and manage social media ads (Facebook, Instagram) directly from the Tappi dashboard with simplified tools designed for small businesses."
+        question: "Can Pace WISP integrate with my existing infrastructure?",
+        answer: "Yes! Pace WISP seamlessly integrates with industry-leading platforms including Mikrotik routers, and we partner with Digital Ocean for reliable hosting. Our system is designed to work with your existing setup."
     },
     {
-        question: "How do reviews help my business?",
-        answer: "Reviews build trust with potential customers. Tappi makes it easy to collect and showcase positive reviews, improving your online reputation."
+        question: "What features are included in the billing system?",
+        answer: "Our comprehensive billing system includes automated invoicing, payment tracking, customer management, usage monitoring, bandwidth control, and detailed reporting. Everything you need to run your WISP efficiently."
+    },
+    {
+        question: "Do you offer support and training?",
+        answer: "Absolutely! We provide full technical support and comprehensive training to ensure your team can make the most of Pace WISP. Our partners include One Network, Trajon Byte, and Stream Mikrotik for extended support."
+    },
+    {
+        question: "Can I try Pace WISP before committing?",
+        answer: "Yes! We offer a demo and consultation to help you understand how Pace WISP can transform your WISP operations. Contact us through our Apply page to get started."
     }
 ];
 
@@ -31,7 +39,7 @@ export default function FAQ() {
                         Frequently Asked Questions
                     </h2>
                     <p className="text-gray-500 text-lg">
-                        Everything you need to know about Tappi and how we work.
+                        Everything you need to know about Pace WISP and how we empower your business.
                     </p>
                 </div>
 

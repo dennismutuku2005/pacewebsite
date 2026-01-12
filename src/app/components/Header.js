@@ -36,11 +36,14 @@ export default function Header() {
                 <div className="flex items-center justify-between h-24">
                     {/* Logo */}
                     <Link href="/" className="text-3xl font-extrabold tracking-tight hover:opacity-90 transition-opacity z-50 relative">
-                        <span className="text-white font-rubik">tappi</span>
+                        <span className="text-white font-rubik">Pace</span>
                     </Link>
 
                     {/* Desktop Menu */}
                     <div className="hidden lg:flex items-center gap-10">
+                        <Link href="/products" className="text-[15px] font-medium text-white/90 hover:text-white transition-colors">Products</Link>
+                        <Link href="/pricing" className="text-[15px] font-medium text-white/90 hover:text-white transition-colors">Pricing</Link>
+
                         {/* Company Mega Menu Trigger */}
                         <div
                             className="relative h-24 flex items-center"
@@ -186,7 +189,6 @@ export default function Header() {
                             </AnimatePresence>
                         </div>
 
-                        <Link href="/blog" className="text-[15px] font-medium text-white/90 hover:text-white transition-colors">Blog</Link>
                     </div>
 
                     {/* Auth Buttons + Mobile Toggle */}
@@ -194,8 +196,8 @@ export default function Header() {
                         <Link href="/login" className="hidden lg:block text-[15px] font-medium text-white hover:text-gray-200 transition-colors">
                             Login
                         </Link>
-                        <Link href="/signup" className="hidden lg:block bg-tappi-green text-white px-6 py-2.5 rounded-lg font-bold hover:bg-green-600 transition-all hover:shadow-[0_4px_12px_rgba(44,179,74,0.3)] hover:-translate-y-0.5 text-sm md:text-[15px]">
-                            Get started
+                        <Link href="/apply" className="hidden lg:block bg-tappi-green text-white px-6 py-2.5 rounded-lg font-bold hover:bg-green-600 transition-all hover:shadow-[0_4px_12px_rgba(44,179,74,0.3)] hover:-translate-y-0.5 text-sm md:text-[15px]">
+                            Apply Now
                         </Link>
 
                         {/* Hamburger Button */}
@@ -233,7 +235,7 @@ export default function Header() {
                             className="fixed inset-y-0 right-0 w-full sm:w-[350px] bg-white z-50 lg:hidden shadow-2xl flex flex-col"
                         >
                             <div className="p-6 flex items-center justify-between border-b border-gray-100">
-                                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-extrabold text-tappi-purple">tappi</Link>
+                                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-extrabold text-tappi-purple">Pace</Link>
                                 <button onClick={() => setMobileMenuOpen(false)} className="text-gray-400 hover:text-gray-900 transition-colors">
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                                 </button>
@@ -241,6 +243,11 @@ export default function Header() {
 
                             <div className="flex-1 overflow-y-auto p-6 space-y-6">
                                 <div className="space-y-4">
+                                    <div className="pb-4 border-b border-gray-100">
+                                        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Solutions</p>
+                                        <Link href="/products" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-lg font-medium text-gray-900 hover:text-tappi-purple">Products</Link>
+                                        <Link href="/pricing" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-lg font-medium text-gray-900 hover:text-tappi-purple">Pricing</Link>
+                                    </div>
                                     <div className="pb-4 border-b border-gray-100">
                                         <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Company</p>
                                         <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-lg font-medium text-gray-900 hover:text-tappi-purple">About Us</Link>
@@ -259,8 +266,8 @@ export default function Header() {
                                 <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="block w-full text-center py-3 font-bold text-gray-900 hover:text-tappi-purple border border-gray-300 rounded-xl bg-white">
                                     Login
                                 </Link>
-                                <Link href="/signup" onClick={() => setMobileMenuOpen(false)} className="block w-full text-center py-3 font-bold text-white bg-tappi-green rounded-xl hover:bg-green-600 shadow-lg shadow-green-500/20">
-                                    Get Started
+                                <Link href="/apply" onClick={() => setMobileMenuOpen(false)} className="block w-full text-center py-3 font-bold text-white bg-tappi-green rounded-xl hover:bg-green-600 shadow-lg shadow-green-500/20">
+                                    Apply Now
                                 </Link>
                             </div>
                         </motion.div>

@@ -2,9 +2,7 @@
 import { motion } from "framer-motion";
 
 const partners = [
-    "Safaricom", "M-PESA", "Equity Bank", "KCB Group",
-    "Co-op Bank", "Absa", "NCBA", "Stanbic Bank",
-    "Family Bank", "I&M Bank"
+    "One Network", "Trajon Byte", "Stream Mikrotik", "Digital Ocean"
 ];
 
 export default function PartnersMarquee() {
@@ -12,7 +10,7 @@ export default function PartnersMarquee() {
         <section className="py-12 bg-white border-b border-gray-100 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-8 text-center">
                 <p className="text-sm font-semibold text-gray-500 uppercase tracking-widest">
-                    Trusted by over 100k businesses across Africa
+                    Trusted Partners Powering WISPs Across The Region
                 </p>
             </div>
 

@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Tappi - Find Customers, Retain With Ease",
-  description: "Providing tools for businesses to increase sales, find new customers and build relationships with them.",
+  title: "Pace WISP - Utility Software for Wireless Internet Providers",
+  description: "Empowering WISPs with cutting-edge billing systems and management tools. Streamline your operations with our Hotspot and PPPoE solutions.",
 };
 
 export default function RootLayout({ children }) {
