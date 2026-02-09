@@ -6,218 +6,196 @@ import {
     Users, Ticket, CreditCard, ArrowUpRight,
     ArrowDownRight, MoreHorizontal, UserPlus,
     RefreshCcw, Search, BarChart3, TrendingUp,
-    Instagram, Globe, Facebook, ExternalLink
+    Settings, Activity, CheckCircle2
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function DashboardPage() {
     const stats = [
-        {
-            name: 'Avg. Client Rating',
-            value: '7.8/10',
-            change: '+2.5%',
-            icon: UserPlus,
-            color: 'text-blue-600',
-            bg: 'bg-blue-50',
-            sub: 'than last Week'
-        },
-        {
-            name: 'Monthly Revenue',
-            value: 'KES 4.2M',
-            change: '-1.5%',
-            icon: TrendingUp,
-            color: 'text-purple-600',
-            bg: 'bg-purple-50',
-            sub: 'than last Month'
-        },
-        {
-            name: 'Transacted Today',
-            value: 'KES 142,500',
-            change: '+2.6%',
-            icon: CreditCard,
-            color: 'text-orange-600',
-            bg: 'bg-orange-50',
-            sub: 'than yesterday'
-        },
+        { name: 'Total Active Clients', value: '1,284', change: '+12%', icon: Users, color: 'text-pace-purple', bg: 'bg-pace-purple/5' },
+        { name: 'Open Support Tickets', value: '24', change: '-5', icon: Ticket, color: 'text-pace-green', bg: 'bg-pace-green/5' },
+        { name: 'Daily Revenue', value: 'KES 142.5k', change: '+8.2%', icon: CreditCard, color: 'text-orange-500', bg: 'bg-orange-50' },
+        { name: 'Monthly Target', value: 'KES 4.2M', change: '85%', icon: TrendingUp, color: 'text-blue-500', bg: 'bg-blue-50' },
     ]
 
-    const metrics = [
-        { label: 'Google Analytics', icon: Globe, link: 'https://analytics.google.com' },
-        { label: 'Facebook Ads', icon: Facebook, link: 'https://business.facebook.com' },
-        { label: 'Instagram Ads', icon: Instagram, link: 'https://adsmanager.facebook.com' },
+    const recentClients = [
+        { name: 'John Kamau', plan: 'Fiber Pro 50', status: 'Active', joined: '2h ago' },
+        { name: 'Mary Wanjira', plan: 'Home Lite 10', status: 'Pending', joined: '5h ago' },
+        { name: 'David Omari', plan: 'Fiber Pro 50', status: 'Active', joined: 'Yesterday' },
+        { name: 'Sarah Atieno', plan: 'Premium WISP', status: 'Active', joined: 'Yesterday' },
     ]
 
     return (
-        <div className="space-y-6 pb-10">
+        <div className="space-y-6">
 
-            {/* Top Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Header Info */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl font-black text-pace-purple-dark">Management Overview</h1>
+                    <p className="text-sm text-gray-500 mt-1">Welcome back, Adam. Here is the latest for your network.</p>
+                </div>
+                <div className="flex items-center gap-3">
+                    <button className="px-4 py-2 bg-white border border-gray-200 rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-50 transition-all flex items-center gap-2">
+                        <RefreshCcw size={14} /> Sync Routers
+                    </button>
+                    <button className="px-5 py-2 bg-pace-purple text-white rounded-xl text-xs font-bold hover:opacity-90 transition-all shadow-lg shadow-pace-purple/10">
+                        Generate Report
+                    </button>
+                </div>
+            </div>
+
+            {/* Stats Grid - Simplified Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {stats.map((stat, i) => (
                     <motion.div
                         key={stat.name}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.1 }}
-                        className="bg-white p-8 rounded-2xl border border-[#e2e8f0] shadow-sm hover:shadow-md transition-all group"
+                        className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:border-pace-purple/20 transition-all"
                     >
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className={cn("p-3 rounded-xl", stat.bg)}>
-                                <stat.icon size={24} className={stat.color} />
+                        <div className="flex items-center justify-between mb-4">
+                            <div className={cn("p-2.5 rounded-xl", stat.bg)}>
+                                <stat.icon size={20} className={stat.color} />
                             </div>
-                        </div>
-                        <p className="text-[14px] font-medium text-[#64748b] mb-1">{stat.name}</p>
-                        <div className="flex items-end gap-3">
-                            <h3 className="text-3xl font-bold text-[#1e293b]">{stat.value}</h3>
-                        </div>
-                        <div className="flex items-center gap-1.5 mt-2">
                             <span className={cn(
-                                "text-[13px] font-bold flex items-center",
-                                stat.change.startsWith('+') ? "text-green-500" : "text-red-500"
+                                "text-[11px] font-bold px-2 py-0.5 rounded-full",
+                                stat.change.startsWith('+') ? "text-pace-green bg-pace-green/10" : "text-gray-500 bg-gray-100"
                             )}>
-                                {stat.change.startsWith('+') ? <ArrowUpRight size={14} className="mr-0.5" /> : <ArrowDownRight size={14} className="mr-0.5" />}
                                 {stat.change}
                             </span>
-                            <span className="text-[13px] text-[#94a3b8] font-medium">{stat.sub}</span>
                         </div>
+                        <p className="text-[12px] font-bold text-gray-400 uppercase tracking-widest">{stat.name}</p>
+                        <h3 className="text-2xl font-black text-gray-900 mt-1">{stat.value}</h3>
                     </motion.div>
                 ))}
             </div>
 
-            {/* Charts Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Main Content Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-                {/* Main Bar Chart Mockup */}
-                <div className="lg:col-span-2 bg-white rounded-2xl border border-[#e2e8f0] shadow-sm p-8">
-                    <div className="flex items-center justify-between mb-8">
-                        <div>
-                            <h3 className="text-lg font-bold text-[#1e293b]">Network Traffic</h3>
-                            <p className="text-sm text-[#64748b]">Detailed analytics of your network load</p>
+                {/* Recent Performance Section */}
+                <div className="lg:col-span-8 space-y-6">
+                    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 overflow-hidden">
+                        <div className="flex items-center justify-between mb-8">
+                            <h3 className="text-lg font-bold text-gray-900">Recent Customer Joiners</h3>
+                            <button className="text-xs font-bold text-pace-purple hover:underline">View Directory</button>
                         </div>
-                        <div className="px-4 py-2 bg-[#f8fafc] rounded-lg border border-[#e2e8f0] text-sm font-medium text-[#64748b] cursor-pointer hover:bg-white transition-all">
-                            March 2024
+
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left">
+                                <thead>
+                                    <tr className="border-b border-gray-50">
+                                        <th className="pb-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest">Client Name</th>
+                                        <th className="pb-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest">Plan</th>
+                                        <th className="pb-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest">Status</th>
+                                        <th className="pb-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest text-right">Joined</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-50">
+                                    {recentClients.map((client) => (
+                                        <tr key={client.name} className="group cursor-pointer">
+                                            <td className="py-4">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-500">
+                                                        {client.name.charAt(0)}
+                                                    </div>
+                                                    <p className="text-sm font-bold text-gray-800 group-hover:text-pace-purple transition-colors">{client.name}</p>
+                                                </div>
+                                            </td>
+                                            <td className="py-4 text-[13px] font-medium text-gray-500">{client.plan}</td>
+                                            <td className="py-4">
+                                                <span className={cn(
+                                                    "px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider",
+                                                    client.status === 'Active' ? "bg-pace-green/10 text-pace-green" : "bg-orange-50 text-orange-600"
+                                                )}>
+                                                    {client.status}
+                                                </span>
+                                            </td>
+                                            <td className="py-4 text-right text-[12px] font-medium text-gray-400">{client.joined}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
-                    {/* Custom SVG Bar Chart to match UI Exactly */}
-                    <div className="h-[280px] w-full flex items-end justify-between gap-2 px-2 mt-10">
-                        {[40, 65, 50, 85, 45, 70, 40, 90, 60, 80, 55, 65].map((val, i) => (
-                            <div key={i} className="flex-1 flex flex-col items-center gap-3 group relative">
-                                {/* Tooltip on hover */}
-                                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#1e293b] text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                                    {val}Mbps
-                                </div>
-                                {/* The Bar */}
-                                <div className="w-full relative flex flex-col items-center">
-                                    {/* Negative space like in image */}
-                                    <motion.div
-                                        initial={{ height: 0 }}
-                                        animate={{ height: `${val}%` }}
-                                        className="w-2.5 sm:w-4 rounded-full bg-[#4a6cf7] relative overflow-hidden"
-                                    >
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#4a6cf7] to-[#818cf8]"></div>
-                                    </motion.div>
-                                    <motion.div
-                                        initial={{ height: 0 }}
-                                        animate={{ height: `${val * 0.4}%` }}
-                                        className="w-2.5 sm:w-4 rounded-full bg-[#93c5fd] mt-1"
-                                    ></motion.div>
-                                </div>
-                                <span className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-tighter">
-                                    {16 + i}/08
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="mt-10 flex items-center justify-center gap-8 border-t border-[#f1f5f9] pt-6">
-                        <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-[#4a6cf7]"></div>
-                            <span className="text-sm font-bold text-[#64748b]">Download</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-[#93c5fd]"></div>
-                            <span className="text-sm font-bold text-[#64748b]">Upload</span>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Donut Chart and Links */}
-                <div className="space-y-6">
-                    <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm p-8">
-                        <h3 className="text-lg font-bold text-[#1e293b] mb-2">Usage Distribution</h3>
-                        <div className="relative h-48 flex items-center justify-center mt-6">
-                            <svg viewBox="0 0 100 100" className="w-40 h-40 transform -rotate-90">
-                                <circle cx="50" cy="50" r="40" fill="transparent" stroke="#f1f5f9" strokeWidth="12" />
-                                <motion.circle
-                                    cx="50" cy="50" r="40" fill="transparent" stroke="#4a6cf7" strokeWidth="12"
-                                    strokeDasharray="251.2"
-                                    initial={{ strokeDashoffset: 251.2 }}
-                                    animate={{ strokeDashoffset: 251.2 * 0.35 }}
-                                    transition={{ duration: 1.5, ease: "easeOut" }}
-                                    strokeLinecap="round"
-                                />
-                            </svg>
-                            <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                <span className="text-2xl font-black text-[#1e293b]">36,358</span>
-                                <span className="text-[11px] font-bold text-green-500 flex items-center gap-0.5">
-                                    <TrendingUp size={10} /> +9% <span className="text-[#94a3b8]">vs last year</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div className="mt-8 grid grid-cols-2 gap-4">
-                            <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-[#4a6cf7]"></div>
-                                <span className="text-xs font-bold text-[#64748b]">Fiber</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-blue-300"></div>
-                                <span className="text-xs font-bold text-[#64748b]">Wireless</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm p-8">
+                    {/* Network Node Status - Simplified */}
+                    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
                         <div className="flex items-center justify-between mb-6">
-                            <h3 className="text-lg font-bold text-[#1e293b]">External Management</h3>
-                            <MoreHorizontal size={20} className="text-[#94a3b8] cursor-pointer" />
+                            <h3 className="text-lg font-bold text-gray-900">Network Node Status</h3>
+                            <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-pace-green animate-pulse"></div>
+                                <span className="text-[11px] font-bold text-pace-green uppercase tracking-widest">All Core Online</span>
+                            </div>
                         </div>
-                        <p className="text-sm text-[#64748b] mb-6 font-medium">Most used business resources</p>
-                        <div className="space-y-3">
-                            {metrics.map((item) => (
-                                <a
-                                    key={item.label}
-                                    href={item.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center justify-between p-4 bg-[#f8fafc] border border-transparent hover:border-[#4a6cf7]/20 hover:bg-white rounded-xl transition-all group"
-                                >
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-white rounded-lg shadow-sm group-hover:bg-[#f1f5f9] transition-colors">
-                                            <item.icon size={18} className="text-[#4a6cf7]" />
+                        <div className="space-y-4">
+                            {[
+                                { name: 'Nairobi Main Gateway', ip: '197.248.01.01', load: 45 },
+                                { name: 'Mombasa Relay Tower', ip: '102.164.22.14', load: 12 },
+                                { name: 'Kisumu Core Router', ip: '41.215.11.08', load: 78 },
+                            ].map((node) => (
+                                <div key={node.name} className="p-4 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-between gap-4">
+                                    <div className="flex items-center gap-4">
+                                        <div className="p-2 bg-white rounded-lg shadow-sm">
+                                            <Activity size={16} className="text-pace-purple" />
                                         </div>
-                                        <span className="text-[14px] font-bold text-[#1e293b]">{item.label}</span>
+                                        <div>
+                                            <p className="text-[13px] font-bold text-gray-800">{node.name}</p>
+                                            <p className="text-[10px] text-gray-400 font-mono tracking-tighter">{node.ip}</p>
+                                        </div>
                                     </div>
-                                    <ExternalLink size={16} className="text-[#94a3b8] group-hover:text-[#4a6cf7] transition-colors" />
-                                </a>
+                                    <div className="flex items-center gap-4 flex-1 max-w-[120px]">
+                                        <div className="h-1.5 flex-1 bg-gray-200 rounded-full overflow-hidden">
+                                            <div className={cn(
+                                                "h-full rounded-full transition-all",
+                                                node.load > 70 ? "bg-red-500" : "bg-pace-purple"
+                                            )} style={{ width: `${node.load}%` }}></div>
+                                        </div>
+                                        <span className="text-[11px] font-bold text-gray-500">{node.load}%</span>
+                                    </div>
+                                </div>
                             ))}
                         </div>
                     </div>
                 </div>
 
-            </div>
+                {/* Quick Actions & System Health */}
+                <div className="lg:col-span-4 space-y-6">
+                    <div className="bg-pace-purple-dark text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                        <div className="relative z-10">
+                            <h4 className="text-lg font-bold mb-1">Billing Engine</h4>
+                            <p className="text-purple-200/80 text-[13px] mb-6 leading-relaxed">Automated invoicing and M-Pesa sync running in background.</p>
+                            <div className="flex items-center gap-2 mb-8">
+                                <CheckCircle2 size={16} className="text-pace-green" />
+                                <span className="text-[11px] font-bold uppercase tracking-widest">Last Sync: 14:32:01</span>
+                            </div>
+                            <button className="w-full py-3 bg-white text-pace-purple-dark rounded-xl text-xs font-black hover:bg-gray-50 transition-all shadow-lg active:scale-95">
+                                Open Billing Portal
+                            </button>
+                        </div>
+                        {/* Decoration */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                    </div>
 
-            {/* Footer Finisher */}
-            <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm p-8 flex flex-col sm:flex-row items-center justify-between gap-6 overflow-hidden relative">
-                <div className="z-10">
-                    <h3 className="text-xl font-bold text-[#1e293b] mb-1">Pace Billing Engine</h3>
-                    <p className="text-[#64748b] font-medium max-w-md">Automated billing, invoicing and client management at your fingertips.</p>
+                    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                        <h3 className="text-sm font-bold text-gray-900 mb-6 uppercase tracking-widest text-center">System Log Snippet</h3>
+                        <div className="space-y-4">
+                            {[
+                                { time: '14:20', text: 'Backup completed', type: 'system' },
+                                { time: '14:15', text: 'New login from admin_root', type: 'auth' },
+                                { time: '13:58', text: 'Payment detected James K.', type: 'billing' },
+                            ].map((log, i) => (
+                                <div key={i} className="flex gap-4 items-start group">
+                                    <span className="text-[10px] font-bold text-gray-300 mt-1">{log.time}</span>
+                                    <p className="text-[12px] font-medium text-gray-600 group-hover:text-pace-purple transition-colors cursor-default">{log.text}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <button className="w-full mt-6 py-2 border-t border-gray-50 text-[11px] font-bold text-pace-purple hover:underline pt-4">Full Log View</button>
+                    </div>
                 </div>
-                <div className="flex items-center gap-4 z-10 w-full sm:w-auto">
-                    <button className="flex-1 sm:flex-initial px-8 py-3 bg-[#4a6cf7] text-white rounded-xl font-bold shadow-lg shadow-blue-500/20 hover:bg-[#3d59e0] transition-all active:scale-95">Open Billing</button>
-                    <button className="flex-1 sm:flex-initial px-8 py-3 bg-white border border-[#e2e8f0] text-[#1e293b] rounded-xl font-bold hover:bg-[#f8fafc] transition-all active:scale-95">View Logs</button>
-                </div>
-                {/* Subtle decoration */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+
             </div>
 
         </div>
