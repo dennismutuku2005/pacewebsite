@@ -5,218 +5,221 @@ import { motion } from 'framer-motion'
 import {
     Users, Ticket, CreditCard, ArrowUpRight,
     ArrowDownRight, MoreHorizontal, UserPlus,
-    RefreshCcw, Search, Filter, Mail
+    RefreshCcw, Search, BarChart3, TrendingUp,
+    Instagram, Globe, Facebook, ExternalLink
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function DashboardPage() {
     const stats = [
-        { name: 'Total Clients', value: '1,284', change: '+12.5%', icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
-        { name: 'Open Tickets', value: '24', change: '-4.3%', icon: Ticket, color: 'text-orange-600', bg: 'bg-orange-50' },
-        { name: 'Transacted Today', value: 'KES 142,500', change: '+28.4%', icon: CreditCard, color: 'text-green-600', bg: 'bg-green-50' },
-        { name: 'New Applications', value: '18', change: '+5.7%', icon: UserPlus, color: 'text-purple-600', bg: 'bg-purple-50' },
+        {
+            name: 'Avg. Client Rating',
+            value: '7.8/10',
+            change: '+2.5%',
+            icon: UserPlus,
+            color: 'text-blue-600',
+            bg: 'bg-blue-50',
+            sub: 'than last Week'
+        },
+        {
+            name: 'Monthly Revenue',
+            value: 'KES 4.2M',
+            change: '-1.5%',
+            icon: TrendingUp,
+            color: 'text-purple-600',
+            bg: 'bg-purple-50',
+            sub: 'than last Month'
+        },
+        {
+            name: 'Transacted Today',
+            value: 'KES 142,500',
+            change: '+2.6%',
+            icon: CreditCard,
+            color: 'text-orange-600',
+            bg: 'bg-orange-50',
+            sub: 'than yesterday'
+        },
     ]
 
-    const recentClients = [
-        { id: '1', name: 'James Kamau', plan: 'Fiber Pro', balance: 'KES 0', status: 'Active', joined: 'Oct 24, 2023' },
-        { id: '2', name: 'Sarah Omari', plan: 'Wireless Home', balance: 'KES 2,500', status: 'Overdue', joined: 'Nov 12, 2023' },
-        { id: '3', name: 'Maina George', plan: 'Premium WISP', balance: 'KES 0', status: 'Active', joined: 'Dec 05, 2023' },
-        { id: '4', name: 'Lucy Wanjiku', plan: 'Hotspot Retail', balance: 'KES 0', status: 'Active', joined: 'Jan 15, 2024' },
-        { id: '5', name: 'Tom Kwena', plan: 'Fiber Lite', balance: 'KES 4,500', status: 'Suspended', joined: 'Feb 01, 2024' },
+    const metrics = [
+        { label: 'Google Analytics', icon: Globe, link: 'https://analytics.google.com' },
+        { label: 'Facebook Ads', icon: Facebook, link: 'https://business.facebook.com' },
+        { label: 'Instagram Ads', icon: Instagram, link: 'https://adsmanager.facebook.com' },
     ]
 
     return (
-        <div className="space-y-8 pb-10">
-            {/* Header Section */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Overview</h1>
-                    <p className="text-gray-500 font-medium">Monitoring your WISP business performance.</p>
-                </div>
-                <div className="flex items-center gap-3">
-                    <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-700 hover:bg-gray-50 transition-all shadow-sm">
-                        <RefreshCcw size={16} />
-                        Refresh Data
-                    </button>
-                    <button className="flex items-center gap-2 px-6 py-2.5 bg-pace-purple text-white rounded-xl text-sm font-bold hover:bg-pace-purple-dark transition-all shadow-lg shadow-pace-purple/20">
-                        Export Report
-                    </button>
-                </div>
-            </div>
+        <div className="space-y-6 pb-10">
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Top Stats Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {stats.map((stat, i) => (
                     <motion.div
                         key={stat.name}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.1 }}
-                        className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/20 hover:shadow-2xl hover:shadow-gray-200/40 transition-all group"
+                        className="bg-white p-8 rounded-2xl border border-[#e2e8f0] shadow-sm hover:shadow-md transition-all group"
                     >
-                        <div className="flex items-center justify-between mb-4">
-                            <div className={cn("p-4 rounded-2xl group-hover:scale-110 transition-transform duration-300", stat.bg)}>
-                                <stat.icon className={cn("w-6 h-6", stat.color)} />
-                            </div>
-                            <div className={cn(
-                                "px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1",
-                                stat.change.startsWith('+') ? "text-green-600 bg-green-50" : "text-red-600 bg-red-50"
-                            )}>
-                                {stat.change.startsWith('+') ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
-                                {stat.change}
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className={cn("p-3 rounded-xl", stat.bg)}>
+                                <stat.icon size={24} className={stat.color} />
                             </div>
                         </div>
-                        <p className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">{stat.name}</p>
-                        <p className="text-2xl font-black text-gray-900">{stat.value}</p>
+                        <p className="text-[14px] font-medium text-[#64748b] mb-1">{stat.name}</p>
+                        <div className="flex items-end gap-3">
+                            <h3 className="text-3xl font-bold text-[#1e293b]">{stat.value}</h3>
+                        </div>
+                        <div className="flex items-center gap-1.5 mt-2">
+                            <span className={cn(
+                                "text-[13px] font-bold flex items-center",
+                                stat.change.startsWith('+') ? "text-green-500" : "text-red-500"
+                            )}>
+                                {stat.change.startsWith('+') ? <ArrowUpRight size={14} className="mr-0.5" /> : <ArrowDownRight size={14} className="mr-0.5" />}
+                                {stat.change}
+                            </span>
+                            <span className="text-[13px] text-[#94a3b8] font-medium">{stat.sub}</span>
+                        </div>
                     </motion.div>
                 ))}
             </div>
 
-            {/* Main Grid Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Charts Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                {/* Clients Table Card */}
-                <div className="lg:col-span-8 bg-white rounded-[32px] border border-gray-100 shadow-xl shadow-gray-200/20 overflow-hidden flex flex-col">
-                    <div className="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gray-50/50">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-pace-purple/10 rounded-xl flex items-center justify-center text-pace-purple font-bold">
-                                <Users size={20} />
+                {/* Main Bar Chart Mockup */}
+                <div className="lg:col-span-2 bg-white rounded-2xl border border-[#e2e8f0] shadow-sm p-8">
+                    <div className="flex items-center justify-between mb-8">
+                        <div>
+                            <h3 className="text-lg font-bold text-[#1e293b]">Network Traffic</h3>
+                            <p className="text-sm text-[#64748b]">Detailed analytics of your network load</p>
+                        </div>
+                        <div className="px-4 py-2 bg-[#f8fafc] rounded-lg border border-[#e2e8f0] text-sm font-medium text-[#64748b] cursor-pointer hover:bg-white transition-all">
+                            March 2024
+                        </div>
+                    </div>
+
+                    {/* Custom SVG Bar Chart to match UI Exactly */}
+                    <div className="h-[280px] w-full flex items-end justify-between gap-2 px-2 mt-10">
+                        {[40, 65, 50, 85, 45, 70, 40, 90, 60, 80, 55, 65].map((val, i) => (
+                            <div key={i} className="flex-1 flex flex-col items-center gap-3 group relative">
+                                {/* Tooltip on hover */}
+                                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#1e293b] text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                                    {val}Mbps
+                                </div>
+                                {/* The Bar */}
+                                <div className="w-full relative flex flex-col items-center">
+                                    {/* Negative space like in image */}
+                                    <motion.div
+                                        initial={{ height: 0 }}
+                                        animate={{ height: `${val}%` }}
+                                        className="w-2.5 sm:w-4 rounded-full bg-[#4a6cf7] relative overflow-hidden"
+                                    >
+                                        <div className="absolute inset-0 bg-gradient-to-t from-[#4a6cf7] to-[#818cf8]"></div>
+                                    </motion.div>
+                                    <motion.div
+                                        initial={{ height: 0 }}
+                                        animate={{ height: `${val * 0.4}%` }}
+                                        className="w-2.5 sm:w-4 rounded-full bg-[#93c5fd] mt-1"
+                                    ></motion.div>
+                                </div>
+                                <span className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-tighter">
+                                    {16 + i}/08
+                                </span>
                             </div>
-                            <h3 className="text-lg font-bold text-gray-900">Recent Clients</h3>
+                        ))}
+                    </div>
+
+                    <div className="mt-10 flex items-center justify-center gap-8 border-t border-[#f1f5f9] pt-6">
+                        <div className="flex items-center gap-2">
+                            <div className="w-3 h-3 rounded-full bg-[#4a6cf7]"></div>
+                            <span className="text-sm font-bold text-[#64748b]">Download</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="relative">
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
-                                <input type="text" placeholder="Quick search..." className="pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-xl text-xs font-medium outline-none focus:ring-4 focus:ring-pace-purple/5 transition-all w-full sm:w-48" />
-                            </div>
+                            <div className="w-3 h-3 rounded-full bg-[#93c5fd]"></div>
+                            <span className="text-sm font-bold text-[#64748b]">Upload</span>
                         </div>
-                    </div>
-
-                    <div className="overflow-x-auto no-scrollbar">
-                        <table className="w-full text-left">
-                            <thead>
-                                <tr className="bg-gray-50/50">
-                                    <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100">Name</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100">Service Plan</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100">Status</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 text-right">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-50">
-                                {recentClients.map((client) => (
-                                    <tr key={client.id} className="hover:bg-gray-50/50 transition-colors group">
-                                        <td className="px-6 py-4">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-9 h-9 rounded-lg bg-gray-100 overflow-hidden border border-gray-200 shadow-sm flex items-center justify-center font-bold text-gray-400 text-xs">
-                                                    {client.name.charAt(0)}
-                                                </div>
-                                                <div>
-                                                    <p className="text-sm font-bold text-gray-900 group-hover:text-pace-purple transition-colors">{client.name}</p>
-                                                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Joined {client.joined}</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-2 h-2 rounded-full bg-pace-purple-dark/20"></div>
-                                                <span className="text-sm font-bold text-gray-600">{client.plan}</span>
-                                            </div>
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            <span className={cn(
-                                                "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
-                                                client.status === 'Active' ? "bg-green-100 text-green-700" :
-                                                    client.status === 'Overdue' ? "bg-orange-100 text-orange-700" :
-                                                        "bg-red-100 text-red-700"
-                                            )}>
-                                                {client.status}
-                                            </span>
-                                        </td>
-                                        <td className="px-6 py-4 text-right">
-                                            <button className="p-2 rounded-lg text-gray-400 hover:bg-white hover:shadow-md hover:text-pace-purple transition-all active:scale-95">
-                                                <MoreHorizontal size={18} />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="p-4 bg-gray-50/50 border-t border-gray-100 text-center">
-                        <button className="text-sm font-bold text-pace-purple hover:underline">View All Customers &rarr;</button>
                     </div>
                 </div>
 
-                {/* Server Status & Notifications */}
-                <div className="lg:col-span-4 space-y-8">
-                    <div className="bg-pace-purple rounded-[32px] p-8 text-white relative overflow-hidden shadow-2xl shadow-pace-purple/30">
-                        <div className="relative z-10">
-                            <div className="flex items-center justify-between mb-6">
-                                <div className="p-3 bg-white/10 rounded-2xl border border-white/20">
-                                    <Activity className="text-white" size={24} />
-                                </div>
-                                <span className="px-3 py-1 rounded-full bg-green-400/20 text-green-300 text-[10px] font-black uppercase tracking-[2px] border border-green-400/30">Live Status</span>
-                            </div>
-                            <h3 className="text-xl font-bold mb-1">Server Network</h3>
-                            <p className="text-purple-200/70 text-sm mb-6 font-medium">Monitoring your WISP access points.</p>
-
-                            <div className="space-y-4">
-                                <div className="space-y-1.5">
-                                    <div className="flex justify-between text-xs font-bold uppercase tracking-wider">
-                                        <span>Network Uptime</span>
-                                        <span className="text-green-300">99.98%</span>
-                                    </div>
-                                    <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                                        <motion.div initial={{ width: 0 }} animate={{ width: '99.98%' }} className="h-full bg-green-400"></motion.div>
-                                    </div>
-                                </div>
-                                <div className="space-y-1.5 pt-2">
-                                    <div className="flex justify-between text-xs font-bold uppercase tracking-wider">
-                                        <span>Core CPU Load</span>
-                                        <span className="text-purple-200">24%</span>
-                                    </div>
-                                    <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                                        <motion.div initial={{ width: 0 }} animate={{ width: '24%' }} className="h-full bg-white"></motion.div>
-                                    </div>
-                                </div>
+                {/* Donut Chart and Links */}
+                <div className="space-y-6">
+                    <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm p-8">
+                        <h3 className="text-lg font-bold text-[#1e293b] mb-2">Usage Distribution</h3>
+                        <div className="relative h-48 flex items-center justify-center mt-6">
+                            <svg viewBox="0 0 100 100" className="w-40 h-40 transform -rotate-90">
+                                <circle cx="50" cy="50" r="40" fill="transparent" stroke="#f1f5f9" strokeWidth="12" />
+                                <motion.circle
+                                    cx="50" cy="50" r="40" fill="transparent" stroke="#4a6cf7" strokeWidth="12"
+                                    strokeDasharray="251.2"
+                                    initial={{ strokeDashoffset: 251.2 }}
+                                    animate={{ strokeDashoffset: 251.2 * 0.35 }}
+                                    transition={{ duration: 1.5, ease: "easeOut" }}
+                                    strokeLinecap="round"
+                                />
+                            </svg>
+                            <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                <span className="text-2xl font-black text-[#1e293b]">36,358</span>
+                                <span className="text-[11px] font-bold text-green-500 flex items-center gap-0.5">
+                                    <TrendingUp size={10} /> +9% <span className="text-[#94a3b8]">vs last year</span>
+                                </span>
                             </div>
                         </div>
-                        {/* Wave Decoration */}
-                        <svg className="absolute bottom-0 right-0 w-32 h-32 text-white/5" viewBox="0 0 100 100" fill="currentColor">
-                            <path d="M0 100 Q 25 25, 50 100 T 100 100" />
-                        </svg>
+                        <div className="mt-8 grid grid-cols-2 gap-4">
+                            <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-[#4a6cf7]"></div>
+                                <span className="text-xs font-bold text-[#64748b]">Fiber</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-blue-300"></div>
+                                <span className="text-xs font-bold text-[#64748b]">Wireless</span>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Quick Actions Card */}
-                    <div className="bg-white rounded-[32px] border border-gray-100 shadow-xl shadow-gray-200/20 p-6">
-                        <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-3">
-                            <div className="w-8 h-8 bg-pace-orange-start/10 rounded-lg flex items-center justify-center text-pace-orange-mid">
-                                <Ticket size={16} />
-                            </div>
-                            Quick Tasks
-                        </h3>
-                        <div className="grid grid-cols-2 gap-4">
-                            <button className="p-4 rounded-2xl bg-gray-50 hover:bg-pace-purple hover:text-white transition-all text-left group">
-                                <Mail className="w-5 h-5 text-gray-400 mb-2 group-hover:text-white" />
-                                <span className="text-xs font-bold block">Broadcast</span>
-                                <span className="text-[10px] text-gray-400 group-hover:text-purple-200">SMS Clients</span>
-                            </button>
-                            <button className="p-4 rounded-2xl bg-gray-50 hover:bg-pace-green hover:text-white transition-all text-left group">
-                                <RefreshCcw className="w-5 h-5 text-gray-400 mb-2 group-hover:text-white" />
-                                <span className="text-xs font-bold block">Update</span>
-                                <span className="text-[10px] text-gray-400 group-hover:text-white">All Routers</span>
-                            </button>
-                            <button className="p-4 rounded-2xl bg-gray-50 hover:bg-blue-600 hover:text-white transition-all text-left group col-span-2">
-                                <CreditCard className="w-5 h-5 text-gray-400 mb-2 group-hover:text-white" />
-                                <span className="text-xs font-bold block">Generate Invoices</span>
-                                <span className="text-[10px] text-gray-400 group-hover:text-blue-100">For all active clients</span>
-                            </button>
+                    <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm p-8">
+                        <div className="flex items-center justify-between mb-6">
+                            <h3 className="text-lg font-bold text-[#1e293b]">External Management</h3>
+                            <MoreHorizontal size={20} className="text-[#94a3b8] cursor-pointer" />
+                        </div>
+                        <p className="text-sm text-[#64748b] mb-6 font-medium">Most used business resources</p>
+                        <div className="space-y-3">
+                            {metrics.map((item) => (
+                                <a
+                                    key={item.label}
+                                    href={item.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-between p-4 bg-[#f8fafc] border border-transparent hover:border-[#4a6cf7]/20 hover:bg-white rounded-xl transition-all group"
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <div className="p-2 bg-white rounded-lg shadow-sm group-hover:bg-[#f1f5f9] transition-colors">
+                                            <item.icon size={18} className="text-[#4a6cf7]" />
+                                        </div>
+                                        <span className="text-[14px] font-bold text-[#1e293b]">{item.label}</span>
+                                    </div>
+                                    <ExternalLink size={16} className="text-[#94a3b8] group-hover:text-[#4a6cf7] transition-colors" />
+                                </a>
+                            ))}
                         </div>
                     </div>
                 </div>
 
             </div>
+
+            {/* Footer Finisher */}
+            <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm p-8 flex flex-col sm:flex-row items-center justify-between gap-6 overflow-hidden relative">
+                <div className="z-10">
+                    <h3 className="text-xl font-bold text-[#1e293b] mb-1">Pace Billing Engine</h3>
+                    <p className="text-[#64748b] font-medium max-w-md">Automated billing, invoicing and client management at your fingertips.</p>
+                </div>
+                <div className="flex items-center gap-4 z-10 w-full sm:w-auto">
+                    <button className="flex-1 sm:flex-initial px-8 py-3 bg-[#4a6cf7] text-white rounded-xl font-bold shadow-lg shadow-blue-500/20 hover:bg-[#3d59e0] transition-all active:scale-95">Open Billing</button>
+                    <button className="flex-1 sm:flex-initial px-8 py-3 bg-white border border-[#e2e8f0] text-[#1e293b] rounded-xl font-bold hover:bg-[#f8fafc] transition-all active:scale-95">View Logs</button>
+                </div>
+                {/* Subtle decoration */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            </div>
+
         </div>
     )
 }
