@@ -69,10 +69,6 @@ export default function LoginPage() {
                     </form>
 
                     <div className="mt-16 pt-10 border-t border-gray-50">
-                        <div className="flex items-center gap-2 text-[10px] font-black text-pace-green mb-3 uppercase tracking-widest">
-                            <div className="w-1.5 h-1.5 rounded-full bg-pace-green" />
-                            <span>System Online & Secure</span>
-                        </div>
                         <p className="text-[10px] text-admin-dim font-bold leading-relaxed uppercase tracking-widest">
                             © 2026 Pace WISP Software systems.
                         </p>
