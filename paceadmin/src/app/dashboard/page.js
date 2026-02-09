@@ -43,10 +43,6 @@ export default function DashboardPage() {
                     <p className="text-[12px] text-admin-label mt-1 font-medium tracking-tight">Manage your clients and monitor your system performance.</p>
                 </div>
                 <div className="flex gap-2">
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-pace-green-light border border-pace-green/10 rounded">
-                        <div className="w-1.5 h-1.5 bg-pace-green rounded-full animate-pulse"></div>
-                        <span className="text-[9px] font-black text-pace-green uppercase tracking-widest leading-none">System Active</span>
-                    </div>
                     <button className="px-4 py-2 bg-pace-purple text-white rounded text-[11px] font-black hover:bg-[#3d1a75] transition-all uppercase tracking-widest shadow-none">
                         Refresh Records
                     </button>
