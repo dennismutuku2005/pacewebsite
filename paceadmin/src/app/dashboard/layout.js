@@ -114,7 +114,6 @@ export default function DashboardLayout({ children }) {
                         <div className="flex items-center gap-3 border-l border-gray-100 pl-6 h-8">
                             <div className="text-right">
                                 <p className="text-[12px] font-black text-admin-value leading-none uppercase">Dennis Mutuku</p>
-                                <p className="text-[10px] text-pace-green font-black mt-1 uppercase tracking-widest">System Online</p>
                             </div>
                             <div className="w-8 h-8 rounded border border-pace-border bg-gray-50 flex items-center justify-center text-[11px] font-black text-pace-purple">DM</div>
                         </div>
