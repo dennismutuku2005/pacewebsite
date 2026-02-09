@@ -64,7 +64,6 @@ export default function AuditLogsPage() {
                                     <td className="px-5 py-3 font-black text-admin-dim border-r border-gray-50 tabular-nums">{log.time}</td>
                                     <td className="px-5 py-3 border-r border-gray-50">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-pace-purple"></div>
                                             <span className="font-black text-admin-value uppercase">{log.user}</span>
                                         </div>
                                     </td>
@@ -75,12 +74,9 @@ export default function AuditLogsPage() {
                                         {log.target}
                                     </td>
                                     <td className="px-5 py-3 text-right">
-                                        <span className={cn(
-                                            "font-black uppercase text-[10px] tracking-widest px-2 py-0.5 rounded-sm border",
-                                            log.status === 'Success' ? "text-pace-green bg-pace-green-light border-pace-green/10" :
-                                                log.status === 'Notice' ? "text-orange-600 bg-orange-50 border-orange-100" :
-                                                    "text-pace-purple bg-pace-purple/5 border-pace-purple/10"
-                                        )}>{log.status}</span>
+                                        <span className="font-black uppercase text-[10px] tracking-widest px-2 py-0.5 rounded-sm border border-gray-100 text-admin-label">
+                                            {log.status}
+                                        </span>
                                     </td>
                                 </tr>
                             ))}
