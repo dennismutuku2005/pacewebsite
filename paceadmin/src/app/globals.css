@@ -1,61 +1,79 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fdfdfd;
-  --foreground: #171717;
+  --background: #ffffff;
+  --foreground: #1a1a1a;
 
-  /* Brand Design Tokens */
+  /* Brand Design Tokens - Solid 2D */
   --pace-purple: #4B1D8F;
-  --pace-purple-dark: #250E47;
+  --pace-purple-light: #F4F0FF;
   --pace-green: #2CB34A;
-  --pace-orange-start: #FFAD03;
-  --pace-orange-mid: #FE8005;
-  --pace-orange-end: #FD5308;
+  --pace-green-light: #E9F7EF;
+  --pace-border: #E5E7EB;
+  --pace-bg-subtle: #F9FAFB;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-rubik: var(--font-rubik);
+  --font-figtree: var(--font-figtree);
 
-  /* Add theme colors */
   --color-pace-purple: var(--pace-purple);
-  --color-pace-purple-dark: var(--pace-purple-dark);
+  --color-pace-purple-light: var(--pace-purple-light);
   --color-pace-green: var(--pace-green);
-  --color-pace-orange: var(--pace-orange-mid);
+  --color-pace-green-light: var(--pace-green-light);
+  --color-pace-border: var(--pace-border);
+  --color-pace-bg-subtle: var(--pace-bg-subtle);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-rubik), Arial, Helvetica, sans-serif;
+  font-family: var(--font-figtree), sans-serif;
+  font-size: 13px;
+  /* Smaller base font */
+  -webkit-font-smoothing: antialiased;
 }
 
-@layer utilities {
-  .text-gradient-orange {
-    background: linear-gradient(90deg, var(--pace-orange-start), var(--pace-orange-mid) 65.1%, var(--pace-orange-end));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-  }
+/* Remove default shadow behavior for clean 2D look */
+.shadow-sm,
+.shadow-md,
+.shadow-lg,
+.shadow-xl,
+.shadow-2xl {
+  shadow: none !important;
+  box-shadow: none !important;
 }
 
-/* Custom Scrollbar for better UI */
+/* Excel-like Table Header */
+th {
+  font-weight: 700;
+  color: #6B7280;
+  background-color: var(--pace-bg-subtle);
+}
+
+/* Custom Scrollbar - Minimalists */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 10px;
+  background: #E5E7EB;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #D1D5DB;
+}
+
+/* Tightening up spacing */
+input,
+select,
+button {
+  font-size: 13px !important;
 }
