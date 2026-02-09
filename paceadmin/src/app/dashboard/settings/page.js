@@ -2,11 +2,7 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import {
-    User, Shield, Bell, Globe,
-    Smartphone, Save, Lock, CreditCard,
-    ChevronRight, Database, Cloud, Key
-} from 'lucide-react'
+import { Settings, Shield, Bell, User, Globe, Lock, Save } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function SettingsPage() {
@@ -14,102 +10,78 @@ export default function SettingsPage() {
         <div className="space-y-6 font-figtree">
 
             {/* Header */}
-            <div className="border-b border-gray-100 pb-4">
-                <h1 className="text-[20px] font-black text-gray-900 leading-none tracking-tight">System Configuration</h1>
-                <p className="text-[12px] text-gray-400 mt-2 font-medium">Manage administrator accounts, security protocols, and SaaS platform parameters.</p>
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-100 pb-4">
+                <div>
+                    <h1 className="text-[20px] font-black text-admin-value leading-none">Settings</h1>
+                    <p className="text-[12px] text-admin-label mt-2 font-medium">Manage your system preferences and account details.</p>
+                </div>
+                <button className="flex items-center justify-center gap-2 px-6 py-2 bg-pace-purple text-white rounded text-[11px] font-black hover:bg-[#3d1a75] transition-all uppercase tracking-widest shadow-none">
+                    <Save size={14} />
+                    Save Changes
+                </button>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Settings Sections */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-                {/* Left Sidebar - Profile Summary */}
-                <div className="lg:col-span-4 space-y-6">
-                    <div className="border border-gray-200 rounded p-8 bg-white flex flex-col items-center">
-                        <div className="w-20 h-20 rounded border border-gray-100 bg-gray-50 flex items-center justify-center text-[24px] font-black text-pace-purple mb-6">
-                            AJ
-                        </div>
-                        <h3 className="text-[18px] font-black text-gray-900 leading-none">Adam Joe</h3>
-                        <p className="text-[11px] font-black text-gray-300 mt-2 uppercase tracking-[2px]">Super Administrator</p>
-                        <div className="w-full mt-10 pt-8 border-t border-gray-50 space-y-4">
-                            <div className="flex justify-between items-center text-[11px] font-bold">
-                                <span className="text-gray-400 uppercase tracking-widest leading-none">Status</span>
-                                <span className="text-pace-green uppercase tracking-widest leading-none">Verified</span>
-                            </div>
-                            <div className="flex justify-between items-center text-[11px] font-bold">
-                                <span className="text-gray-400 uppercase tracking-widest leading-none">Auth Level</span>
-                                <span className="text-gray-900 uppercase tracking-widest leading-none">Root Access</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="border border-gray-200 rounded p-6 bg-white">
-                        <p className="text-[10px] font-black text-gray-300 uppercase tracking-[2px] mb-4">Platform Data Sheet</p>
-                        <div className="space-y-4">
-                            {[
-                                { label: 'Log Storage', val: '84%', color: 'bg-pace-purple' },
-                                { label: 'Cloud Bandwidth', val: '12%', color: 'bg-pace-green' },
-                            ].map((item) => (
-                                <div key={item.label}>
-                                    <div className="flex justify-between items-center mb-2">
-                                        <span className="text-[11px] font-bold text-gray-500 uppercase tracking-tight">{item.label}</span>
-                                        <span className="text-[11px] font-black text-gray-900">{item.val}</span>
-                                    </div>
-                                    <div className="h-1 bg-gray-50 rounded-full overflow-hidden">
-                                        <div className={cn("h-full rounded-full transition-all", item.color)} style={{ width: item.val }}></div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                {/* Side Nav */}
+                <div className="lg:col-span-1 space-y-1">
+                    {[
+                        { icon: User, label: 'Account Information', active: true },
+                        { icon: Lock, label: 'Security & Access' },
+                        { icon: Bell, label: 'Notifications' },
+                        { icon: Globe, label: 'Region & Display' },
+                    ].map((item) => (
+                        <button
+                            key={item.label}
+                            className={cn(
+                                "w-full flex items-center gap-3 px-4 py-3 rounded transition-all font-black text-[12px] uppercase tracking-widest",
+                                item.active ? "bg-pace-purple text-white shadow-none" : "text-admin-label hover:bg-gray-50 hover:text-admin-value"
+                            )}
+                        >
+                            <item.icon size={16} />
+                            {item.label}
+                        </button>
+                    ))}
                 </div>
 
-                {/* Main Settings - Excel Style list */}
-                <div className="lg:col-span-8 space-y-6">
-                    <div className="border border-gray-200 rounded bg-white overflow-hidden">
-                        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                            <h4 className="text-[11px] font-black text-gray-400 uppercase tracking-[2px]">Security & Identity</h4>
+                {/* Form Area */}
+                <div className="lg:col-span-2 space-y-6">
+                    <div className="border border-pace-border rounded bg-white p-8 space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-black text-admin-label uppercase tracking-widest">Admin Name</label>
+                                <input
+                                    type="text"
+                                    defaultValue="Pace Root Administrator"
+                                    className="w-full px-4 py-3 rounded border border-pace-border bg-gray-50 bg-white focus:border-pace-purple outline-none text-[12px] font-bold text-admin-value"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-black text-admin-label uppercase tracking-widest">Email Address</label>
+                                <input
+                                    type="text"
+                                    defaultValue="admin@pacewisp.com"
+                                    className="w-full px-4 py-3 rounded border border-pace-border bg-gray-50 bg-white focus:border-pace-purple outline-none text-[12px] font-bold text-admin-value"
+                                />
+                            </div>
                         </div>
-                        <div className="divide-y divide-gray-100">
-                            {[
-                                { title: 'Personal Information', desc: 'Managed name, primary email and system profile tokens.' },
-                                { title: 'Access Credentials', desc: 'Securely rotate root passwords and manage 2FA keys.' },
-                                { title: 'Notification Matrix', desc: 'Configure SMS and Email triggers for global node status.' },
-                            ].map((item, i) => (
-                                <div key={i} className="px-6 py-5 hover:bg-gray-50 transition-colors group cursor-pointer flex justify-between items-center">
-                                    <div>
-                                        <h5 className="text-[13px] font-black text-gray-800 leading-none">{item.title}</h5>
-                                        <p className="text-[11px] text-gray-400 font-medium mt-1.5 leading-relaxed">{item.desc}</p>
-                                    </div>
-                                    <ChevronRight size={14} className="text-gray-200 group-hover:text-pace-purple transition-colors" />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
 
-                    <div className="border border-gray-200 rounded bg-white overflow-hidden">
-                        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                            <h4 className="text-[11px] font-black text-gray-400 uppercase tracking-[2px]">Platform Infrastructure</h4>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-admin-label uppercase tracking-widest">System Theme</label>
+                            <div className="flex gap-2">
+                                <button className="px-6 py-2 border-2 border-pace-purple bg-pace-purple/5 text-pace-purple rounded text-[11px] font-black uppercase tracking-widest">Light Mode</button>
+                                <button className="px-6 py-2 border border-pace-border text-admin-label hover:border-admin-value rounded text-[11px] font-black uppercase tracking-widest bg-white">Dark Mode (Coming Soon)</button>
+                            </div>
                         </div>
-                        <div className="divide-y divide-gray-100">
-                            {[
-                                { title: 'API & Key Configurations', desc: 'Regulate software deployment keys and SaaS endpoint tokens.' },
-                                { title: 'Cloud Integration (Global)', desc: 'Manage AWS Africa region clusters and DB storage nodes.' },
-                                { title: 'Payment Webhooks (M-PESA)', desc: 'Set up B2B API keys and reconciliation sync intervals.' },
-                            ].map((item, i) => (
-                                <div key={i} className="px-6 py-5 hover:bg-gray-50 transition-colors group cursor-pointer flex justify-between items-center">
-                                    <div>
-                                        <h5 className="text-[13px] font-black text-gray-800 leading-none">{item.title}</h5>
-                                        <p className="text-[11px] text-gray-400 font-medium mt-1.5 leading-relaxed">{item.desc}</p>
-                                    </div>
-                                    <ChevronRight size={14} className="text-gray-200 group-hover:text-pace-purple transition-colors" />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
 
-                    <div className="flex justify-end pt-4">
-                        <button className="px-8 py-3 bg-gray-900 text-white rounded text-[12px] font-black uppercase tracking-[3px] shadow-none hover:bg-black transition-all leading-none">
-                            Apply Changes
-                        </button>
+                        <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
+                            <div>
+                                <h4 className="text-[12px] font-black text-admin-value uppercase tracking-tight">Two-Factor Authentication</h4>
+                                <p className="text-[11px] text-admin-label font-bold mt-1">Keep your account secure with an extra layer of login protection.</p>
+                            </div>
+                            <button className="px-6 py-2 border border-pace-purple text-pace-purple bg-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-pace-purple hover:text-white transition-all">Enable 2FA</button>
+                        </div>
                     </div>
                 </div>
 
