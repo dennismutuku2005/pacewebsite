@@ -128,10 +128,7 @@ export default function RoutersPage() {
                                             </div>
                                         </td>
                                         <td className="px-5 py-4 border-r border-gray-50 text-center">
-                                            <span className={cn(
-                                                "font-black uppercase text-[10px] tracking-widest",
-                                                router.status === 'Online' ? 'text-pace-green' : 'text-orange-500'
-                                            )}>{router.status}</span>
+                                            <span className="font-black uppercase text-[10px] tracking-widest text-admin-value">{router.status}</span>
                                             <p className="text-[9px] font-black text-admin-dim mt-1 uppercase tracking-tighter">UP: {router.uptime}</p>
                                         </td>
                                         <td className="px-5 py-4 text-right">
