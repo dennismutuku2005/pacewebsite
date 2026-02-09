@@ -81,10 +81,7 @@ export default function CustomersPage() {
                                         {isp.license}
                                     </td>
                                     <td className="px-5 py-3 text-center border-r border-gray-50">
-                                        <span className={cn(
-                                            "font-black uppercase text-[10px] tracking-widest border-b-2",
-                                            isp.status === 'Active' ? "text-pace-green border-pace-green/10" : "text-orange-500 border-orange-200"
-                                        )}>{isp.status}</span>
+                                        <span className="font-black uppercase text-[10px] tracking-widest border-b-2 border-gray-100 text-admin-label">{isp.status}</span>
                                     </td>
                                     <td className="px-5 py-3 text-right font-black text-admin-value tracking-tight">
                                         {isp.renewal}
@@ -146,7 +143,7 @@ export default function CustomersPage() {
                                     ].map((s, i) => (
                                         <div key={i} className="border border-gray-100 rounded p-4 bg-gray-50/50">
                                             <p className="text-[10px] font-black text-admin-label uppercase tracking-widest mb-2 leading-none">{s.label}</p>
-                                            <p className={cn("text-[17px] font-black text-admin-value leading-none", s.color)}>{s.val}</p>
+                                            <p className="text-[17px] font-black text-admin-value leading-none">{s.val}</p>
                                         </div>
                                     ))}
                                 </div>
