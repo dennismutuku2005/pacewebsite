@@ -2,75 +2,85 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { RefreshCw, Search } from 'lucide-react'
+import { Clock, Search, Shield, Server, User, Database } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-export default function LogsPage() {
+export default function AuditLogsPage() {
     const logs = [
-        { id: 1, event: 'License Key Dispatched', user: 'System-Core', status: 'Success', age: 'Just now', msg: 'Enterprise SaaS key generated for SkyNet Solutions.' },
-        { id: 2, event: 'Rate Limit Warning', user: 'Auth-Gateway', status: 'Warning', age: '12m ago', msg: 'Coast Connect Ltd exceeded burst limit on Cluster B.' },
-        { id: 3, event: 'Admin Session Established', user: 'Adam Joe', status: 'Info', age: '48m ago', msg: 'Super Admin login recorded from IP: 197.248.33.12' },
-        { id: 4, event: 'Billing Reconcile Failure', user: 'PaymentEng', status: 'Error', age: '2h ago', msg: 'INV-4421: Amount mismatch during automated sync.' },
-        { id: 5, event: 'Platform Update Applied', user: 'Global-CDA', status: 'Success', age: '4h ago', msg: 'Service update v2.4.1 deployed to all African nodes.' },
+        { id: 'LOG-8821', time: '14:20:12', user: 'root_admin', action: 'License Dispatched', target: 'SAAS-11', status: 'Success' },
+        { id: 'LOG-8820', time: '14:15:05', user: 'system_node', action: 'Cluster Sync', target: 'AF-East-1', status: 'Success' },
+        { id: 'LOG-8819', time: '14:10:44', user: 'billing_svc', action: 'Payment Match', target: 'INV-0221', status: 'Warning' },
+        { id: 'LOG-8818', time: '13:58:22', user: 'root_admin', action: 'Config Update', target: 'Auth-Gateway', status: 'Success' },
+        { id: 'LOG-8817', time: '13:45:10', user: 'audit_daemon', action: 'Inquiry Review', target: 'APP-1024', status: 'Success' },
+        { id: 'LOG-8816', time: '13:30:55', user: 'root_admin', action: 'Login Success', target: 'AdminPortal', status: 'Info' },
     ]
 
     return (
-        <div className="space-y-6 font-figtree text-[12px]">
+        <div className="space-y-6 font-figtree">
 
             {/* Header */}
-            <div className="border-b border-gray-100 pb-4 flex justify-between items-end">
-                <div>
-                    <h1 className="text-[20px] font-black text-gray-900 leading-none">Global Event Audit Logs</h1>
-                    <p className="text-[12px] text-gray-400 mt-2 font-medium">Immutable stream of platform telemetry and administrator activity.</p>
+            <div className="border-b border-gray-100 pb-4">
+                <h1 className="text-[20px] font-black text-admin-value leading-none">Global System Audit Logs</h1>
+                <p className="text-[12px] text-admin-label mt-2 font-medium">Immutable record of all administrative actions and automated system events.</p>
+            </div>
+
+            {/* Filter Bar */}
+            <div className="flex flex-col md:flex-row items-center gap-2 h-9">
+                <div className="relative w-full md:w-80 h-full">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-admin-dim" size={14} />
+                    <input
+                        type="text"
+                        placeholder="Search logs by keyword..."
+                        className="w-full h-full pl-9 pr-3 rounded border border-pace-border bg-white focus:ring-1 focus:ring-pace-purple/10 outline-none text-[12px] font-black text-admin-value shadow-none"
+                    />
                 </div>
-                <div className="flex gap-2 h-9">
-                    <button className="px-3 border border-gray-200 rounded text-gray-400 hover:text-gray-900 transition-all bg-white">
-                        <RefreshCw size={14} />
-                    </button>
-                    <button className="px-4 bg-gray-900 text-white rounded font-bold uppercase tracking-widest leading-none">Export TXT</button>
+                <div className="flex gap-2 h-full">
+                    <button className="px-4 h-full border border-pace-border text-admin-label rounded text-[11px] font-black hover:bg-gray-50 transition-all uppercase tracking-widest bg-white shadow-none">All Types</button>
+                    <button className="px-4 h-full border border-pace-border text-admin-dim rounded text-[11px] font-black hover:bg-gray-50 transition-all uppercase tracking-widest bg-white shadow-none">Export TSV</button>
                 </div>
             </div>
 
-            <div className="border border-gray-200 rounded overflow-hidden bg-white">
-                <div className="px-5 py-3 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                        <Search size={14} className="text-gray-300" />
-                        <input type="text" placeholder="Lookup event record..." className="bg-transparent border-none outline-none text-[11px] font-bold w-48" />
-                    </div>
-                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Showing: Real-time Feed</span>
+            {/* Log Table - The "Excel" Part */}
+            <div className="border border-pace-border rounded bg-white overflow-hidden shadow-none">
+                <div className="px-5 py-3 border-b border-pace-border bg-pace-bg-subtle flex justify-between items-center">
+                    <h4 className="text-[10px] font-black text-admin-label uppercase tracking-widest">Master Audit Registry</h4>
+                    <span className="text-[10px] font-black text-admin-dim uppercase tracking-widest">Live Feed Enabled</span>
                 </div>
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left whitespace-nowrap">
+                <div className="overflow-x-auto min-h-[400px]">
+                    <table className="w-full text-left text-[12px] whitespace-nowrap">
                         <thead>
-                            <tr className="bg-white border-b border-gray-100 font-bold text-gray-400 uppercase tracking-widest text-[10px]">
+                            <tr className="bg-white border-b border-gray-100 font-black text-admin-label uppercase tracking-widest text-[9px]">
+                                <th className="px-5 py-3 border-r border-gray-100">Event Hash</th>
                                 <th className="px-5 py-3 border-r border-gray-100">Timestamp</th>
-                                <th className="px-5 py-3 border-r border-gray-100">System Source</th>
-                                <th className="px-5 py-3 border-r border-gray-100">Log Event Type</th>
-                                <th className="px-5 py-3 border-r border-gray-100">Detailed Message</th>
+                                <th className="px-5 py-3 border-r border-gray-100">Actor Entity</th>
+                                <th className="px-5 py-3 border-r border-gray-100">Action Type</th>
+                                <th className="px-5 py-3 border-r border-gray-100">Target Object</th>
                                 <th className="px-5 py-3 text-right">State</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-50 text-gray-600">
+                        <tbody className="divide-y divide-gray-50">
                             {logs.map((log) => (
                                 <tr key={log.id} className="hover:bg-gray-50 transition-colors group">
-                                    <td className="px-5 py-4 font-bold text-gray-400 border-r border-gray-100">
-                                        {log.age}
+                                    <td className="px-5 py-3 font-mono text-admin-dim group-hover:text-admin-value border-r border-gray-50 font-black uppercase transition-colors">{log.id}</td>
+                                    <td className="px-5 py-3 font-black text-admin-dim border-r border-gray-50 tabular-nums">{log.time}</td>
+                                    <td className="px-5 py-3 border-r border-gray-50">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-pace-purple"></div>
+                                            <span className="font-black text-admin-value uppercase">{log.user}</span>
+                                        </div>
                                     </td>
-                                    <td className="px-5 py-4 border-r border-gray-100 font-black tracking-tighter uppercase text-gray-300">
-                                        {log.user}
+                                    <td className="px-5 py-3 border-r border-gray-50 font-black text-admin-label uppercase tracking-tight">
+                                        {log.action}
                                     </td>
-                                    <td className="px-5 py-4 border-r border-gray-100 font-bold text-gray-900">
-                                        {log.event}
+                                    <td className="px-5 py-3 border-r border-gray-50 font-black text-admin-dim group-hover:text-admin-label transition-colors">
+                                        {log.target}
                                     </td>
-                                    <td className="px-5 py-4 border-r border-gray-100 max-w-xs overflow-hidden text-ellipsis font-medium">
-                                        {log.msg}
-                                    </td>
-                                    <td className="px-5 py-4 text-right">
+                                    <td className="px-5 py-3 text-right">
                                         <span className={cn(
-                                            "font-black uppercase text-[10px] tracking-widest border-b-2",
-                                            log.status === 'Success' ? "text-pace-green border-pace-green/10" :
-                                                log.status === 'Warning' ? "text-orange-500 border-orange-100" :
-                                                    log.status === 'Error' ? "text-red-500 border-red-100" : "text-gray-400"
+                                            "font-black uppercase text-[10px] tracking-widest px-2 py-0.5 rounded-sm border",
+                                            log.status === 'Success' ? "text-pace-green bg-pace-green-light border-pace-green/10" :
+                                                log.status === 'Warning' ? "text-orange-500 bg-orange-50 border-orange-100" :
+                                                    "text-blue-500 bg-blue-50 border-blue-100"
                                         )}>{log.status}</span>
                                     </td>
                                 </tr>
@@ -78,8 +88,9 @@ export default function LogsPage() {
                         </tbody>
                     </table>
                 </div>
-                <div className="p-4 bg-gray-50/50 border-t border-gray-200 text-center">
-                    <button className="text-[10px] font-black text-gray-300 uppercase tracking-widest hover:text-gray-900 transition-colors">Load Historical Record Set (Archive)</button>
+                <div className="p-4 bg-pace-bg-subtle border-t border-pace-border flex items-center justify-between font-black">
+                    <button className="text-[10px] text-admin-dim hover:text-admin-value uppercase tracking-widest transition-all">Clear Feed Buffer</button>
+                    <p className="text-[10px] text-admin-dim uppercase tracking-widest">End of Master Registry</p>
                 </div>
             </div>
 
