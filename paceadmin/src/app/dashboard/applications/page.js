@@ -2,80 +2,74 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import {
-    FileText, Search, Filter,
-    MapPin, User, Building2,
-    CheckCircle2, XCircle, Clock
-} from 'lucide-react'
+import { CheckCircle2, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function ApplicationsPage() {
     const applications = [
-        { id: '1', company: 'Global Logistics Ltd', person: 'Samson Kiruba', location: 'Nairobi', type: 'PPPoE', status: 'Pending', date: '2h ago' },
-        { id: '2', company: 'Nyali Heights Hotel', person: 'Alice Atieno', location: 'Mombasa', type: 'Hotspot', status: 'Approved', date: 'Yesterday' },
-        { id: '3', company: 'Rift Valley Academy', person: 'Paul Mwangi', location: 'Nakuru', type: 'Fiber', status: 'Reviewing', date: 'Yesterday' },
+        { id: 'APP-1024', company: 'Global Logistics Ltd', person: 'Samson Kiruba', zone: 'Nairobi', license: 'Enterprise SaaS', status: 'In Review', age: '2h ago' },
+        { id: 'APP-1025', company: 'Nyali Heights Hotel', person: 'Alice Atieno', zone: 'Mombasa', license: 'Standard Hotspot', status: 'Signed', age: 'Yesterday' },
+        { id: 'APP-1026', company: 'Rift Valley Academy', person: 'Paul Mwangi', zone: 'Nakuru', license: 'Educator Pack', status: 'Pending', age: 'Yesterday' },
+        { id: 'APP-1027', company: 'Western Fiber Net', person: 'Kelvin Omondi', zone: 'Kisumu', license: 'SaaS Core', status: 'In Review', age: '2 days ago' },
     ]
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 font-figtree">
 
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h1 className="text-2xl font-black text-pace-purple-dark text-[24px]">Service Applications</h1>
-                    <p className="text-[13px] text-gray-500 font-medium">Review and process new business signups from the main website.</p>
-                </div>
+            <div className="border-b border-gray-100 pb-4">
+                <h1 className="text-[20px] font-black text-gray-900 leading-none">New Software Inquiries</h1>
+                <p className="text-[12px] text-gray-400 mt-2 font-medium">Processing inbound ISP business applications and deployment requests.</p>
             </div>
 
-            <div className="grid grid-cols-1 gap-4">
-                {applications.map((app, i) => (
-                    <motion.div
-                        key={app.id}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.1 }}
-                        className="group bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:border-pace-purple/30 transition-all cursor-pointer relative"
-                    >
-                        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-                            <div className="flex items-start gap-5">
-                                <div className="w-12 h-12 rounded-xl bg-pace-purple/5 flex items-center justify-center text-pace-purple shrink-0">
-                                    <Building2 size={24} />
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-black text-gray-800 mb-1 group-hover:text-pace-purple transition-colors">{app.company}</h3>
-                                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] text-gray-500 font-medium">
-                                        <span className="flex items-center gap-1.5"><User size={14} className="text-gray-300" /> {app.person}</span>
-                                        <span className="flex items-center gap-1.5"><MapPin size={14} className="text-gray-300" /> {app.location}</span>
-                                        <span className="flex items-center gap-1.5"><Clock size={14} className="text-gray-300" /> {app.date}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="flex flex-wrap items-center gap-8">
-                                <div className="hidden sm:block">
-                                    <p className="text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-1">Service</p>
-                                    <p className="text-[14px] font-bold text-gray-700">{app.type}</p>
-                                </div>
-
-                                <div className="flex items-center gap-3">
-                                    {app.status === 'Pending' ? (
-                                        <>
-                                            <button className="px-5 py-2 bg-pace-purple text-white rounded-xl text-xs font-black shadow-lg shadow-pace-purple/10">Approve</button>
-                                            <button className="px-5 py-2 border border-gray-100 text-gray-500 rounded-xl text-xs font-bold hover:bg-gray-50">Reject</button>
-                                        </>
-                                    ) : (
+            {/* Main Table - The Excel look */}
+            <div className="border border-gray-200 rounded overflow-hidden">
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left text-[12px] whitespace-nowrap">
+                        <thead>
+                            <tr className="bg-gray-50 border-b border-gray-200 font-bold text-gray-400 uppercase tracking-widest text-[10px]">
+                                <th className="px-5 py-3 border-r border-gray-100">Ticket ID</th>
+                                <th className="px-5 py-3 border-r border-gray-100 text-center">Submission</th>
+                                <th className="px-5 py-3 border-r border-gray-100">Company Name / Contact</th>
+                                <th className="px-5 py-3 border-r border-gray-100">Requested Deployment</th>
+                                <th className="px-5 py-3 border-r border-gray-100 text-center">Status Case</th>
+                                <th className="px-5 py-3 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                            {applications.map((app) => (
+                                <tr key={app.id} className="hover:bg-gray-50 transition-colors group">
+                                    <td className="px-5 py-4 font-mono text-gray-300 group-hover:text-gray-900 border-r border-gray-50">{app.id}</td>
+                                    <td className="px-5 py-4 font-bold text-center border-r border-gray-50 text-gray-400">{app.age}</td>
+                                    <td className="px-5 py-4 border-r border-gray-50 max-w-xs overflow-hidden text-ellipsis">
+                                        <p className="font-bold text-gray-900">{app.company}</p>
+                                        <p className="text-[10px] text-gray-400 font-medium leading-none mt-1">{app.person} • {app.zone}</p>
+                                    </td>
+                                    <td className="px-5 py-4 border-r border-gray-50 font-bold text-gray-600">
+                                        {app.license}
+                                    </td>
+                                    <td className="px-5 py-4 border-r border-gray-50 text-center">
                                         <span className={cn(
-                                            "px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest border",
-                                            app.status === 'Approved' ? "bg-pace-green/5 text-pace-green border-pace-green/20" : "bg-blue-50 text-blue-600 border-blue-200"
-                                        )}>
-                                            {app.status}
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-                ))}
+                                            "font-black uppercase text-[10px] tracking-widest",
+                                            app.status === 'Signed' ? "text-pace-green" :
+                                                app.status === 'In Review' ? "text-blue-500" :
+                                                    "text-orange-500"
+                                        )}>{app.status}</span>
+                                    </td>
+                                    <td className="px-5 py-4 text-right">
+                                        <div className="flex justify-end gap-2">
+                                            <button className="px-3 py-1.5 border border-gray-200 rounded text-[10px] font-black uppercase bg-white hover:border-gray-400 transition-all">Review</button>
+                                            <button className="px-3 py-1.5 border border-red-100 text-red-400 rounded text-[10px] font-black uppercase bg-red-50/20 hover:bg-red-50 transition-all">Ignore</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <div className="p-4 bg-gray-50/50 border-t border-gray-200">
+                    <button className="text-[10px] font-black text-gray-300 uppercase tracking-widest hover:text-gray-900 transition-colors">Archive View &rarr;</button>
+                </div>
             </div>
 
         </div>
