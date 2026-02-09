@@ -91,10 +91,7 @@ export default function SupportDeskPage() {
                                         )}>{t.priority}</span>
                                     </td>
                                     <td className="px-5 py-4 border-r border-gray-50 text-center">
-                                        <span className={cn(
-                                            "font-black uppercase text-[10px] tracking-widest border-b-2",
-                                            t.status === 'Resolved' ? "text-pace-green border-pace-green/10" : "text-admin-label border-gray-200"
-                                        )}>{t.status}</span>
+                                        <span className="font-black uppercase text-[10px] tracking-widest border-b-2 border-gray-100 text-admin-label">{t.status}</span>
                                     </td>
                                     <td className="px-5 py-4 text-right font-black text-admin-dim group-hover:text-admin-value transition-colors uppercase">
                                         {t.age}
