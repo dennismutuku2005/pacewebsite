@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Header() {
@@ -34,9 +35,8 @@ export default function Header() {
         <nav className="absolute top-0 w-full z-50 border-b border-white/5 bg-transparent">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="flex items-center justify-between h-24">
-                    {/* Logo */}
-                    <Link href="/" className="text-3xl font-extrabold tracking-tight hover:opacity-90 transition-opacity z-50 relative">
-                        <span className="text-white font-rubik">Pace</span>
+                    <Link href="/" className="hover:opacity-90 transition-opacity z-50 relative">
+                        <Image src="/logo.png" alt="Pace Logo" width={120} height={40} className="h-10 w-auto object-contain" priority />
                     </Link>
 
                     {/* Desktop Menu */}
@@ -235,7 +235,9 @@ export default function Header() {
                             className="fixed inset-y-0 right-0 w-full sm:w-[350px] bg-white z-50 lg:hidden shadow-2xl flex flex-col"
                         >
                             <div className="p-6 flex items-center justify-between border-b border-gray-100">
-                                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-extrabold text-tappi-purple">Pace</Link>
+                                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="relative h-8 w-24">
+                                    <Image src="/logo.png" alt="Pace Logo" fill className="object-contain brightness-0" />
+                                </Link>
                                 <button onClick={() => setMobileMenuOpen(false)} className="text-gray-400 hover:text-gray-900 transition-colors">
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                                 </button>
