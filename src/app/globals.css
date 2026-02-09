@@ -38,6 +38,28 @@ body {
   font-family: var(--font-rubik), Arial, Helvetica, sans-serif;
 }
 
+/* Input & Form Styling */
+input, textarea, select {
+  color: var(--foreground);
+  background-color: transparent;
+}
+
+/* Fix for light-background inputs in dark mode */
+.bg-white input, 
+.bg-white textarea, 
+.bg-white select {
+  color: #171717 !important;
+}
+
+::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}
+
+.bg-white ::placeholder {
+  color: #6b7280; /* gray-500 for better contrast on white */
+}
+
 @utility text-gradient-orange {
   background: linear-gradient(90deg, var(--tappi-orange-start), var(--tappi-orange-mid) 65.1%, var(--tappi-orange-end));
   -webkit-background-clip: text;
