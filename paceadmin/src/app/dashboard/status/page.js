@@ -2,96 +2,89 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import {
-    Activity, Globe, Server, Database,
-    Cpu, HardDrive, Wifi, ShieldCheck,
-    Zap, AlertTriangle
-} from 'lucide-react'
+import { Activity, Zap, RefreshCw, Layers } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-const StatusCard = ({ title, icon: Icon, value, status, progress, color }) => (
-    <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col">
-        <div className="flex items-center justify-between mb-6">
-            <div className={cn("p-2 rounded-lg bg-gray-50 text-gray-500")}>
-                <Icon size={18} />
-            </div>
-            <span className={cn(
-                "px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider",
-                status === 'Healthy' ? "bg-pace-green/5 text-pace-green" : "bg-red-50 text-red-600"
-            )}>
-                {status}
-            </span>
-        </div>
-        <p className="text-[12px] font-bold text-gray-400 uppercase tracking-widest">{title}</p>
-        <h3 className="text-2xl font-black text-gray-800 my-1">{value}</h3>
-        <div className="mt-auto pt-4">
-            <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${progress}%` }}
-                    className={cn("h-full rounded-full transition-all bg-pace-purple")}
-                ></motion.div>
-            </div>
-        </div>
-    </div>
-)
-
-export default function StatusPage() {
+export default function PlatformHealthPage() {
     const nodes = [
-        { name: 'Nairobi Core Gateway', ip: '10.0.0.1', uptime: '142d', status: 'Online' },
-        { name: 'Mombasa Tower Relay', ip: '10.0.1.5', uptime: '89d', status: 'Online' },
-        { name: 'Kisumu Sub-Station', ip: '10.0.4.2', uptime: '12d', status: 'Busy' },
+        { label: 'Core Auth Gateway', zone: 'AF-East-1', load: '12%', uptime: '99.99%', status: 'Nominal' },
+        { label: 'Regional Billing Sync', zone: 'AF-East-1', load: '08%', uptime: '100.0%', status: 'Nominal' },
+        { label: 'Tenant DB Cluster', zone: 'Global-Edge', load: '24%', uptime: '99.98%', status: 'Nominal' },
+        { label: 'License Validator API', zone: 'AF-East-1', load: '04%', uptime: '99.99%', status: 'Nominal' },
+        { label: 'SaaS Frontend Cluster', zone: 'Global-CDA', load: '18%', uptime: '100.0%', status: 'Nominal' },
     ]
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 font-figtree">
 
-            {/* Banner - Simplified, deep purple */}
-            <div className="bg-pace-purple-dark rounded-2xl p-8 text-white relative overflow-hidden">
-                <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="w-2.5 h-2.5 bg-pace-green rounded-full animate-pulse"></div>
-                        <h2 className="text-xl font-bold">Systems Operational</h2>
-                    </div>
-                    <p className="text-purple-200 text-sm font-medium">All network nodes are communicating normally. Global latency: 14ms.</p>
+            {/* Header */}
+            <div className="border-b border-gray-100 pb-4 flex justify-between items-end">
+                <div>
+                    <h1 className="text-[20px] font-black text-gray-900 leading-none">Global Infrastructure Telemetry</h1>
+                    <p className="text-[12px] text-gray-400 mt-2 font-medium">Real-time monitoring of SaaS nodes and database cluster health.</p>
                 </div>
-                <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
+                <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-pace-green-light border border-pace-green/10 rounded">
+                        <div className="w-1.5 h-1.5 bg-pace-green rounded-full animate-pulse"></div>
+                        <span className="text-[10px] font-black text-pace-green uppercase tracking-widest leading-none">All Systems Nominal</span>
+                    </div>
+                    <button className="p-2 border border-gray-200 rounded text-gray-400 hover:text-gray-900 transition-all">
+                        <RefreshCw size={14} />
+                    </button>
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <StatusCard title="Gateway CPU" icon={Cpu} value="12%" status="Healthy" progress={12} />
-                <StatusCard title="RAM Allocation" icon={Activity} value="4.2GB" status="Healthy" progress={26} />
-                <StatusCard title="SSD Storage" icon={HardDrive} value="1.4TB" status="Healthy" progress={28} />
-                <StatusCard title="Current Lane Load" icon={Wifi} value="842Mb" status="Healthy" progress={65} />
+            {/* Primary Metrics Grid - Excel Boxes */}
+            <div className="grid grid-cols-2 md:grid-cols-4 border border-gray-200 rounded divide-x divide-gray-200 overflow-hidden bg-white">
+                {[
+                    { label: 'Global Uptime (30d)', val: '99.98%', note: 'Stable' },
+                    { label: 'Avg API Latency', val: '2.44ms', note: 'Optimal' },
+                    { label: 'Core CPU Peak', val: '14.2%', note: 'Normal' },
+                    { label: 'Cluster Bandwidth', val: '1.8 Gbps', note: 'Nominal' },
+                ].map((s) => (
+                    <div key={s.label} className="p-5">
+                        <p className="text-[9px] font-black text-gray-300 uppercase tracking-widest leading-none mb-3">{s.label}</p>
+                        <p className="text-[20px] font-black text-gray-900 leading-none">{s.val}</p>
+                        <p className="text-[10px] font-bold text-gray-400 mt-3 uppercase tracking-wider">{s.note}</p>
+                    </div>
+                ))}
             </div>
 
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-                <div className="p-6 border-b border-gray-50 flex items-center justify-between">
-                    <h3 className="text-[16px] font-black text-gray-900">Network Infrastructure Nodes</h3>
+            {/* Advanced Telemetry Table - Excel View */}
+            <div className="border border-gray-200 rounded overflow-hidden bg-white">
+                <div className="px-5 py-3 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                    <h4 className="text-[11px] font-black text-gray-600 uppercase tracking-widest">Active Node Matrix</h4>
+                    <span className="text-[10px] font-bold text-gray-400">Scan interval: 15s</span>
                 </div>
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left">
+                    <table className="w-full text-left text-[12px] whitespace-nowrap">
                         <thead>
-                            <tr className="bg-gray-50/50 border-b border-gray-100">
-                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest">Node Name</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest">Uptime</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest text-right">Status</th>
+                            <tr className="bg-white border-b border-gray-100 font-bold text-gray-400 uppercase tracking-widest text-[10px]">
+                                <th className="px-5 py-3 border-r border-gray-100">Regional Cluster Node</th>
+                                <th className="px-5 py-3 border-r border-gray-100">Zone Code</th>
+                                <th className="px-5 py-3 border-r border-gray-100 text-center">CPU Load</th>
+                                <th className="px-5 py-3 border-r border-gray-100 text-center">Uptime (Rel)</th>
+                                <th className="px-5 py-3 text-right">Status State</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
                             {nodes.map((node) => (
-                                <tr key={node.name} className="hover:bg-gray-50/50 transition-colors">
-                                    <td className="px-6 py-4">
-                                        <p className="text-[14px] font-bold text-gray-800">{node.name}</p>
-                                        <p className="text-[10px] text-gray-400 font-mono tracking-tighter">{node.ip}</p>
+                                <tr key={node.label} className="hover:bg-gray-50 transition-colors group">
+                                    <td className="px-5 py-4 border-r border-gray-50 underline decoration-gray-100 underline-offset-4">
+                                        <p className="font-bold text-gray-800">{node.label}</p>
+                                        <p className="text-[9px] text-gray-400 font-black uppercase tracking-tighter mt-1">SaaS Core v2.4.1</p>
                                     </td>
-                                    <td className="px-6 py-4 text-[13px] font-medium text-gray-500">{node.uptime}</td>
-                                    <td className="px-6 py-4 text-right">
-                                        <span className={cn(
-                                            "text-[12px] font-bold",
-                                            node.status === 'Online' ? "text-pace-green" :
-                                                node.status === 'Busy' ? "text-pace-purple" : "text-orange-500"
-                                        )}>{node.status}</span>
+                                    <td className="px-5 py-4 border-r border-gray-50 font-mono text-gray-400 group-hover:text-gray-900">{node.zone}</td>
+                                    <td className="px-5 py-4 border-r border-gray-50 text-center font-black text-gray-700">
+                                        {node.load}
+                                    </td>
+                                    <td className="px-5 py-4 border-r border-gray-50 text-center font-bold text-gray-400">
+                                        {node.uptime}
+                                    </td>
+                                    <td className="px-5 py-4 text-right">
+                                        <span className="inline-flex items-center gap-1.5 font-black uppercase text-[10px] tracking-widest text-pace-green">
+                                            <Zap size={10} /> {node.status}
+                                        </span>
                                     </td>
                                 </tr>
                             ))}
