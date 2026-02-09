@@ -29,6 +29,16 @@ export default function DashboardLayout({ children }) {
         { id: 'settings', name: 'Settings', href: '/dashboard/settings', icon: Settings },
     ]
 
+    // Helper to format path name for breadcrumbs
+    const getPageName = () => {
+        const path = pathname.split('/').pop() || 'Overview';
+        return path
+            .replace(/-/g, ' ')
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    }
+
     return (
         <div className="min-h-screen bg-white flex font-figtree text-[13px]">
             {/* Sidebar - Flat 2D */}
@@ -39,7 +49,7 @@ export default function DashboardLayout({ children }) {
                 {/* Logo Section */}
                 <div className="h-14 flex items-center px-4 border-b border-gray-100">
                     <Link href="/dashboard" className="flex items-center gap-2">
-                        <Image src="/logo.png" alt="Pace" width={80} height={25} className="h-6 w-auto object-contain grayscale" />
+                        <Image src="/logo.png" alt="Pace" width={80} height={25} className="h-6 w-auto object-contain grayscale" priority />
                         {isSidebarOpen && <span className="text-[10px] font-black uppercase tracking-wider text-admin-dim">Admin</span>}
                     </Link>
                 </div>
@@ -69,7 +79,7 @@ export default function DashboardLayout({ children }) {
                 <div className="absolute bottom-4 w-full px-2">
                     <button className="w-full flex items-center gap-3 px-3 py-2.5 text-admin-dim hover:text-red-600 transition-colors rounded hover:bg-red-50 font-black uppercase text-[11px] tracking-widest">
                         <LogOut size={16} />
-                        {isSidebarOpen && <span>Logout</span>}
+                        {isSidebarOpen && <span>Sign Out</span>}
                     </button>
                 </div>
             </aside>
@@ -79,16 +89,16 @@ export default function DashboardLayout({ children }) {
                 "flex-1 min-h-screen flex flex-col transition-all duration-200",
                 isSidebarOpen ? "ml-60" : "ml-16"
             )}>
-                {/* Header - Excel Style */}
+                {/* Header - Professional UI */}
                 <header className="h-14 bg-white border-b border-pace-border flex items-center justify-between px-6 sticky top-0 z-40">
                     <div className="flex items-center gap-4">
-                        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-admin-dim hover:text-admin-value transition-colors p-1">
+                        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-admin-dim hover:text-admin-value transition-colors p-1" title="Toggle Sidebar">
                             <Menu size={18} />
                         </button>
-                        <div className="flex items-center gap-1.5 text-[10px] font-black text-admin-dim uppercase tracking-widest border-l border-gray-100 pl-4">
-                            <span>Admin_SEC</span>
-                            <ChevronRight size={12} />
-                            <span className="text-admin-value font-black">{pathname.split('/').pop()?.replace(/-/g, ' ') || 'Overview'}</span>
+                        <div className="flex items-center gap-2 text-[11px] font-bold text-admin-label border-l border-gray-100 pl-4">
+                            <span className="text-admin-dim">Management</span>
+                            <ChevronRight size={12} className="text-gray-300" />
+                            <span className="text-admin-value font-black">{getPageName()}</span>
                         </div>
                     </div>
 
@@ -97,16 +107,16 @@ export default function DashboardLayout({ children }) {
                             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-admin-dim" size={14} />
                             <input
                                 type="text"
-                                placeholder="Search system database..."
+                                placeholder="Search..."
                                 className="pl-8 pr-3 py-2 w-64 bg-gray-50 border border-gray-200 rounded text-[12px] focus:bg-white focus:ring-1 focus:ring-pace-purple focus:border-pace-purple outline-none transition-all placeholder:text-admin-dim font-bold text-admin-value shadow-none"
                             />
                         </div>
                         <div className="flex items-center gap-3 border-l border-gray-100 pl-6 h-8">
                             <div className="text-right">
-                                <p className="text-[12px] font-black text-admin-value leading-none uppercase">Admin Root</p>
-                                <p className="text-[10px] text-pace-green font-black mt-1 uppercase tracking-widest">Active_Node</p>
+                                <p className="text-[12px] font-black text-admin-value leading-none uppercase">Dennis Mutuku</p>
+                                <p className="text-[10px] text-pace-green font-black mt-1 uppercase tracking-widest">System Online</p>
                             </div>
-                            <div className="w-8 h-8 rounded border border-pace-border bg-gray-50 flex items-center justify-center text-[11px] font-black text-pace-purple">AR</div>
+                            <div className="w-8 h-8 rounded border border-pace-border bg-gray-50 flex items-center justify-center text-[11px] font-black text-pace-purple">DM</div>
                         </div>
                     </div>
                 </header>
