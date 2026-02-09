@@ -24,10 +24,6 @@ export default function PlatformHealthPage() {
                     <p className="text-[12px] text-admin-label mt-2 font-medium">Monitoring the performance and availability of your ISP management platform.</p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-pace-green-light border border-pace-green/10 rounded">
-                        <div className="w-1.5 h-1.5 bg-pace-green rounded-full animate-pulse"></div>
-                        <span className="text-[9px] font-black text-pace-green uppercase tracking-widest leading-none">All Systems Normal</span>
-                    </div>
                     <button className="p-2 border border-pace-border rounded text-admin-dim hover:text-pace-purple hover:border-pace-purple transition-all bg-white shadow-none">
                         <RefreshCw size={14} />
                     </button>
@@ -72,7 +68,6 @@ export default function PlatformHealthPage() {
                                 <tr key={node.label} className="hover:bg-gray-50 transition-colors group cursor-default">
                                     <td className="px-5 py-4 border-r border-gray-50">
                                         <p className="font-black text-admin-value leading-none">{node.label}</p>
-                                        <p className="text-[10px] text-admin-label font-black uppercase tracking-tighter mt-1.5 opacity-80">Online & Active</p>
                                     </td>
                                     <td className="px-5 py-4 border-r border-gray-50 font-mono text-admin-dim group-hover:text-admin-label font-black uppercase">{node.zone}</td>
                                     <td className="px-5 py-4 border-r border-gray-50 text-center font-black text-admin-value">
@@ -82,8 +77,8 @@ export default function PlatformHealthPage() {
                                         {node.uptime}
                                     </td>
                                     <td className="px-5 py-4 text-right">
-                                        <span className="inline-flex items-center gap-1.5 font-black uppercase text-[10px] tracking-widest text-pace-green">
-                                            <div className="w-1.5 h-1.5 bg-pace-green rounded-full"></div> {node.status}
+                                        <span className="font-black uppercase text-[10px] tracking-widest text-admin-value">
+                                            {node.status}
                                         </span>
                                     </td>
                                 </tr>
