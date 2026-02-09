@@ -13,17 +13,17 @@ export default function DashboardPage() {
     const [activeTab, setActiveTab] = useState('summary')
 
     const stats = [
-        { label: 'Licensed Clients', value: '1,284', change: '+14% growth' },
+        { label: 'Total Clients', value: '1,284', change: '+14% growth' },
         { label: 'New Inquiries', value: '42 units', change: '+5 today' },
         { label: 'Monthly Revenue', value: 'KES 2.4M', change: '+8.2% avg' },
-        { label: 'System Status', value: '99.99%', change: 'Healthy' },
+        { label: 'System Uptime', value: '99.99%', change: 'Normal' },
     ]
 
     const recentClients = [
-        { id: 'REC-01', name: 'SkyNet Solutions Ltd', region: 'Nairobi', tier: 'Enterprise', status: 'Active', age: '2h ago' },
-        { id: 'REC-02', name: 'Coast Connect', region: 'Mombasa', tier: 'Standard', status: 'Pending', age: '5h ago' },
-        { id: 'REC-03', name: 'RiftWiFi Systems', region: 'Nakuru', tier: 'Enterprise', status: 'Active', age: '1d ago' },
-        { id: 'REC-04', name: 'Lake Side Internet', region: 'Kisumu', tier: 'Lite', status: 'Active', age: '1d ago' },
+        { id: '1024', name: 'SkyNet Solutions Ltd', region: 'Nairobi', tier: 'Enterprise', status: 'Active', age: '2h ago' },
+        { id: '1025', name: 'Coast Connect', region: 'Mombasa', tier: 'Standard', status: 'Pending', age: '5h ago' },
+        { id: '1026', name: 'RiftWiFi Systems', region: 'Nakuru', tier: 'Enterprise', status: 'Active', age: '1d ago' },
+        { id: '1027', name: 'Lake Side Internet', region: 'Kisumu', tier: 'Lite', status: 'Active', age: '1d ago' },
     ]
 
     const tabs = [
@@ -40,15 +40,15 @@ export default function DashboardPage() {
             <div className="border-b border-gray-100 pb-4 flex justify-between items-end">
                 <div>
                     <h1 className="text-[20px] font-black text-admin-value leading-tight">Dashboard Overview</h1>
-                    <p className="text-[12px] text-admin-label mt-1 font-medium tracking-tight">An overview of your ISP management system and performance.</p>
+                    <p className="text-[12px] text-admin-label mt-1 font-medium tracking-tight">Manage your clients and monitor your system performance.</p>
                 </div>
                 <div className="flex gap-2">
                     <div className="flex items-center gap-1.5 px-3 py-1.5 bg-pace-green-light border border-pace-green/10 rounded">
                         <div className="w-1.5 h-1.5 bg-pace-green rounded-full animate-pulse"></div>
-                        <span className="text-[9px] font-black text-pace-green uppercase tracking-widest leading-none">System Stable</span>
+                        <span className="text-[9px] font-black text-pace-green uppercase tracking-widest leading-none">System Active</span>
                     </div>
                     <button className="px-4 py-2 bg-pace-purple text-white rounded text-[11px] font-black hover:bg-[#3d1a75] transition-all uppercase tracking-widest shadow-none">
-                        Refresh Dashboard
+                        Refresh Records
                     </button>
                 </div>
             </div>
@@ -97,7 +97,7 @@ export default function DashboardPage() {
                         <div className="lg:col-span-2 space-y-4">
                             <div className="border border-pace-border rounded bg-white overflow-hidden shadow-none">
                                 <div className="bg-gray-50 px-4 py-3 border-b border-pace-border flex justify-between items-center">
-                                    <h4 className="text-[11px] font-black text-admin-label uppercase tracking-[2px]">Recently Added Clients</h4>
+                                    <h4 className="text-[11px] font-black text-admin-label uppercase tracking-[2px]">Recent Clients</h4>
                                     <span className="text-[9px] font-bold text-admin-dim uppercase tracking-widest">Total: 1,284 Active</span>
                                 </div>
                                 <div className="overflow-x-auto">
@@ -105,8 +105,8 @@ export default function DashboardPage() {
                                         <thead>
                                             <tr className="bg-white border-b border-gray-100 font-bold text-admin-label uppercase tracking-widest text-[9px]">
                                                 <th className="px-4 py-3 border-r border-gray-50 uppercase">ID</th>
-                                                <th className="px-4 py-3 border-r border-gray-50 uppercase">Name</th>
-                                                <th className="px-4 py-3 border-r border-gray-50 uppercase">Location</th>
+                                                <th className="px-4 py-3 border-r border-gray-50 uppercase">Client Name</th>
+                                                <th className="px-4 py-3 border-r border-gray-50 uppercase">Region</th>
                                                 <th className="px-4 py-3 border-r border-gray-50 text-center uppercase">Plan</th>
                                                 <th className="px-4 py-3 text-right uppercase">Status</th>
                                             </tr>
@@ -140,14 +140,14 @@ export default function DashboardPage() {
                             <div className="border border-pace-border rounded p-5 bg-white space-y-4 shadow-none">
                                 <div className="flex items-center gap-2 mb-2">
                                     <Globe size={14} className="text-pace-purple" />
-                                    <h4 className="text-[11px] font-black text-admin-label uppercase tracking-widest">Network Performance Matrix</h4>
+                                    <h4 className="text-[11px] font-black text-admin-label uppercase tracking-widest">Global Performance</h4>
                                 </div>
                                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                                     {[
-                                        { n: 'Asia', v: '84ms', s: 'Online' },
-                                        { n: 'Africa', v: '12ms', s: 'Online' },
-                                        { n: 'Europe', v: '22ms', s: 'Online' },
-                                        { n: 'USA', v: '112ms', s: 'Online' },
+                                        { n: 'Asia', v: '84ms', s: 'Active' },
+                                        { n: 'Africa', v: '12ms', s: 'Active' },
+                                        { n: 'Europe', v: '22ms', s: 'Active' },
+                                        { n: 'America', v: '112ms', s: 'Active' },
                                     ].map((n) => (
                                         <div key={n.n} className="p-3 border border-gray-100 rounded bg-gray-50/50">
                                             <p className="text-[9px] font-black text-admin-dim uppercase">{n.n}</p>
@@ -166,8 +166,8 @@ export default function DashboardPage() {
                         <div className="space-y-6">
                             <div className="bg-pace-purple p-8 rounded text-white space-y-8 flex flex-col justify-between shadow-none min-h-[320px] relative overflow-hidden">
                                 <div className="relative z-10">
-                                    <h4 className="text-[18px] font-black leading-tight uppercase tracking-tight">Manage Your <br /> Business Activity</h4>
-                                    <p className="text-[11px] font-bold text-white/70 mt-4 leading-relaxed uppercase tracking-wider">Efficiently oversee client accounts, manage licenses, and monitor your network performance.</p>
+                                    <h4 className="text-[18px] font-black leading-tight uppercase tracking-tight">Business <br /> Management</h4>
+                                    <p className="text-[11px] font-bold text-white/70 mt-4 leading-relaxed uppercase tracking-wider">Monitor and manage your ISP clients and billing from one dashboard.</p>
                                 </div>
                                 <div className="space-y-2 relative z-10">
                                     <button className="w-full py-3 bg-white text-pace-purple rounded text-[10px] font-black uppercase tracking-[2px] hover:bg-gray-100 transition-all">Go to Clients</button>
@@ -177,16 +177,16 @@ export default function DashboardPage() {
 
                             <div className="border border-pace-border rounded bg-white overflow-hidden shadow-none">
                                 <div className="bg-gray-50 px-4 py-3 border-b border-pace-border flex justify-between items-center">
-                                    <h4 className="text-[10px] font-black text-admin-label uppercase tracking-widest">Recent activity</h4>
+                                    <h4 className="text-[10px] font-black text-admin-label uppercase tracking-widest">Recent Activity</h4>
                                     <Clock size={12} className="text-pace-purple" />
                                 </div>
                                 <div className="divide-y divide-gray-50">
                                     {[
-                                        { t: '14:20', m: 'Client Added: REC-01' },
+                                        { t: '14:20', m: 'Client Added: 1024' },
                                         { t: '14:15', m: 'Network Sync Complete' },
-                                        { t: '13:58', m: 'Payment Matched: INV-0221' },
-                                        { t: '13:45', m: 'New Support Ticket' },
-                                        { t: '13:30', m: 'Dashboard Access: Admin' },
+                                        { t: '13:58', m: 'Invoice Paid: 0221' },
+                                        { t: '13:45', m: 'Support Ticket Created' },
+                                        { t: '13:30', m: 'Administrator Login' },
                                     ].map((e, idx) => (
                                         <div key={idx} className="px-4 py-3 flex gap-3 items-center group cursor-default">
                                             <span className="text-[9px] font-black text-admin-dim group-hover:text-admin-label transition-colors uppercase tabular-nums font-mono">{e.t}</span>
