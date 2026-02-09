@@ -4,12 +4,11 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
 import {
-    Home, Users, CreditCard, Ticket, Settings,
-    Activity, FileText, Bell, Search, Menu,
-    X, LogOut, ChevronRight, Clock,
-    LayoutDashboard
+    Users, CreditCard, Ticket, Settings,
+    Activity, FileText, Search, Menu,
+    LogOut, ChevronRight, Clock,
+    LayoutDashboard, Network, Receipt
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -20,6 +19,8 @@ export default function DashboardLayout({ children }) {
     const navigation = [
         { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
         { name: 'Clients', href: '/dashboard/customers', icon: Users },
+        { name: 'Invoicing', href: '/dashboard/invoices', icon: Receipt },
+        { name: 'Routers', href: '/dashboard/routers', icon: Network },
         { name: 'Applications', href: '/dashboard/applications', icon: FileText },
         { name: 'Support', href: '/dashboard/tickets', icon: Ticket },
         { name: 'Payments', href: '/dashboard/payments', icon: CreditCard },
@@ -32,7 +33,7 @@ export default function DashboardLayout({ children }) {
         <div className="min-h-screen bg-white flex font-figtree text-[13px]">
             {/* Sidebar - Flat 2D */}
             <aside className={cn(
-                "fixed inset-y-0 left-0 z-50 bg-white border-r border-gray-200 transition-all duration-200",
+                "fixed inset-y-0 left-0 z-50 bg-white border-r border-gray-200 transition-all duration-200 shadow-none",
                 isSidebarOpen ? "w-60" : "w-16"
             )}>
                 {/* Logo Section */}
@@ -54,7 +55,7 @@ export default function DashboardLayout({ children }) {
                                 className={cn(
                                     "flex items-center gap-3 px-3 py-2 rounded-md transition-colors",
                                     isActive
-                                        ? "bg-pace-purple text-white shadow-none"
+                                        ? "bg-pace-purple text-white"
                                         : "text-gray-500 hover:bg-gray-50"
                                 )}
                             >
@@ -87,7 +88,7 @@ export default function DashboardLayout({ children }) {
                         <div className="flex items-center gap-1.5 text-[11px] font-bold text-gray-400 uppercase tracking-widest border-l border-gray-100 pl-4">
                             <span>Admin</span>
                             <ChevronRight size={12} />
-                            <span className="text-gray-900">{pathname.split('/').pop() || 'Overview'}</span>
+                            <span className="text-gray-900">{pathname.split('/').pop()?.replace(/-/g, ' ') || 'Overview'}</span>
                         </div>
                     </div>
 
@@ -96,16 +97,16 @@ export default function DashboardLayout({ children }) {
                             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-300" size={14} />
                             <input
                                 type="text"
-                                placeholder="Search data..."
-                                className="pl-8 pr-3 py-1.5 w-64 bg-gray-50 border border-gray-200 rounded text-[12px] focus:bg-white focus:ring-1 focus:ring-pace-purple outline-none"
+                                placeholder="Search system records..."
+                                className="pl-8 pr-3 py-1.5 w-64 bg-gray-50 border border-gray-200 rounded text-[12px] focus:bg-white focus:ring-1 focus:ring-pace-purple outline-none transition-all"
                             />
                         </div>
                         <div className="flex items-center gap-3 border-l border-gray-100 pl-6 h-8">
                             <div className="text-right">
-                                <p className="text-[12px] font-bold text-gray-900 leading-none">A. Joe</p>
-                                <p className="text-[10px] text-gray-400 font-medium mt-1 uppercase">Root</p>
+                                <p className="text-[12px] font-bold text-gray-900 leading-none uppercase">Admin Root</p>
+                                <p className="text-[10px] text-pace-green font-black mt-1 uppercase tracking-widest">Active</p>
                             </div>
-                            <div className="w-8 h-8 rounded border border-gray-200 bg-gray-50 flex items-center justify-center text-[11px] font-bold">AJ</div>
+                            <div className="w-8 h-8 rounded border border-gray-200 bg-gray-50 flex items-center justify-center text-[11px] font-black text-pace-purple">AR</div>
                         </div>
                     </div>
                 </header>
