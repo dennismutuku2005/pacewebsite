@@ -5,117 +5,111 @@ import { motion } from 'framer-motion'
 import {
     Users, Search, Filter, Plus,
     MoreVertical, Mail, Phone, MapPin,
-    Trash2, Edit2, Shield
+    Trash2, Edit2, Shield, UserPlus
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function CustomersPage() {
     const customers = [
-        { id: '1', name: 'John Kamau', email: 'john@example.com', phone: '+254 712 345 678', location: 'Nairobi, Westlands', plan: 'Fiber Pro', status: 'Active', balance: 'KES 0' },
-        { id: '2', name: 'Mary Wanjiku', email: 'mary@example.com', phone: '+254 722 987 654', location: 'Mombasa, Nyali', plan: 'Wireless Home', status: 'Blocked', balance: 'KES 2,500' },
-        { id: '3', name: 'David Omari', email: 'david@example.com', phone: '+254 733 111 222', location: 'Kisumu, Milimani', plan: 'Fiber Lite', status: 'Active', balance: 'KES 0' },
-        { id: '4', name: 'Sarah Atieno', email: 'sarah@example.com', phone: '+254 700 444 555', location: 'Nakuru, Lanet', plan: 'Premium WISP', status: 'Expired', balance: 'KES 4,500' },
-        { id: '5', name: 'George Maina', email: 'george@example.com', phone: '+254 755 666 777', location: 'Eldoret, Town', plan: 'Fiber Pro', status: 'Active', balance: 'KES 0' },
+        { id: '1', name: 'John Kamau', email: 'john@example.com', phone: '+254 712 345 678', location: 'Westlands', plan: 'Fiber Pro', status: 'Active', balance: 'KES 0' },
+        { id: '2', name: 'Mary Wanjiku', email: 'mary@example.com', phone: '+254 722 987 654', location: 'Nyali', plan: 'Wireless Home', status: 'Blocked', balance: 'KES 2,500' },
+        { id: '3', name: 'David Omari', email: 'david@example.com', phone: '+254 733 111 222', location: 'Milimani', plan: 'Fiber Lite', status: 'Active', balance: 'KES 0' },
+        { id: '4', name: 'Sarah Atieno', email: 'sarah@example.com', phone: '+254 700 444 555', location: 'Lanet', plan: 'Premium WISP', status: 'Expired', balance: 'KES 4,500' },
     ]
 
     return (
-        <div className="space-y-6 pb-10">
+        <div className="space-y-6">
 
-            {/* Search & Actions Bar */}
-            <div className="bg-white p-4 rounded-2xl border border-[#e2e8f0] shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl font-black text-pace-purple-dark text-[24px]">Client Directory</h1>
+                    <p className="text-[13px] text-gray-500 font-medium">Manage and monitor all your active and pending subscriptions.</p>
+                </div>
+                <button className="flex items-center justify-center gap-2 px-6 py-2.5 bg-pace-purple text-white rounded-xl text-xs font-black shadow-lg shadow-pace-purple/10 hover:opacity-90 transition-all active:scale-95">
+                    <UserPlus size={16} />
+                    Add New Client
+                </button>
+            </div>
+
+            {/* Filter Bar - Simplified */}
+            <div className="bg-white p-3 rounded-2xl border border-gray-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="relative w-full md:max-w-md">
-                    <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#94a3b8]" size={18} />
+                    <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
                     <input
                         type="text"
-                        placeholder="Search by name, email or phone..."
-                        className="w-full pl-11 pr-4 py-2.5 rounded-xl bg-[#f4f7fe] border-none focus:ring-2 focus:ring-[#4a6cf7]/20 outline-none transition-all placeholder:text-[#94a3b8] text-sm font-medium"
+                        placeholder="Find client by name..."
+                        className="w-full pl-11 pr-4 py-2 rounded-xl bg-gray-50 border-none focus:ring-1 focus:ring-pace-purple transition-all placeholder:text-gray-400 text-xs font-medium"
                     />
                 </div>
-                <div className="flex items-center gap-3 w-full md:w-auto">
-                    <button className="flex-1 md:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 bg-white border border-[#e2e8f0] text-[#64748b] rounded-xl text-sm font-bold hover:bg-[#f8fafc] transition-all">
-                        <Filter size={18} />
-                        Filters
-                    </button>
-                    <button className="flex-1 md:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 bg-[#4a6cf7] text-white rounded-xl text-sm font-bold hover:bg-[#3d59e0] transition-all shadow-lg shadow-blue-500/20 active:scale-95">
-                        <Plus size={18} />
-                        Add Customer
+                <div className="flex items-center gap-2 w-full md:w-auto">
+                    <button className="flex-1 md:flex-initial flex items-center justify-center gap-2 px-4 py-2 border border-gray-100 text-gray-500 rounded-xl text-xs font-bold hover:bg-gray-50 transition-all">
+                        <Filter size={14} /> Filter Status
                     </button>
                 </div>
             </div>
 
-            {/* Main Table Card */}
-            <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm overflow-hidden">
+            {/* Table Card - Simplified */}
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left">
+                    <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-[#f8fafc] border-b border-[#e2e8f0]">
-                                <th className="px-6 py-4 text-[12px] font-bold text-[#64748b] uppercase tracking-wider">Customer Details</th>
-                                <th className="px-6 py-4 text-[12px] font-bold text-[#64748b] uppercase tracking-wider">Service Plan</th>
-                                <th className="px-6 py-4 text-[12px] font-bold text-[#64748b] uppercase tracking-wider">Status</th>
-                                <th className="px-6 py-4 text-[12px] font-bold text-[#64748b] uppercase tracking-wider">Balance</th>
-                                <th className="px-6 py-4 text-[12px] font-bold text-[#64748b] uppercase tracking-wider text-right">Actions</th>
+                            <tr className="bg-gray-50/50 border-b border-gray-100">
+                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest font-rubik">Customer</th>
+                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest font-rubik">Service Plan</th>
+                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest font-rubik">Status</th>
+                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest font-rubik">Balance</th>
+                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest font-rubik text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-[#f1f5f9]">
+                        <tbody className="divide-y divide-gray-50">
                             {customers.map((c, i) => (
                                 <motion.tr
                                     key={c.id}
-                                    initial={{ opacity: 0, x: -10 }}
-                                    animate={{ opacity: 1, x: 0 }}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
                                     transition={{ delay: i * 0.05 }}
-                                    className="group hover:bg-[#f8fafc] transition-colors"
+                                    className="group hover:bg-gray-50/80 transition-colors"
                                 >
-                                    <td className="px-6 py-5">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 rounded-xl bg-[#f1f5f9] flex items-center justify-center text-[#4a6cf7] font-bold overflow-hidden border border-[#e2e8f0]">
+                                    <td className="px-6 py-4">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-9 h-9 rounded-xl bg-pace-purple/5 flex items-center justify-center text-pace-purple font-black text-xs">
                                                 {c.name.charAt(0)}
                                             </div>
                                             <div>
-                                                <p className="text-[14px] font-bold text-[#1e293b] group-hover:text-[#4a6cf7] transition-colors">{c.name}</p>
-                                                <div className="flex items-center gap-3 mt-1 text-[11px] text-[#64748b] font-medium">
-                                                    <span className="flex items-center gap-1"><Mail size={12} /> {c.email}</span>
-                                                    <span className="flex items-center gap-1"><MapPin size={12} /> {c.location}</span>
-                                                </div>
+                                                <p className="text-[14px] font-bold text-gray-800 group-hover:text-pace-purple transition-colors leading-none">{c.name}</p>
+                                                <p className="text-[11px] text-gray-400 font-medium mt-1">{c.email}</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-5">
-                                        <div className="flex flex-col">
-                                            <span className="text-[13px] font-bold text-[#1e293b]">{c.plan}</span>
-                                            <span className="text-[11px] text-[#94a3b8] font-medium">Next Billing: Apr 1, 2024</span>
-                                        </div>
+                                    <td className="px-6 py-4">
+                                        <span className="text-[13px] font-bold text-gray-700">{c.plan}</span>
                                     </td>
-                                    <td className="px-6 py-5">
+                                    <td className="px-6 py-4">
                                         <span className={cn(
-                                            "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border",
-                                            c.status === 'Active' ? "bg-green-50 text-green-700 border-green-200" :
-                                                c.status === 'Blocked' ? "bg-red-50 text-red-700 border-red-200" :
-                                                    "bg-orange-50 text-orange-700 border-orange-200"
+                                            "px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider",
+                                            c.status === 'Active' ? "bg-pace-green/10 text-pace-green" :
+                                                c.status === 'Blocked' ? "bg-red-50 text-red-600" :
+                                                    "bg-orange-50 text-orange-600"
                                         )}>
                                             {c.status}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-5">
+                                    <td className="px-6 py-4">
                                         <span className={cn(
-                                            "text-[14px] font-bold",
-                                            c.balance === 'KES 0' ? "text-gray-400" : "text-red-500"
+                                            "text-[13px] font-bold",
+                                            c.balance === 'KES 0' ? "text-gray-300 font-medium" : "text-red-500"
                                         )}>
                                             {c.balance}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-5 text-right">
+                                    <td className="px-6 py-4 text-right">
                                         <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button className="p-2 rounded-lg text-[#64748b] hover:bg-white hover:shadow-sm hover:text-blue-500 transition-all">
-                                                <Shield size={16} />
+                                            <button className="p-2 rounded-lg text-gray-400 hover:text-pace-purple transition-all">
+                                                <Edit2 size={14} />
                                             </button>
-                                            <button className="p-2 rounded-lg text-[#64748b] hover:bg-white hover:shadow-sm hover:text-orange-500 transition-all">
-                                                <Edit2 size={16} />
-                                            </button>
-                                            <button className="p-2 rounded-lg text-[#64748b] hover:bg-white hover:shadow-sm hover:text-red-500 transition-all">
-                                                <Trash2 size={16} />
-                                            </button>
-                                            <button className="p-2 rounded-lg text-[#94a3b8] hover:bg-white transition-all">
-                                                <MoreVertical size={18} />
+                                            <button className="p-2 rounded-lg text-gray-400 hover:text-red-500 transition-all">
+                                                <Trash2 size={14} />
                                             </button>
                                         </div>
                                     </td>
@@ -124,14 +118,12 @@ export default function CustomersPage() {
                         </tbody>
                     </table>
                 </div>
-                <div className="p-6 bg-[#f8fafc] border-t border-[#e2e8f0] flex items-center justify-between">
-                    <p className="text-sm text-[#64748b] font-medium">Showing <span className="font-bold text-[#1e293b]">5</span> of <span className="font-bold text-[#1e293b]">1,284</span> customers</p>
-                    <div className="flex items-center gap-2">
-                        <button className="p-2 rounded-lg border border-[#e2e8f0] bg-white text-[#64748b] disabled:opacity-50 cursor-pointer" disabled>Prev</button>
-                        <div className="px-4 py-2 bg-[#4a6cf7] text-white rounded-lg text-xs font-bold shadow-md shadow-blue-500/20">1</div>
-                        <button className="px-4 py-2 border border-[#e2e8f0] bg-white text-[#64748b] rounded-lg text-xs font-bold hover:bg-[#f1f5f9] transition-all">2</button>
-                        <button className="px-4 py-2 border border-[#e2e8f0] bg-white text-[#64748b] rounded-lg text-xs font-bold hover:bg-[#f1f5f9] transition-all">3</button>
-                        <button className="p-2 rounded-lg border border-[#e2e8f0] bg-white text-[#64748b] hover:bg-[#f1f5f9] transition-all">Next</button>
+                <div className="p-5 border-t border-gray-50 flex items-center justify-between">
+                    <p className="text-[12px] text-gray-400 font-medium">Showing 4 entries</p>
+                    <div className="flex items-center gap-1">
+                        <button className="px-3 py-1.5 rounded-lg border border-gray-100 text-[11px] font-bold text-gray-400 bg-white" disabled>Prev</button>
+                        <button className="px-3 py-1.5 rounded-lg bg-pace-purple text-white text-[11px] font-bold">1</button>
+                        <button className="px-3 py-1.5 rounded-lg border border-gray-100 text-[11px] font-bold text-gray-500 hover:bg-gray-50 transition-all">Next</button>
                     </div>
                 </div>
             </div>
