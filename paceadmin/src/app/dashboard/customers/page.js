@@ -2,128 +2,103 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import {
-    Users, Search, Filter, Plus,
-    MoreVertical, Mail, Phone, MapPin,
-    Trash2, Edit2, Shield, UserPlus
-} from 'lucide-react'
+import { Search, Filter, Plus, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function CustomersPage() {
-    const customers = [
-        { id: '1', name: 'John Kamau', email: 'john@example.com', phone: '+254 712 345 678', location: 'Westlands', plan: 'Fiber Pro', status: 'Active', balance: 'KES 0' },
-        { id: '2', name: 'Mary Wanjiku', email: 'mary@example.com', phone: '+254 722 987 654', location: 'Nyali', plan: 'Wireless Home', status: 'Blocked', balance: 'KES 2,500' },
-        { id: '3', name: 'David Omari', email: 'david@example.com', phone: '+254 733 111 222', location: 'Milimani', plan: 'Fiber Lite', status: 'Active', balance: 'KES 0' },
-        { id: '4', name: 'Sarah Atieno', email: 'sarah@example.com', phone: '+254 700 444 555', location: 'Lanet', plan: 'Premium WISP', status: 'Expired', balance: 'KES 4,500' },
+    const isps = [
+        { id: 'REC-001', name: 'SkyNet Solutions Ltd', contact: 'John Kamau', email: 'admin@skynet.co.ke', location: 'Nairobi', license: 'Enterprise', status: 'Active', renewal: '2024-03-22' },
+        { id: 'REC-002', name: 'Coast Connect Ltd', contact: 'Mary Wanjiku', email: 'billing@coastconnect.net', location: 'Mombasa', license: 'Standard', status: 'Verifying', renewal: '2024-02-18' },
+        { id: 'REC-003', name: 'RiftWiFi systems', contact: 'David Omari', email: 'ops@riftwifi.co.ke', location: 'Nakuru', license: 'Enterprise', status: 'Active', renewal: '2024-04-05' },
+        { id: 'REC-004', name: 'Lake Side Internet', contact: 'Sarah Atieno', email: 'dev@lakeside.net', location: 'Kisumu', license: 'Startup', status: 'Active', renewal: '2024-08-12' },
+        { id: 'REC-005', name: 'Alpha Telecom Solutions', contact: 'Kelvin Chirchir', email: 'info@alpha.net', location: 'Eldoret', license: 'Enterprise', status: 'Active', renewal: '2024-06-30' },
     ]
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 font-figtree">
 
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            {/* Page Header */}
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-100 pb-4">
                 <div>
-                    <h1 className="text-2xl font-black text-pace-purple-dark text-[24px]">Client Directory</h1>
-                    <p className="text-[13px] text-gray-500 font-medium">Manage and monitor all your active and pending subscriptions.</p>
+                    <h1 className="text-[20px] font-black text-gray-900 leading-none">Software Tenant Registry</h1>
+                    <p className="text-[12px] text-gray-400 mt-2 font-medium">Detailed database of global ISP software licenses and deployment regions.</p>
                 </div>
-                <button className="flex items-center justify-center gap-2 px-6 py-2.5 bg-pace-purple text-white rounded-xl text-xs font-black shadow-lg shadow-pace-purple/10 hover:opacity-90 transition-all active:scale-95">
-                    <UserPlus size={16} />
-                    Add New Client
+                <button className="flex items-center justify-center gap-2 px-4 py-2 bg-pace-purple text-white rounded text-[12px] font-bold shadow-none hover:opacity-90 transition-all uppercase tracking-widest leading-none">
+                    <Plus size={14} />
+                    Onboard New Entity
                 </button>
             </div>
 
-            {/* Filter Bar - Simplified */}
-            <div className="bg-white p-3 rounded-2xl border border-gray-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
-                <div className="relative w-full md:max-w-md">
-                    <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+            {/* Control Bar - Excel-like */}
+            <div className="flex flex-col md:flex-row items-center gap-2">
+                <div className="relative w-full md:w-80">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300" size={14} />
                     <input
                         type="text"
-                        placeholder="Find client by name..."
-                        className="w-full pl-11 pr-4 py-2 rounded-xl bg-gray-50 border-none focus:ring-1 focus:ring-pace-purple transition-all placeholder:text-gray-400 text-xs font-medium"
+                        placeholder="Lookup by name or ID..."
+                        className="w-full pl-9 pr-3 py-2 rounded border border-gray-200 bg-white focus:ring-1 focus:ring-pace-purple/10 outline-none text-[12px] font-medium"
                     />
                 </div>
-                <div className="flex items-center gap-2 w-full md:w-auto">
-                    <button className="flex-1 md:flex-initial flex items-center justify-center gap-2 px-4 py-2 border border-gray-100 text-gray-500 rounded-xl text-xs font-bold hover:bg-gray-50 transition-all">
-                        <Filter size={14} /> Filter Status
+                <div className="flex items-center gap-2 w-full md:w-auto h-9">
+                    <button className="flex items-center gap-2 px-4 h-full border border-gray-200 text-gray-500 rounded text-[11px] font-bold hover:bg-gray-50 transition-all uppercase tracking-widest leading-none">
+                        <Filter size={12} /> Filter Settings <ChevronDown size={12} />
+                    </button>
+                    <button className="px-4 h-full border border-gray-200 text-gray-400 rounded text-[11px] font-bold hover:bg-gray-50 transition-all uppercase tracking-widest leading-none">
+                        Export CSV
                     </button>
                 </div>
             </div>
 
-            {/* Table Card - Simplified */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            {/* Main Data Sheet - The "Excel" look */}
+            <div className="border border-gray-200 rounded overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
+                    <table className="w-full text-left text-[12px] whitespace-nowrap">
                         <thead>
-                            <tr className="bg-gray-50/50 border-b border-gray-100">
-                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest font-rubik">Customer</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest font-rubik">Service Plan</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest font-rubik">Status</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest font-rubik">Balance</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest font-rubik text-right">Actions</th>
+                            <tr className="bg-gray-50 border-b border-gray-200 font-black text-gray-400 uppercase tracking-widest text-[10px]">
+                                <th className="px-5 py-3 border-r border-gray-100">Record ID</th>
+                                <th className="px-5 py-3 border-r border-gray-100">Enterprise Entity</th>
+                                <th className="px-5 py-3 border-r border-gray-100">Region Zone</th>
+                                <th className="px-5 py-3 border-r border-gray-100">Software tier</th>
+                                <th className="px-5 py-3 border-r border-gray-100 text-center">Software Status</th>
+                                <th className="px-5 py-3 text-right">Renewal Date</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-50">
-                            {customers.map((c, i) => (
-                                <motion.tr
-                                    key={c.id}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: i * 0.05 }}
-                                    className="group hover:bg-gray-50/80 transition-colors"
-                                >
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-9 h-9 rounded-xl bg-pace-purple/5 flex items-center justify-center text-pace-purple font-black text-xs">
-                                                {c.name.charAt(0)}
-                                            </div>
-                                            <div>
-                                                <p className="text-[14px] font-bold text-gray-800 group-hover:text-pace-purple transition-colors leading-none">{c.name}</p>
-                                                <p className="text-[11px] text-gray-400 font-medium mt-1">{c.email}</p>
-                                            </div>
-                                        </div>
+                        <tbody className="divide-y divide-gray-100">
+                            {isps.map((isp) => (
+                                <tr key={isp.id} className="hover:bg-gray-50 transition-colors group">
+                                    <td className="px-5 py-3 font-mono text-gray-300 group-hover:text-gray-900 border-r border-gray-50">{isp.id}</td>
+                                    <td className="px-5 py-3 border-r border-gray-50">
+                                        <p className="font-bold text-gray-900">{isp.name}</p>
+                                        <p className="text-[10px] text-gray-400 font-medium leading-none mt-1">{isp.contact} • {isp.email}</p>
                                     </td>
-                                    <td className="px-6 py-4">
-                                        <span className="text-[13px] font-bold text-gray-700">{c.plan}</span>
+                                    <td className="px-5 py-3 text-gray-500 font-medium border-r border-gray-50">{isp.location}</td>
+                                    <td className="px-5 py-3 border-r border-gray-50 font-bold text-gray-600">
+                                        {isp.license}
                                     </td>
-                                    <td className="px-6 py-4">
+                                    <td className="px-5 py-3 text-center border-r border-gray-50">
                                         <span className={cn(
-                                            "px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider",
-                                            c.status === 'Active' ? "bg-pace-green/10 text-pace-green" :
-                                                c.status === 'Blocked' ? "bg-red-50 text-red-600" :
-                                                    "bg-orange-50 text-orange-600"
-                                        )}>
-                                            {c.status}
-                                        </span>
+                                            "font-black uppercase text-[10px] tracking-widest border-b-2",
+                                            isp.status === 'Active' ? "text-pace-green border-pace-green/20" : "text-orange-500 border-orange-200"
+                                        )}>{isp.status}</span>
                                     </td>
-                                    <td className="px-6 py-4">
-                                        <span className={cn(
-                                            "text-[13px] font-bold",
-                                            c.balance === 'KES 0' ? "text-gray-300 font-medium" : "text-red-500"
-                                        )}>
-                                            {c.balance}
-                                        </span>
+                                    <td className="px-5 py-3 text-right font-black text-gray-900 tracking-tight">
+                                        {isp.renewal}
                                     </td>
-                                    <td className="px-6 py-4 text-right">
-                                        <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button className="p-2 rounded-lg text-gray-400 hover:text-pace-purple transition-all">
-                                                <Edit2 size={14} />
-                                            </button>
-                                            <button className="p-2 rounded-lg text-gray-400 hover:text-red-500 transition-all">
-                                                <Trash2 size={14} />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </motion.tr>
+                                </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
-                <div className="p-5 border-t border-gray-50 flex items-center justify-between">
-                    <p className="text-[12px] text-gray-400 font-medium">Showing 4 entries</p>
+                <div className="p-4 bg-gray-50/50 border-t border-gray-200 flex items-center justify-between font-bold">
+                    <p className="text-[11px] text-gray-400 uppercase tracking-tight">Showing 1 - 5 of 1,284 Software Nodes</p>
                     <div className="flex items-center gap-1">
-                        <button className="px-3 py-1.5 rounded-lg border border-gray-100 text-[11px] font-bold text-gray-400 bg-white" disabled>Prev</button>
-                        <button className="px-3 py-1.5 rounded-lg bg-pace-purple text-white text-[11px] font-bold">1</button>
-                        <button className="px-3 py-1.5 rounded-lg border border-gray-100 text-[11px] font-bold text-gray-500 hover:bg-gray-50 transition-all">Next</button>
+                        <button className="px-3 py-1.5 border border-gray-200 rounded text-[10px] uppercase text-gray-400 hover:text-gray-900 bg-white">Prev</button>
+                        <div className="flex gap-1 h-7">
+                            <button className="w-7 h-full rounded bg-gray-900 text-white text-[10px] font-black">1</button>
+                            <button className="w-7 h-full rounded border border-gray-200 text-gray-400 text-[10px] hover:bg-gray-50">2</button>
+                            <button className="w-7 h-full rounded border border-gray-200 text-gray-400 text-[10px] hover:bg-gray-50">3</button>
+                        </div>
+                        <button className="px-3 py-1.5 border border-gray-200 rounded text-[10px] uppercase text-gray-600 hover:text-gray-900 bg-white">Next</button>
                     </div>
                 </div>
             </div>
