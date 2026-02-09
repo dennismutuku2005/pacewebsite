@@ -2,95 +2,96 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import {
-    CreditCard, DollarSign, ArrowUpRight,
-    ArrowDownRight, MoreHorizontal, Download,
-    ExternalLink, Calendar, CheckCircle2,
-    AlertCircle
-} from 'lucide-react'
+import { ChevronDown, Download, Search } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function PaymentsPage() {
     const transactions = [
-        { id: 'TXN-001', customer: 'James Njuguna', amount: '+ KES 2,500', method: 'M-Pesa', status: 'Completed', date: 'Just now' },
-        { id: 'TXN-002', customer: 'Sarah Omari', amount: '+ KES 4,500', method: 'Bank', status: 'Pending', date: '12m ago' },
-        { id: 'TXN-003', customer: 'David Kingi', amount: '- KES 1,200', method: 'Reversal', status: 'Failed', date: '1h ago' },
+        { id: 'SaaS-0221', customer: 'SkyNet Solutions', amount: 'KES 45,000', method: 'M-PESA B2B', status: 'Cleared', date: '2024-02-09' },
+        { id: 'SaaS-0222', customer: 'Coast Connect Ltd', amount: 'KES 12,500', method: 'Bank Transfer', status: 'Pending', date: '2024-02-09' },
+        { id: 'SaaS-0223', customer: 'RiftWiFi Systems', amount: 'KES 45,000', method: 'M-PESA B2B', status: 'Cleared', date: '2024-02-08' },
+        { id: 'SaaS-0224', customer: 'Lake Side Internet', amount: 'KES 8,000', method: 'Internal Credit', status: 'Cleared', date: '2024-02-08' },
+        { id: 'SaaS-0225', customer: 'Western Fiber Net', amount: 'KES 45,000', method: 'Direct Deposit', status: 'Failed', date: '2024-02-07' },
     ]
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 font-figtree">
 
-            {/* Cards - Simplified, No 3D, No Blue */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-                    <div className="flex justify-between items-start mb-4">
-                        <p className="text-[12px] font-bold text-gray-400 uppercase tracking-widest leading-none">Total Revenue</p>
-                        <div className="p-2 bg-pace-purple/5 text-pace-purple rounded-lg">
-                            <CreditCard size={18} />
-                        </div>
-                    </div>
-                    <h3 className="text-2xl font-black text-gray-900 leading-none">KES 2.4M</h3>
-                    <div className="mt-4 flex items-center gap-1.5 text-[11px] font-bold text-pace-green">
-                        <ArrowUpRight size={14} /> +12.5% <span className="text-gray-400">vs last month</span>
-                    </div>
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-100 pb-4">
+                <div>
+                    <h1 className="text-[20px] font-black text-gray-900 leading-none tracking-tight">Financial Transaction Ledger</h1>
+                    <p className="text-[12px] text-gray-400 mt-2 font-medium">Audited record of subscription revenues and software licensing fees.</p>
                 </div>
-
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-                    <div className="flex justify-between items-start mb-4">
-                        <p className="text-[12px] font-bold text-gray-400 uppercase tracking-widest leading-none">Today's Collection</p>
-                        <div className="p-2 bg-orange-50 text-orange-500 rounded-lg">
-                            <DollarSign size={18} />
-                        </div>
-                    </div>
-                    <h3 className="text-2xl font-black text-gray-900 leading-none">KES 142,500</h3>
-                    <div className="mt-4 flex items-center gap-1.5 text-[11px] font-bold text-pace-green">
-                        <ArrowUpRight size={14} /> +2.3% <span className="text-gray-400">vs yesterday</span>
-                    </div>
-                </div>
-
-                <div className="bg-pace-purple-dark p-6 rounded-2xl shadow-xl flex flex-col justify-between">
-                    <h3 className="text-white text-lg font-black leading-tight">Automated Billing <br /> is Active</h3>
-                    <button className="mt-4 w-full py-2.5 bg-white text-pace-purple-dark rounded-xl text-xs font-black hover:opacity-90 transition-all">
-                        Configure Billing
+                <div className="flex gap-2">
+                    <button className="px-4 py-2 border border-gray-200 text-gray-600 rounded text-[11px] font-bold hover:bg-gray-50 transition-all uppercase tracking-widest leading-none flex items-center gap-2">
+                        <Download size={12} /> Statement
+                    </button>
+                    <button className="px-4 py-2 bg-pace-purple text-white rounded text-[11px] font-bold shadow-none hover:opacity-90 transition-all uppercase tracking-widest leading-none">
+                        Reconcile Feed
                     </button>
                 </div>
             </div>
 
-            {/* Transactions Table - Simplified */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-                <div className="p-6 border-b border-gray-50 flex items-center justify-between">
-                    <h3 className="text-[16px] font-black text-gray-900">Recent Transactions</h3>
-                    <button className="text-[11px] font-bold text-pace-purple border border-pace-purple/20 px-3 py-1.5 rounded-lg hover:bg-pace-purple/5 transition-colors">Export Statement</button>
+            {/* Stats - Grid boxes without shadows */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 border border-gray-200 rounded divide-x divide-gray-200 overflow-hidden">
+                {[
+                    { label: 'Cumulative Revenue', val: 'KES 2,442,500', note: '+12.5% MoM' },
+                    { label: 'Active Subscriptions', val: '984 Total', note: '82 New this month' },
+                    { label: 'Pending Collections', val: 'KES 142,000', note: '12 Invoices Awaiting' },
+                ].map((s) => (
+                    <div key={s.label} className="p-6 bg-white">
+                        <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest leading-none mb-3">{s.label}</p>
+                        <p className="text-[22px] font-black text-gray-900 leading-none">{s.val}</p>
+                        <p className="text-[11px] font-bold text-gray-400 mt-4 uppercase tracking-wide">{s.note}</p>
+                    </div>
+                ))}
+            </div>
+
+            {/* Table Section - The "Excel" Part */}
+            <div className="border border-gray-200 rounded overflow-hidden">
+                <div className="bg-gray-50 px-5 py-3 border-b border-gray-200 flex justify-between items-center">
+                    <div className="flex items-center gap-2">
+                        <Search size={14} className="text-gray-300" />
+                        <input type="text" placeholder="Filter records..." className="bg-transparent border-none outline-none text-[11px] font-bold w-48" />
+                    </div>
+                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Showing last 30 days</span>
                 </div>
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left">
+                    <table className="w-full text-left text-[12px] whitespace-nowrap">
                         <thead>
-                            <tr className="bg-gray-50/50 border-b border-gray-100">
-                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest">ID</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest">Customer</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest text-right">Amount</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest text-center">Status</th>
+                            <tr className="bg-white border-b border-gray-100 font-bold text-gray-400 uppercase tracking-widest text-[10px]">
+                                <th className="px-5 py-3 border-r border-gray-100">Transact ID</th>
+                                <th className="px-5 py-3 border-r border-gray-100">Entity Name</th>
+                                <th className="px-5 py-3 border-r border-gray-100">Revenue Amount</th>
+                                <th className="px-5 py-3 border-r border-gray-100">Method</th>
+                                <th className="px-5 py-3 border-r border-gray-100 text-center">Status</th>
+                                <th className="px-5 py-3 text-right">Processing Date</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-50 text-sm">
-                            {transactions.map((txn, i) => (
-                                <tr key={txn.id} className="hover:bg-gray-50/80 transition-all">
-                                    <td className="px-6 py-4 font-mono text-[12px] text-gray-400 font-bold">{txn.id}</td>
-                                    <td className="px-6 py-4">
-                                        <p className="font-bold text-gray-800 leading-none">{txn.customer}</p>
-                                        <p className="text-[10px] text-gray-400 font-medium mt-1">{txn.method}</p>
+                        <tbody className="divide-y divide-gray-50">
+                            {transactions.map((txn) => (
+                                <tr key={txn.id} className="hover:bg-gray-50 transition-colors group">
+                                    <td className="px-5 py-4 font-mono text-gray-300 group-hover:text-gray-900 border-r border-gray-50">{txn.id}</td>
+                                    <td className="px-5 py-4 border-r border-gray-50">
+                                        <p className="font-bold text-gray-900">{txn.customer}</p>
                                     </td>
-                                    <td className={cn(
-                                        "px-6 py-4 text-right font-black text-[14px]",
-                                        txn.amount.startsWith('+') ? "text-pace-green" : "text-red-500"
-                                    )}>{txn.amount}</td>
-                                    <td className="px-6 py-4 text-center">
+                                    <td className="px-5 py-4 border-r border-gray-50 font-black text-gray-700">
+                                        {txn.amount}
+                                    </td>
+                                    <td className="px-5 py-4 border-r border-gray-50 text-gray-500 font-medium">
+                                        {txn.method}
+                                    </td>
+                                    <td className="px-5 py-4 border-r border-gray-50 text-center">
                                         <span className={cn(
-                                            "px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-widest",
-                                            txn.status === 'Completed' ? "bg-pace-green/10 text-pace-green" :
-                                                txn.status === 'Pending' ? "bg-blue-50 text-blue-600" :
-                                                    "bg-red-50 text-red-600"
+                                            "font-black uppercase text-[10px] tracking-widest border-b-2",
+                                            txn.status === 'Cleared' ? "text-pace-green border-pace-green/20" :
+                                                txn.status === 'Pending' ? "text-blue-500 border-blue-100" :
+                                                    "text-red-500 border-red-100"
                                         )}>{txn.status}</span>
+                                    </td>
+                                    <td className="px-5 py-4 text-right font-bold text-gray-400">
+                                        {txn.date}
                                     </td>
                                 </tr>
                             ))}
