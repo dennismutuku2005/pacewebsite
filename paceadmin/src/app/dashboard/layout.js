@@ -23,6 +23,7 @@ export default function DashboardLayout({ children }) {
         { id: 'billing', name: 'Billing', href: '/dashboard/invoices', icon: Receipt },
         { id: 'network', name: 'Network Nodes', href: '/dashboard/routers', icon: Network },
         { id: 'submissions', name: 'Submissions', href: '/dashboard/applications', icon: FileText, badge: 12 },
+        { id: 'domains', name: 'Domains', href: '/dashboard/domains', icon: Globe },
         { id: 'staff', name: 'System Users', href: '/dashboard/users', icon: ShieldCheck },
         { id: 'chat', name: 'Chat Panel', href: '/dashboard/chat', icon: MessageSquare },
         { id: 'support', name: 'Service Desk', href: '/dashboard/tickets', icon: Ticket },
