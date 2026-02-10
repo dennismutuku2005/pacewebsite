@@ -1,105 +1,92 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 import {
-    Search, Receipt, Download, FileText, Filter, Send, ChevronDown,
-    CheckCircle2, AlertTriangle, Clock, X, CreditCard, Building2,
-    User, Mail, Calendar, ChevronLeft, ChevronRight
+    Search, Download, CreditCard, Clock, Filter, Receipt,
+    MoreHorizontal, CheckCircle2, AlertTriangle, Building2,
+    Zap, Activity, Shield
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Badge } from '@/components/Badge'
+import { Modal } from '@/components/Modal'
+import { Skeleton } from '@/components/Skeleton'
 
 export default function InvoicingPage() {
     const [selectedInvoice, setSelectedInvoice] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 1200)
+        const timer = setTimeout(() => setIsLoading(false), 1000)
         return () => clearTimeout(timer)
     }, [])
 
     const invoices = [
-        { id: 'INV-240201', customer: 'SkyNet Solutions Ltd', amount: 'KES 45,000', date: '2024-02-01', due: '2024-02-15', status: 'Paid', method: 'M-PESA B2B', email: 'admin@skynet.co.ke', contact: 'John Kamau' },
-        { id: 'INV-240202', customer: 'Coast Connect Ltd', amount: 'KES 12,500', date: '2024-02-05', due: '2024-02-19', status: 'Overdue', method: 'Pending', email: 'billing@coastconnect.net', contact: 'Mary Wanjiku' },
-        { id: 'INV-240203', customer: 'RiftWiFi systems', amount: 'KES 45,000', date: '2024-02-06', due: '2024-02-20', status: 'Pending', method: 'Invoice Sent', email: 'ops@riftwifi.co.ke', contact: 'David Omari' },
-        { id: 'INV-240204', customer: 'Lake Side Internet', amount: 'KES 8,000', date: '2024-02-08', due: '2024-02-22', status: 'Partial', method: 'Bank (3k)', email: 'dev@lakeside.net', contact: 'Sarah Atieno' },
-        { id: 'INV-240205', customer: 'Alpha Telecom', amount: 'KES 45,000', date: '2024-02-09', due: '2024-02-23', status: 'Draft', method: 'Auto-Gen', email: 'info@alpha.net', contact: 'Kelvin Chirchir' },
+        { id: 'INV-240201', customer: 'SkyNet Solutions Ltd', amount: 'KES 45,000', date: '2024-02-01', status: 'Paid', channel: 'Paybill 247247', acc: 'ACC-82710' },
+        { id: 'INV-240202', customer: 'Coast Connect Ltd', amount: 'KES 12,500', date: '2024-02-05', status: 'Overdue', channel: 'Paybill 247247', acc: 'ACC-11932' },
+        { id: 'INV-240203', customer: 'RiftWiFi systems', amount: 'KES 45,000', date: '2024-02-06', status: 'Pending', channel: 'Paybill 880880', acc: 'ACC-44501' },
     ]
 
-    const TableSkeleton = () => (
-        <div className="animate-pulse">
-            {[...Array(5)].map((_, i) => (
-                <div key={i} className="flex border-b border-gray-50 h-[64px]">
-                    <div className="w-[15%] bg-gray-50 h-3 my-auto mx-5 rounded"></div>
-                    <div className="flex-1 bg-gray-50 h-3 my-auto mx-5 rounded"></div>
-                    <div className="w-[15%] bg-gray-50 h-3 my-auto mx-5 rounded"></div>
-                    <div className="w-[15%] bg-gray-50 h-3 my-auto mx-5 rounded"></div>
-                    <div className="w-[15%] bg-gray-50 h-3 my-auto mx-5 rounded"></div>
-                    <div className="w-[15%] bg-gray-50 h-3 my-auto mx-5 rounded"></div>
-                </div>
-            ))}
-        </div>
-    )
+    const getStatusVariant = (status) => {
+        if (status === 'Paid') return 'success'
+        if (status === 'Overdue') return 'error'
+        if (status === 'Pending') return 'warning'
+        return 'default'
+    }
 
     return (
         <div className="space-y-6 font-figtree">
-
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-100 pb-4">
                 <div>
-                    <h1 className="text-[20px] font-black text-admin-value leading-none tracking-tight">Billing & Invoicing</h1>
-                    <p className="text-[12px] text-admin-label mt-2 font-medium">Manage client subscriptions, payments, and billing cycles.</p>
+                    <h1 className="text-[20px] font-black text-admin-value leading-tight tracking-tight text-pace-purple">Financial Operations</h1>
+                    <p className="text-[12px] text-admin-label mt-1 font-medium tracking-tight">Management of payment channels, paybills, and client receivables.</p>
                 </div>
                 <div className="flex gap-2">
-                    <button className="px-4 py-2 border border-pace-border text-admin-label rounded text-[11px] font-black hover:border-pace-purple transition-all uppercase tracking-widest leading-none flex items-center gap-2 bg-white">
-                        <Download size={14} /> Export Report
-                    </button>
-                    <button className="px-4 py-2 bg-pace-purple text-white rounded text-[11px] font-black shadow-none hover:bg-[#3d1a75] transition-all uppercase tracking-widest leading-none">
-                        Send All Invoices
+                    <button className="px-4 py-2 border border-gray-200 text-admin-label rounded-lg text-[11px] font-black hover:border-pace-purple transition-all uppercase tracking-widest bg-white">
+                        Export Records
                     </button>
                 </div>
             </div>
 
-            {/* Invoicing Summary */}
-            <div className="grid grid-cols-1 sm:grid-cols-4 border border-pace-border rounded divide-x divide-pace-border overflow-hidden bg-white shadow-none">
+            {/* Financial Summary Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                 {[
-                    { label: 'Total Billed', val: 'KES 4.22M', note: 'This Month' },
-                    { label: 'Payments Received', val: 'KES 3.10M', note: 'Collected' },
-                    { label: 'Pending Payments', val: 'KES 840k', note: 'Awaiting' },
-                    { label: 'Overdue Amount', val: 'KES 284k', note: 'Needs Attention', color: 'text-red-500' },
+                    { label: 'Total Billed', val: 'KES 4.22M', status: 'info', icon: Receipt },
+                    { label: 'Payments Received', val: 'KES 3.10M', status: 'success', icon: CheckCircle2 },
+                    { label: 'Active Paybills', val: '5 Channels', status: 'success', icon: Zap },
+                    { label: 'Pending Auth', val: 'KES 284k', status: 'warning', icon: AlertTriangle },
                 ].map((s, i) => (
-                    <div key={i} className="p-5">
-                        <p className="text-[10px] font-black text-admin-label uppercase tracking-widest leading-none mb-3">{s.label}</p>
-                        {isLoading ? <div className="h-6 w-24 bg-gray-50 animate-pulse rounded"></div> : (
-                            <h4 className={cn("text-[20px] font-black leading-none tracking-tight", s.color || "text-admin-value")}>{s.val}</h4>
-                        )}
-                        <p className="text-[10px] font-bold text-admin-dim mt-3 uppercase tracking-wider">{s.note}</p>
+                    <div key={i} className="bg-white border border-gray-100 rounded-xl p-5 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="p-2 bg-gray-50 rounded-lg text-admin-dim">
+                                <s.icon size={18} />
+                            </div>
+                            <Badge variant={s.status} className="scale-90">Live</Badge>
+                        </div>
+                        <p className="text-[9px] font-black text-admin-label uppercase tracking-widest leading-none mb-2">{s.label}</p>
+                        <h4 className="text-[18px] font-black text-admin-value leading-none">{s.val}</h4>
                     </div>
                 ))}
             </div>
 
             {/* Invoices List Controls */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4 h-9">
-                <div className="flex items-center gap-2 w-full md:w-auto h-full">
-                    <div className="relative w-full md:w-64 h-full">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-admin-dim" size={14} />
-                        <input
-                            type="text"
-                            placeholder="Search by Invoice ID or Client..."
-                            className="w-full h-full pl-9 pr-3 rounded border border-pace-border bg-white focus:ring-1 focus:ring-pace-purple/10 focus:border-pace-purple outline-none text-[11px] font-black transition-all placeholder:text-admin-dim text-admin-value"
-                        />
-                    </div>
-                    <button className="px-6 h-full border border-pace-border text-admin-label rounded text-[11px] font-black hover:border-pace-purple hover:text-pace-purple bg-white transition-all uppercase tracking-widest">
-                        Search
-                    </button>
+            <div className="flex flex-col md:flex-row items-center gap-3">
+                <div className="relative w-full md:w-80">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-admin-dim" size={14} />
+                    <input
+                        type="text"
+                        placeholder="Search Invoice or Account..."
+                        className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-gray-200 bg-white focus:ring-1 focus:ring-pace-purple/10 focus:border-pace-purple outline-none text-[12px] font-bold text-admin-value"
+                    />
                 </div>
-                <div className="flex gap-2 h-8">
+                <div className="flex gap-2">
                     {['All', 'Paid', 'Pending', 'Overdue'].map((tab) => (
                         <button
                             key={tab}
                             className={cn(
-                                "px-4 h-full rounded text-[10px] font-black uppercase tracking-[1.5px] transition-all border",
-                                tab === 'All' ? "bg-pace-purple text-white border-pace-purple" : "bg-white text-admin-label border-pace-border hover:border-pace-purple hover:text-pace-purple"
+                                "px-4 py-2.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border",
+                                tab === 'All' ? "bg-pace-purple text-white border-pace-purple shadow-sm" : "bg-white text-admin-label border-gray-200 hover:border-pace-purple"
                             )}
                         >
                             {tab}
@@ -108,52 +95,63 @@ export default function InvoicingPage() {
                 </div>
             </div>
 
-            {/* Main Invoice Table */}
-            <div className="border border-pace-border rounded overflow-hidden bg-white shadow-none">
+            {/* Main Table */}
+            <div className="border border-gray-100 rounded-xl overflow-hidden bg-white shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-[12px] whitespace-nowrap">
                         <thead>
-                            <tr className="bg-pace-bg-subtle border-b border-pace-border font-black text-admin-label uppercase tracking-[2px] text-[10px]">
-                                <th className="px-5 py-3 border-r border-gray-100">Invoice ID</th>
-                                <th className="px-5 py-3 border-r border-gray-100">Client Name</th>
-                                <th className="px-5 py-3 border-r border-gray-100 text-center">Amount</th>
-                                <th className="px-5 py-3 border-r border-gray-100 text-center">Due Date</th>
-                                <th className="px-5 py-3 border-r border-gray-100 text-center">Status</th>
-                                <th className="px-5 py-3 text-right">Actions</th>
+                            <tr className="bg-gray-50 border-b border-gray-100 font-black text-admin-label uppercase tracking-widest text-[9px]">
+                                <th className="px-6 py-4">Transaction ID</th>
+                                <th className="px-6 py-4">Subscriber Entity</th>
+                                <th className="px-6 py-4">Linked Channel</th>
+                                <th className="px-6 py-4 text-center">Amount</th>
+                                <th className="px-6 py-4 text-center">Status</th>
+                                <th className="px-6 py-4 text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-100">
+                        <tbody className="divide-y divide-gray-50">
                             {isLoading ? (
-                                <tr><td colSpan="6"><TableSkeleton /></td></tr>
+                                [...Array(4)].map((_, i) => (
+                                    <tr key={i}>
+                                        <td className="px-6 py-5"><Skeleton className="h-4 w-24" /></td>
+                                        <td className="px-6 py-5"><Skeleton className="h-4 w-48" /></td>
+                                        <td className="px-6 py-5"><Skeleton className="h-4 w-32" /></td>
+                                        <td className="px-6 py-5 text-center"><Skeleton className="h-4 w-16 mx-auto" /></td>
+                                        <td className="px-6 py-5 text-center"><Skeleton className="h-6 w-20 mx-auto" /></td>
+                                        <td className="px-6 py-5 text-right"><Skeleton className="h-8 w-8 ml-auto" /></td>
+                                    </tr>
+                                ))
                             ) : (
                                 invoices.map((inv) => (
                                     <tr
                                         key={inv.id}
                                         onClick={() => setSelectedInvoice(inv)}
-                                        className="hover:bg-gray-50 transition-all group cursor-pointer"
+                                        className="hover:bg-gray-50/50 transition-all group cursor-pointer"
                                     >
-                                        <td className="px-5 py-4 border-r border-gray-50 font-mono text-admin-dim group-hover:text-admin-value transition-colors uppercase font-black">{inv.id}</td>
-                                        <td className="px-5 py-4 border-r border-gray-50">
-                                            <p className="font-black text-admin-value leading-none">{inv.customer}</p>
-                                            <p className="text-[10px] text-admin-label font-black uppercase tracking-[2px] mt-1.5 flex items-center gap-1.5 opacity-70">
-                                                <Clock size={11} /> Sent: {inv.date}
-                                            </p>
+                                        <td className="px-6 py-5 font-mono text-admin-dim group-hover:text-pace-purple transition-colors uppercase font-black">{inv.id}</td>
+                                        <td className="px-6 py-5">
+                                            <p className="font-black text-admin-value leading-none uppercase">{inv.customer}</p>
+                                            <div className="flex items-center gap-2 mt-1.5 font-bold text-admin-dim">
+                                                <Badge variant="info" className="scale-90 border-none bg-pace-purple/10 px-1">{inv.acc}</Badge>
+                                                <p className="text-[10px] uppercase opacity-70 italic tracking-tight">{inv.date}</p>
+                                            </div>
                                         </td>
-                                        <td className="px-5 py-4 border-r border-gray-50 text-center font-black text-admin-value">
+                                        <td className="px-6 py-5">
+                                            <div className="flex items-center gap-2">
+                                                <CreditCard size={12} className="text-admin-dim" />
+                                                <span className="font-bold text-admin-label uppercase tracking-tight">{inv.channel}</span>
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-5 text-center font-black text-admin-value">
                                             {inv.amount}
                                         </td>
-                                        <td className="px-5 py-4 border-r border-gray-50 text-center font-bold text-admin-label">
-                                            {inv.due}
+                                        <td className="px-6 py-5 text-center">
+                                            <Badge variant={getStatusVariant(inv.status)}>{inv.status}</Badge>
                                         </td>
-                                        <td className="px-5 py-4 border-r border-gray-50 text-center">
-                                            <span className="font-black uppercase text-[10px] tracking-widest border-b-2 border-gray-100 text-admin-label">{inv.status}</span>
-                                            <p className="text-[9px] font-bold text-admin-dim mt-1 uppercase tracking-tight">{inv.method}</p>
-                                        </td>
-                                        <td className="px-5 py-4 text-right">
-                                            <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <button title="Download PDF" className="p-2 border border-pace-border rounded bg-white hover:border-pace-purple text-admin-dim hover:text-pace-purple transition-all font-black text-[10px]">PDF</button>
-                                                <button title="View Record" className="px-4 py-2 border border-pace-border rounded bg-white hover:border-pace-purple text-admin-label hover:text-pace-purple transition-all font-black uppercase tracking-widest text-[9px]">Open</button>
-                                            </div>
+                                        <td className="px-6 py-5 text-right">
+                                            <button className="p-2 text-admin-dim hover:text-pace-purple hover:bg-white rounded transition-all">
+                                                <MoreHorizontal size={16} />
+                                            </button>
                                         </td>
                                     </tr>
                                 ))
@@ -161,60 +159,54 @@ export default function InvoicingPage() {
                         </tbody>
                     </table>
                 </div>
-
-                {/* Pagination */}
-                <div className="p-4 bg-gray-50/50 border-t border-pace-border flex items-center justify-between">
-                    <p className="text-[11px] text-admin-label font-black uppercase tracking-tight">Active Invoices: {invoices.length} entries</p>
-                    <div className="flex items-center gap-1 h-8">
-                        <button className="px-3 h-full border border-pace-border rounded text-[10px] uppercase text-admin-label hover:text-admin-value bg-white font-black hover:border-pace-purple transition-all">
-                            <ChevronLeft size={14} />
-                        </button>
-                        <div className="flex gap-1 h-full">
-                            <button className="w-8 h-full rounded bg-pace-purple text-white text-[10px] font-black">1</button>
-                        </div>
-                        <button className="px-3 h-full border border-pace-border rounded text-[10px] uppercase text-admin-label hover:text-admin-value bg-white font-black hover:border-pace-purple transition-all">
-                            <ChevronRight size={14} />
-                        </button>
-                    </div>
-                </div>
             </div>
 
-            {/* Individual Details Modal... */}
-            <AnimatePresence>
+            {/* Details Modal */}
+            <Modal
+                isOpen={!!selectedInvoice}
+                onClose={() => setSelectedInvoice(null)}
+                title="Transaction Audit"
+                maxWidth="max-w-xl"
+                footer={
+                    <>
+                        <button onClick={() => setSelectedInvoice(null)} className="px-6 py-2 border border-gray-200 text-admin-label rounded-lg font-black uppercase text-[10px] tracking-widest hover:bg-gray-50">Close</button>
+                        <button className="px-8 py-2 bg-pace-purple text-white rounded-lg font-black uppercase text-[10px] tracking-widest hover:bg-[#3d1a75]">Send Receipt</button>
+                    </>
+                }
+            >
                 {selectedInvoice && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedInvoice(null)} className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
-                        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="relative bg-white w-full max-w-2xl rounded border border-pace-border shadow-none overflow-hidden flex flex-col">
-                            <div className="px-6 py-4 bg-pace-bg-subtle border-b border-pace-border flex justify-between items-center">
-                                <h3 className="text-[14px] font-black text-admin-value uppercase tracking-[2px]">Invoice Details - {selectedInvoice.id}</h3>
-                                <button onClick={() => setSelectedInvoice(null)} className="text-admin-dim hover:text-admin-value transition-colors"><X size={20} /></button>
+                    <div className="space-y-6">
+                        <div className="flex justify-between items-start">
+                            <div className="space-y-1">
+                                <p className="text-[10px] font-black text-admin-label uppercase tracking-widest">Subscriber Identity</p>
+                                <h3 className="text-[16px] font-black text-admin-value uppercase">{selectedInvoice.customer}</h3>
+                                <p className="text-[11px] font-bold text-admin-dim uppercase">Account: {selectedInvoice.acc}</p>
                             </div>
-                            <div className="p-8 space-y-8">
-                                <div className="grid grid-cols-2 gap-12">
-                                    <div className="space-y-4">
-                                        <p className="text-[10px] font-black text-admin-label uppercase tracking-widest leading-none">Billing Information</p>
-                                        <div>
-                                            <p className="text-[20px] font-black text-admin-value leading-none">{selectedInvoice.customer}</p>
-                                            <p className="text-[12px] text-admin-label font-black mt-2 uppercase tracking-tight">{selectedInvoice.contact}</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right space-y-4">
-                                        <p className="text-[10px] font-black text-admin-label uppercase tracking-widest leading-none">Total Amount</p>
-                                        <div>
-                                            <p className="text-[28px] font-black text-admin-value leading-none tracking-tight">{selectedInvoice.amount}</p>
-                                            <p className="text-[12px] font-black mt-2 uppercase tracking-widest text-admin-label">{selectedInvoice.status}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex justify-end gap-3 pt-8 border-t border-gray-50">
-                                    <button onClick={() => setSelectedInvoice(null)} className="px-6 py-2 border border-pace-border text-admin-label rounded font-black uppercase tracking-widest text-[11px] bg-white">Close</button>
-                                    <button className="px-8 py-2 bg-pace-purple text-white rounded font-black uppercase tracking-widest text-[11px]">Send Receipt</button>
+                            <div className="text-right">
+                                <Badge variant={getStatusVariant(selectedInvoice.status)} className="mb-2">{selectedInvoice.status}</Badge>
+                                <p className="text-[24px] font-black text-admin-value">{selectedInvoice.amount}</p>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="p-4 bg-gray-50 border border-gray-100 rounded-xl">
+                                <p className="text-[10px] font-black text-admin-dim uppercase tracking-widest mb-2">Payment Channel</p>
+                                <div className="flex items-center gap-2">
+                                    <Zap size={14} className="text-pace-purple" />
+                                    <p className="text-[13px] font-black text-admin-value uppercase">{selectedInvoice.channel}</p>
                                 </div>
                             </div>
-                        </motion.div>
+                            <div className="p-4 bg-gray-50 border border-gray-100 rounded-xl">
+                                <p className="text-[10px] font-black text-admin-dim uppercase tracking-widest mb-2">Verification Status</p>
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 size={14} className="text-pace-green" />
+                                    <p className="text-[13px] font-black text-admin-value uppercase">Auto-Reconciled</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 )}
-            </AnimatePresence>
+            </Modal>
         </div>
     )
 }
