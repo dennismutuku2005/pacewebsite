@@ -4,6 +4,7 @@ import React from 'react'
 import { Search } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Skeleton } from '@/components/Skeleton'
+import { Badge } from '@/components/Badge'
 
 export default function ApplicationsPage() {
     const [isLoading, setIsLoading] = React.useState(true)
@@ -30,10 +31,10 @@ export default function ApplicationsPage() {
                     <p className="text-[12px] text-admin-label mt-1 font-medium tracking-tight">Manage and process incoming member inquiries.</p>
                 </div>
                 <div className="flex gap-2">
-                    <button className="px-4 py-2 border border-pace-border text-admin-label rounded text-[11px] font-black hover:border-pace-purple hover:text-pace-purple transition-all uppercase tracking-widest bg-white">
+                    <button className="px-4 py-2 border border-pace-border text-admin-label rounded-lg text-[11px] font-black hover:border-pace-purple hover:text-pace-purple transition-all uppercase tracking-widest bg-white">
                         Archived Inbox
                     </button>
-                    <button className="px-4 py-2 bg-pace-purple text-white rounded text-[11px] font-black hover:bg-[#3d1a75] transition-all uppercase tracking-widest">
+                    <button className="px-4 py-2 bg-pace-purple text-white rounded-lg text-[11px] font-black hover:bg-[#3d1a75] transition-all uppercase tracking-widest">
                         New Entry
                     </button>
                 </div>
@@ -46,11 +47,11 @@ export default function ApplicationsPage() {
                     <input
                         type="text"
                         placeholder="Search summaries..."
-                        className="w-full pl-9 pr-3 py-2.5 rounded border border-gray-200 bg-white focus:ring-1 focus:ring-pace-purple/10 focus:border-pace-purple outline-none text-[12px] font-bold text-admin-value placeholder:text-admin-dim"
+                        className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-gray-200 bg-white focus:ring-1 focus:ring-pace-purple/10 focus:border-pace-purple outline-none text-[12px] font-bold text-admin-value placeholder:text-admin-dim"
                     />
                 </div>
                 <div className="flex gap-2">
-                    <select className="px-4 py-2.5 bg-white border border-gray-200 rounded text-[11px] font-black uppercase tracking-widest outline-none focus:border-pace-purple">
+                    <select className="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-[11px] font-black uppercase tracking-widest outline-none focus:border-pace-purple">
                         <option>Status: All</option>
                         <option>Pending</option>
                         <option>Approved</option>
@@ -59,7 +60,7 @@ export default function ApplicationsPage() {
             </div>
 
             {/* Main Table */}
-            <div className="border border-gray-100 rounded-lg overflow-hidden bg-white shadow-none">
+            <div className="border border-gray-100 rounded-xl overflow-hidden bg-white shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-[12px] whitespace-nowrap">
                         <thead>
@@ -72,7 +73,7 @@ export default function ApplicationsPage() {
                                 <th className="px-6 py-4 text-right">Received</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-100">
+                        <tbody className="divide-y divide-gray-50">
                             {isLoading ? (
                                 [...Array(4)].map((_, i) => (
                                     <tr key={i}>
@@ -86,7 +87,7 @@ export default function ApplicationsPage() {
                                 ))
                             ) : (
                                 submissions.map((sub) => (
-                                    <tr key={sub.id} className="hover:bg-gray-50 transition-all group cursor-pointer">
+                                    <tr key={sub.id} className="hover:bg-gray-50/50 transition-colors group cursor-pointer">
                                         <td className="px-6 py-5 font-mono text-admin-dim group-hover:text-pace-purple transition-colors font-black uppercase">{sub.id}</td>
                                         <td className="px-6 py-5">
                                             <p className="font-black text-admin-value leading-none uppercase">{sub.entity}</p>
@@ -94,13 +95,10 @@ export default function ApplicationsPage() {
                                         </td>
                                         <td className="px-6 py-5 font-bold text-admin-label uppercase tracking-tighter">{sub.zone}</td>
                                         <td className="px-6 py-5 text-center">
-                                            <span className="font-black text-admin-value uppercase text-[10px] tracking-widest border border-gray-200 px-2 py-0.5 rounded-sm bg-gray-50/50">{sub.tier}</span>
+                                            <Badge variant="info" className="bg-gray-50/50 border-gray-200">{sub.tier}</Badge>
                                         </td>
                                         <td className="px-6 py-5 text-center">
-                                            <span className={cn(
-                                                "font-black uppercase text-[10px] tracking-widest px-2 py-0.5 rounded-sm border",
-                                                sub.status === 'Approved' ? "text-pace-green bg-pace-green/5 border-pace-green/10" : "text-admin-dim bg-gray-50 border-gray-100"
-                                            )}>{sub.status}</span>
+                                            <Badge variant={sub.status === 'Approved' ? 'success' : 'default'}>{sub.status}</Badge>
                                         </td>
                                         <td className="px-6 py-5 text-right font-black text-admin-dim group-hover:text-admin-value transition-colors uppercase">
                                             {sub.age}
