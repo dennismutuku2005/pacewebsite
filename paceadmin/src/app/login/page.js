@@ -4,15 +4,15 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { Lock, User } from 'lucide-react'
+import { Spinner, LoadingButton } from '@/components/Loader'
 
 export default function LoginPage() {
     const router = useRouter()
-    const [isLoading, setIsLoading] = useState(false)
+    const [isAuthenticating, setIsAuthenticating] = useState(false)
 
-    const handleLogin = (e) => {
+    const enterDashboard = (e) => {
         e.preventDefault()
-        setIsLoading(true)
+        setIsAuthenticating(true)
         setTimeout(() => {
             router.push('/dashboard')
         }, 1200)
@@ -21,7 +21,7 @@ export default function LoginPage() {
     return (
         <div className="h-screen w-screen flex bg-[#F9FAFB] font-figtree text-[13px] overflow-hidden">
 
-            {/* Login Container - Flat 2D */}
+            {/* Login Container - Minimalist 2D */}
             <div className="w-full lg:w-[500px] h-full bg-white border-r border-gray-200 flex flex-col justify-center px-12 lg:px-20 relative">
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -32,13 +32,13 @@ export default function LoginPage() {
                         <div className="flex mb-8">
                             <Image src="/logo.png" alt="Pace Logo" width={90} height={30} className="h-7 w-auto object-contain grayscale" priority />
                         </div>
-                        <h1 className="text-[24px] font-black text-admin-value leading-none tracking-tight">Admin Portal</h1>
-                        <p className="text-[12px] text-admin-label mt-3 font-bold uppercase tracking-tight">Sign in to manage your system</p>
+                        <h1 className="text-[24px] font-black text-admin-value leading-none tracking-tight">Main Portal</h1>
+                        <p className="text-[12px] text-admin-label mt-3 font-bold uppercase tracking-tight">Enter your credentials</p>
                     </div>
 
-                    <form onSubmit={handleLogin} className="space-y-5">
+                    <form onSubmit={enterDashboard} className="space-y-5">
                         <div>
-                            <label className="block text-[10px] font-black text-admin-label mb-2 uppercase tracking-[2px]">Email Address</label>
+                            <label className="block text-[10px] font-black text-admin-label mb-2 uppercase tracking-[2px]">Email</label>
                             <input
                                 type="email"
                                 required
@@ -59,13 +59,14 @@ export default function LoginPage() {
                             />
                         </div>
 
-                        <button
+                        <LoadingButton
                             type="submit"
-                            disabled={isLoading}
-                            className="w-full bg-pace-purple text-white py-3.5 rounded font-black text-[12px] uppercase tracking-[3px] hover:bg-[#3d1a75] transition-all active:scale-[0.99] flex items-center justify-center mt-6 shadow-none"
+                            isLoading={isAuthenticating}
+                            loadingText="Authenticating..."
+                            className="w-full bg-pace-purple text-white py-3.5 rounded font-black text-[12px] uppercase tracking-[3px] hover:bg-[#3d1a75] transition-all active:scale-[0.99] mt-6 shadow-none"
                         >
-                            {isLoading ? "Signing in..." : "Login to Dashboard"}
-                        </button>
+                            Open Dashboard
+                        </LoadingButton>
                     </form>
 
                     <div className="mt-16 pt-10 border-t border-gray-50">
