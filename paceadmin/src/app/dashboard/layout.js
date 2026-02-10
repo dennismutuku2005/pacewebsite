@@ -9,7 +9,7 @@ import {
     Activity, FileText, Search, Menu,
     LogOut, ChevronRight, Clock,
     LayoutDashboard, Network, Receipt,
-    ShieldCheck, MessageSquare
+    ShieldCheck, MessageSquare, Globe
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
