@@ -62,7 +62,7 @@ export default function DashboardPage() {
                     [...Array(4)].map((_, i) => <CardSkeleton key={i} />)
                 ) : (
                     metrics.map((metric, i) => (
-                        <div key={i} className="bg-white border border-pace-border rounded p-5 flex flex-col justify-between hover:border-pace-purple transition-all group relative overflow-hidden">
+                        <div key={i} className="bg-white border border-gray-100 rounded-xl p-6 flex flex-col justify-between hover:border-pace-purple/30 hover:bg-gray-50/30 transition-all group relative overflow-hidden shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
                             <div className="flex justify-between items-start mb-4">
                                 <div className="w-10 h-10 rounded bg-gray-50 flex items-center justify-center text-admin-dim group-hover:text-pace-purple group-hover:bg-pace-purple/5 transition-all">
                                     <metric.icon size={20} />
@@ -158,7 +158,7 @@ export default function DashboardPage() {
 
                         {/* Fast Actions/Monitoring Column */}
                         <div className="space-y-4">
-                            <div className="border border-pace-border rounded bg-white p-6 space-y-6">
+                            <div className="border border-gray-100 rounded-xl bg-white p-6 space-y-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
                                 <h4 className="text-[10px] font-black text-admin-label uppercase tracking-widest">Core Operations</h4>
                                 <div className="space-y-4">
                                     {[
@@ -180,7 +180,7 @@ export default function DashboardPage() {
                                 </button>
                             </div>
 
-                            <div className="border border-pace-border rounded bg-pace-purple p-6 text-white space-y-4 relative overflow-hidden group">
+                            <div className="rounded-xl bg-gradient-to-br from-pace-purple to-[#3d1a75] p-6 text-white space-y-4 relative overflow-hidden group shadow-[0_8px_24px_rgba(75,29,143,0.2)]">
                                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
                                     <Zap size={80} />
                                 </div>
@@ -189,7 +189,7 @@ export default function DashboardPage() {
                                     <h4 className="text-[13px] font-black uppercase tracking-widest">Express Setup</h4>
                                     <p className="text-[11px] opacity-70 mt-2 leading-relaxed">Instantly provision a new router node for a member using pre-configured CCR templates.</p>
                                 </div>
-                                <button className="w-full py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded text-[10px] font-black uppercase tracking-widest transition-all relative z-10">
+                                <button className="w-full py-2.5 bg-white text-pace-purple border border-white/20 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all relative z-10 hover:bg-opacity-90">
                                     Start Deployment
                                 </button>
                             </div>
