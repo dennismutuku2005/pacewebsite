@@ -68,7 +68,7 @@ export default function DashboardLayout({ children }) {
                                 className={cn(
                                     "flex items-center gap-3 px-3 py-2.5 rounded transition-colors group relative",
                                     isActive
-                                        ? "bg-pace-purple text-white shadow-none"
+                                        ? "bg-pace-purple text-white shadow-[0_4px_12px_rgba(75,29,143,0.3)]"
                                         : "text-admin-label hover:bg-gray-50 hover:text-admin-value"
                                 )}
                             >
