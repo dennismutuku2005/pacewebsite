@@ -8,7 +8,8 @@ import {
     Users, CreditCard, Ticket, Settings,
     Activity, FileText, Search, Menu,
     LogOut, ChevronRight, Clock,
-    LayoutDashboard, Network, Receipt
+    LayoutDashboard, Network, Receipt,
+    ShieldCheck, MessageSquare
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -17,16 +18,18 @@ export default function DashboardLayout({ children }) {
     const pathname = usePathname()
 
     const navigation = [
-        { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
-        { id: 'clients', name: 'Clients', href: '/dashboard/customers', icon: Users },
-        { id: 'invoicing', name: 'Invoicing', href: '/dashboard/invoices', icon: Receipt },
-        { id: 'routers', name: 'Routers', href: '/dashboard/routers', icon: Network },
-        { id: 'apps', name: 'Applications', href: '/dashboard/applications', icon: FileText },
-        { id: 'support', name: 'Support', href: '/dashboard/tickets', icon: Ticket },
-        { id: 'payments', name: 'Payments', href: '/dashboard/payments', icon: CreditCard },
-        { id: 'status', name: 'System Status', href: '/dashboard/status', icon: Activity },
-        { id: 'logs', name: 'Audit Logs', href: '/dashboard/logs', icon: Clock },
-        { id: 'settings', name: 'Settings', href: '/dashboard/settings', icon: Settings },
+        { name: 'Summary', href: '/dashboard', icon: LayoutDashboard },
+        { id: 'members', name: 'Members', href: '/dashboard/customers', icon: Users },
+        { id: 'billing', name: 'Billing', href: '/dashboard/invoices', icon: Receipt },
+        { id: 'network', name: 'Network Nodes', href: '/dashboard/routers', icon: Network },
+        { id: 'submissions', name: 'Submissions', href: '/dashboard/applications', icon: FileText, badge: 12 },
+        { id: 'staff', name: 'System Users', href: '/dashboard/users', icon: ShieldCheck },
+        { id: 'chat', name: 'Chat Panel', href: '/dashboard/chat', icon: MessageSquare },
+        { id: 'support', name: 'Service Desk', href: '/dashboard/tickets', icon: Ticket },
+        { id: 'payments', name: 'Financials', href: '/dashboard/payments', icon: CreditCard },
+        { id: 'status', name: 'Health Hub', href: '/dashboard/status', icon: Activity },
+        { id: 'logs', name: 'Event History', href: '/dashboard/logs', icon: Clock },
+        { id: 'settings', name: 'Preferences', href: '/dashboard/settings', icon: Settings },
     ]
 
     // Helper to format path name for breadcrumbs
@@ -63,14 +66,26 @@ export default function DashboardLayout({ children }) {
                                 key={item.name}
                                 href={item.href}
                                 className={cn(
-                                    "flex items-center gap-3 px-3 py-2.5 rounded transition-colors group",
+                                    "flex items-center gap-3 px-3 py-2.5 rounded transition-colors group relative",
                                     isActive
                                         ? "bg-pace-purple text-white shadow-none"
                                         : "text-admin-label hover:bg-gray-50 hover:text-admin-value"
                                 )}
                             >
                                 <item.icon size={16} className={cn("shrink-0", isActive ? "text-white" : "text-admin-dim group-hover:text-admin-value")} />
-                                {isSidebarOpen && <span className="font-bold tracking-tight">{item.name}</span>}
+                                {isSidebarOpen && (
+                                    <div className="flex-1 flex items-center justify-between">
+                                        <span className="font-bold tracking-tight">{item.name}</span>
+                                        {item.badge && (
+                                            <span className={cn(
+                                                "text-[9px] px-1.5 py-0.5 rounded-full font-black min-w-[18px] text-center",
+                                                isActive ? "bg-white text-pace-purple" : "bg-pace-purple text-white"
+                                            )}>
+                                                {item.badge}
+                                            </span>
+                                        )}
+                                    </div>
+                                )}
                             </Link>
                         )
                     })}
