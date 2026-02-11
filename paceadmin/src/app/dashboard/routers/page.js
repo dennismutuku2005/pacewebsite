@@ -37,17 +37,17 @@ export default function RoutersPage() {
 
             {/* Header */}
             <div className="border-b border-gray-100 pb-4">
-                <h1 className="text-[20px] font-black text-admin-value leading-none">Router & Network Inventory</h1>
-                <p className="text-[12px] text-admin-label mt-2 font-medium">View and manage hardware connected to client accounts.</p>
+                <h1 className="text-[20px] font-black text-admin-value leading-none">Managed Client Routers</h1>
+                <p className="text-[12px] text-admin-label mt-2 font-medium">Monitor and synchronize services on hardware provisioned by your clients.</p>
             </div>
 
             {/* Network Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 border border-pace-border rounded divide-x divide-pace-border overflow-hidden bg-white shadow-none">
                 {[
-                    { label: 'Total Routers', val: '1,422', note: 'Active Devices' },
-                    { label: 'Current Traffic', val: '4.2 Gbps', note: 'Global Flow' },
-                    { label: 'System Uptime', val: '99.98%', note: 'Network Wide' },
-                    { label: 'Issues Found', val: '02', note: 'Items to Check', color: 'text-orange-500' },
+                    { label: 'Managed Routers', val: '1,422', note: 'Active Links' },
+                    { label: 'Sync Status', val: 'Verified', note: 'All Systems GO' },
+                    { label: 'System Uptime', val: '99.98%', note: 'Platform Wide' },
+                    { label: 'Sync Issues', val: '02', note: 'Action Required', color: 'text-orange-500' },
                 ].map((s, i) => (
                     <div key={i} className="p-4">
                         <p className="text-[9px] font-black text-admin-label uppercase tracking-widest leading-none mb-3">{s.label}</p>
@@ -89,7 +89,7 @@ export default function RoutersPage() {
             {/* Results Table */}
             <div className="border border-pace-border rounded overflow-hidden bg-white">
                 <div className="px-5 py-3 border-b border-pace-border bg-pace-bg-subtle flex justify-between items-center">
-                    <h4 className="text-[10px] font-black text-admin-label uppercase tracking-widest">Network Devices</h4>
+                    <h4 className="text-[10px] font-black text-admin-label uppercase tracking-widest">Managed Routers</h4>
                     {results.length > 0 && <span className="text-[9px] font-black text-pace-green uppercase tracking-widest">{results.length} Found</span>}
                 </div>
                 <div className="overflow-x-auto min-h-[300px]">
