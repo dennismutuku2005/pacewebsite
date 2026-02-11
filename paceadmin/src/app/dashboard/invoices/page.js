@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import {
     Search, Download, CreditCard, Clock, Filter, Receipt,
     MoreHorizontal, CheckCircle2, AlertTriangle, Building2,
-    Zap, Activity, Shield
+    Zap, Activity, Shield, Plus
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/Badge'
