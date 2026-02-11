@@ -1,11 +1,19 @@
 "use client"
 
-import React from 'react'
-import { motion } from 'framer-motion'
-import { ChevronDown, Download, Search } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { Download, Search, Receipt, CreditCard, CheckCircle2, AlertTriangle, MoreHorizontal } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Badge } from '@/components/Badge'
+import { Skeleton } from '@/components/Skeleton'
 
 export default function PaymentsPage() {
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 800)
+        return () => clearTimeout(timer)
+    }, [])
+
     const transactions = [
         { id: 'SaaS-0221', customer: 'SkyNet Solutions', amount: 'KES 45,000', method: 'M-PESA B2B', status: 'Cleared', date: '2024-02-09' },
         { id: 'SaaS-0222', customer: 'Coast Connect Ltd', amount: 'KES 12,500', method: 'Bank Transfer', status: 'Pending', date: '2024-02-09' },
@@ -14,87 +22,114 @@ export default function PaymentsPage() {
         { id: 'SaaS-0225', customer: 'Western Fiber Net', amount: 'KES 45,000', method: 'Direct Deposit', status: 'Failed', date: '2024-02-07' },
     ]
 
+    const getStatusVariant = (status) => {
+        if (status === 'Cleared') return 'success'
+        if (status === 'Pending') return 'warning'
+        return 'error'
+    }
+
     return (
         <div className="space-y-6 font-figtree">
 
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-100 pb-4">
                 <div>
-                    <h1 className="text-[20px] font-black text-gray-900 leading-none tracking-tight">Financial Transaction Ledger</h1>
-                    <p className="text-[12px] text-gray-400 mt-2 font-medium">Audited record of subscription revenues and software licensing fees.</p>
+                    <h1 className="text-[22px] font-black text-admin-value leading-tight tracking-tight text-pace-purple">Financial Transaction Ledger</h1>
+                    <p className="text-[12px] text-admin-label mt-1 font-medium tracking-tight">Audited record of subscription revenues and software licensing fees.</p>
                 </div>
                 <div className="flex gap-2">
-                    <button className="px-4 py-2 border border-gray-200 text-gray-600 rounded text-[11px] font-bold hover:bg-gray-50 transition-all uppercase tracking-widest leading-none flex items-center gap-2">
-                        <Download size={12} /> Statement
+                    <button className="px-4 py-2 border border-gray-200 text-admin-label rounded-lg text-[11px] font-bold hover:border-pace-purple transition-all bg-white shadow-sm flex items-center gap-2">
+                        <Download size={14} />
+                        Statement
                     </button>
-                    <button className="px-4 py-2 bg-pace-purple text-white rounded text-[11px] font-bold shadow-none hover:opacity-90 transition-all uppercase tracking-widest leading-none">
+                    <button className="px-4 py-2 bg-pace-purple text-white rounded-lg text-[11px] font-bold hover:bg-[#3d1a75] transition-all flex items-center gap-2 shadow-md">
                         Reconcile Feed
                     </button>
                 </div>
             </div>
 
-            {/* Stats - Grid boxes without shadows */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 border border-gray-200 rounded divide-x divide-gray-200 overflow-hidden">
+            {/* Stats Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
-                    { label: 'Cumulative Revenue', val: 'KES 2,442,500', note: '+12.5% MoM' },
-                    { label: 'Active Subscriptions', val: '984 Total', note: '82 New this month' },
-                    { label: 'Pending Collections', val: 'KES 142,000', note: '12 Invoices Awaiting' },
-                ].map((s) => (
-                    <div key={s.label} className="p-6 bg-white">
-                        <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest leading-none mb-3">{s.label}</p>
-                        <p className="text-[22px] font-black text-gray-900 leading-none">{s.val}</p>
-                        <p className="text-[11px] font-bold text-gray-400 mt-4 uppercase tracking-wide">{s.note}</p>
+                    { label: 'Cumulative Revenue', val: 'KES 2.44M', note: '+12.5% MoM', icon: Receipt },
+                    { label: 'Active Subscriptions', val: '984 Total', note: '82 New this month', icon: CheckCircle2 },
+                    { label: 'Pending Collections', val: 'KES 142k', note: '12 Invoices Awaiting', icon: AlertTriangle },
+                ].map((s, i) => (
+                    <div key={i} className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm hover:border-pace-purple/20 transition-all group">
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="p-2 bg-gray-50 rounded-lg text-admin-dim group-hover:text-pace-purple group-hover:bg-pace-purple/5 transition-all">
+                                <s.icon size={18} />
+                            </div>
+                        </div>
+                        <p className="text-[10px] font-bold text-admin-label mb-1 uppercase tracking-widest">{s.label}</p>
+                        <h4 className="text-[22px] font-black text-admin-value leading-none">{s.val}</h4>
+                        <p className="text-[11px] font-bold text-admin-dim mt-3 uppercase tracking-wider opacity-60">{s.note}</p>
                     </div>
                 ))}
             </div>
 
-            {/* Table Section - The "Excel" Part */}
-            <div className="border border-gray-200 rounded overflow-hidden">
-                <div className="bg-gray-50 px-5 py-3 border-b border-gray-200 flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                        <Search size={14} className="text-gray-300" />
-                        <input type="text" placeholder="Filter records..." className="bg-transparent border-none outline-none text-[11px] font-bold w-48" />
-                    </div>
-                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Showing last 30 days</span>
+            {/* Transaction Search */}
+            <div className="flex flex-col md:flex-row items-center gap-3">
+                <div className="relative w-full md:w-80">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-admin-dim" size={14} />
+                    <input
+                        type="text"
+                        placeholder="Search by ID or customer..."
+                        className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-gray-200 bg-white focus:ring-1 focus:ring-pace-purple/10 focus:border-pace-purple outline-none text-[12px] font-medium text-admin-value shadow-sm"
+                    />
                 </div>
+                <span className="text-[10px] font-bold text-admin-label uppercase tracking-widest opacity-60">Showing last 30 days</span>
+            </div>
+
+            {/* Main Table */}
+            <div className="border border-gray-100 rounded-xl overflow-hidden bg-white shadow-sm">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left text-[12px] whitespace-nowrap">
+                    <table className="w-full text-left text-[12px] whitespace-nowrap border-collapse">
                         <thead>
-                            <tr className="bg-white border-b border-gray-100 font-bold text-gray-400 uppercase tracking-widest text-[10px]">
-                                <th className="px-5 py-3 border-r border-gray-100">Transact ID</th>
-                                <th className="px-5 py-3 border-r border-gray-100">Entity Name</th>
-                                <th className="px-5 py-3 border-r border-gray-100">Revenue Amount</th>
-                                <th className="px-5 py-3 border-r border-gray-100">Method</th>
-                                <th className="px-5 py-3 border-r border-gray-100 text-center">Status</th>
-                                <th className="px-5 py-3 text-right">Processing Date</th>
+                            <tr className="bg-gray-50 border-b border-gray-100 font-bold text-admin-label uppercase tracking-widest text-[9px] opacity-60">
+                                <th className="px-6 py-4">Transaction ID</th>
+                                <th className="px-6 py-4">Entity Name</th>
+                                <th className="px-6 py-4">Revenue Amount</th>
+                                <th className="px-6 py-4">Method</th>
+                                <th className="px-6 py-4 text-center">Status</th>
+                                <th className="px-6 py-4 text-right">Processing Date</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
-                            {transactions.map((txn) => (
-                                <tr key={txn.id} className="hover:bg-gray-50 transition-colors group">
-                                    <td className="px-5 py-4 font-mono text-gray-300 group-hover:text-gray-900 border-r border-gray-50">{txn.id}</td>
-                                    <td className="px-5 py-4 border-r border-gray-50">
-                                        <p className="font-bold text-gray-900">{txn.customer}</p>
-                                    </td>
-                                    <td className="px-5 py-4 border-r border-gray-50 font-black text-gray-700">
-                                        {txn.amount}
-                                    </td>
-                                    <td className="px-5 py-4 border-r border-gray-50 text-gray-500 font-medium">
-                                        {txn.method}
-                                    </td>
-                                    <td className="px-5 py-4 border-r border-gray-50 text-center">
-                                        <span className={cn(
-                                            "font-black uppercase text-[10px] tracking-widest border-b-2",
-                                            txn.status === 'Cleared' ? "text-pace-green border-pace-green/20" :
-                                                txn.status === 'Pending' ? "text-blue-500 border-blue-100" :
-                                                    "text-red-500 border-red-100"
-                                        )}>{txn.status}</span>
-                                    </td>
-                                    <td className="px-5 py-4 text-right font-bold text-gray-400">
-                                        {txn.date}
-                                    </td>
-                                </tr>
-                            ))}
+                            {isLoading ? (
+                                [...Array(5)].map((_, i) => (
+                                    <tr key={i}>
+                                        <td className="px-6 py-5"><Skeleton className="h-4 w-24" /></td>
+                                        <td className="px-6 py-5"><Skeleton className="h-4 w-48" /></td>
+                                        <td className="px-6 py-5"><Skeleton className="h-4 w-24" /></td>
+                                        <td className="px-6 py-5"><Skeleton className="h-4 w-32" /></td>
+                                        <td className="px-6 py-5 text-center"><Skeleton className="h-6 w-20 mx-auto" /></td>
+                                        <td className="px-6 py-5 text-right"><Skeleton className="h-4 w-20 ml-auto" /></td>
+                                    </tr>
+                                ))
+                            ) : (
+                                transactions.map((txn) => (
+                                    <tr key={txn.id} className="hover:bg-gray-50/50 transition-all group">
+                                        <td className="px-6 py-5 font-bold text-admin-label group-hover:text-pace-purple uppercase font-mono text-[11px]">{txn.id}</td>
+                                        <td className="px-6 py-5">
+                                            <p className="font-extrabold text-admin-value leading-none uppercase text-[11px]">{txn.customer}</p>
+                                        </td>
+                                        <td className="px-6 py-5 font-black text-admin-value uppercase">{txn.amount}</td>
+                                        <td className="px-6 py-5">
+                                            <div className="flex items-center gap-2">
+                                                <CreditCard size={12} className="text-pace-purple" />
+                                                <span className="font-bold text-admin-label uppercase text-[10px] tracking-tight">{txn.method}</span>
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-5 text-center">
+                                            <Badge variant={getStatusVariant(txn.status)}>{txn.status}</Badge>
+                                        </td>
+                                        <td className="px-6 py-5 text-right font-bold text-admin-dim uppercase text-[10px]">
+                                            {txn.date}
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>
