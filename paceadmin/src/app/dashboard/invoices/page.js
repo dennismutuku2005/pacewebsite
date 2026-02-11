@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import {
     Search, Download, CreditCard, Clock, Filter, Receipt,
     MoreHorizontal, CheckCircle2, AlertTriangle, Building2,
-    Zap, Activity, Shield, Plus
+    Repeat, Activity, Plus
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/Badge'
@@ -68,7 +68,7 @@ export default function InvoicingPage() {
                 {[
                     { label: 'Total billed', val: 'KES 4.22M', status: 'info', icon: Receipt },
                     { label: 'Payments received', val: 'KES 3.10M', status: 'success', icon: CheckCircle2 },
-                    { label: 'Active paybills', val: '5 channels', status: 'success', icon: Zap },
+                    { label: 'Active paybills', val: '5 channels', status: 'success', icon: Repeat },
                     { label: 'Pending auth', val: 'KES 284k', status: 'warning', icon: AlertTriangle },
                 ].map((s, i) => (
                     <div key={i} className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:border-pace-purple/20 transition-all group">
@@ -209,7 +209,7 @@ export default function InvoicingPage() {
                             <div className="p-4 bg-gray-50 border border-gray-100 rounded-xl">
                                 <p className="text-[10px] font-bold text-admin-label uppercase tracking-widest mb-3 opacity-50 leading-none">Payment channel</p>
                                 <div className="flex items-center gap-2">
-                                    <Zap size={14} className="text-pace-purple" />
+                                    <Repeat size={14} className="text-pace-purple" />
                                     <p className="text-[13px] font-extrabold text-admin-value uppercase">{selectedInvoice.channel}</p>
                                 </div>
                             </div>
