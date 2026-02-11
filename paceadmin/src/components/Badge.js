@@ -12,7 +12,7 @@ export const Badge = ({ children, variant = 'default', className }) => {
 
     return (
         <span className={cn(
-            "text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-sm border inline-flex items-center",
+            "text-[10px] font-bold px-2 py-0.5 rounded-sm border inline-flex items-center",
             variants[variant],
             className
         )}>
