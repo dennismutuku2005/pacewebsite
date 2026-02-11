@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
     Users, Activity, CreditCard, Network,
-    Receipt, RefreshCw, Repeat, ArrowUpRight,
+    Receipt, RefreshCw, Repeat,
     TrendingUp, Wallet, CheckCircle2, Link2
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
