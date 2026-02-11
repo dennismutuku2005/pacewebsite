@@ -89,10 +89,16 @@ export function Sidebar({ isSidebarOpen, pathname }) {
             isSidebarOpen ? "w-60" : "w-16"
         )}>
             {/* Logo Section */}
-            <div className="h-14 flex items-center px-4 border-b border-gray-100">
-                <Link href="/dashboard" className="flex items-center gap-2">
-                    <Image src="/logo.png" alt="Pace" width={80} height={25} className="h-6 w-auto object-contain grayscale" priority />
-                    {/* Admin label removed as requested */}
+            <div className="h-14 flex items-center justify-center border-b border-gray-100">
+                <Link href="/dashboard" className="flex items-center justify-center">
+                    <Image
+                        src="/logoc.png"
+                        alt="Pace"
+                        width={isSidebarOpen ? 100 : 32}
+                        height={isSidebarOpen ? 32 : 32}
+                        className={cn("h-auto w-auto object-contain transition-all", isSidebarOpen ? "scale-[1.3]" : "scale-100")}
+                        priority
+                    />
                 </Link>
             </div>
 
