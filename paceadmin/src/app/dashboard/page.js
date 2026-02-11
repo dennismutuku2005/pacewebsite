@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
     Users, Activity, CreditCard, Network,
-    Zap, Receipt, RefreshCw
+    Receipt, RefreshCw, Repeat
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Spinner } from '@/components/Loader'
@@ -34,7 +34,7 @@ export default function DashboardPage() {
     const metrics = [
         { label: 'Active connections', value: '1,284', change: '+14% growth', note: 'Managed clients', icon: Users, status: 'success' },
         { label: 'Applications today', value: '42 units', change: '+5 new', note: 'Pending review', icon: Activity, status: 'info' },
-        { label: 'Sender IDs', value: '18 active', change: '+2 today', note: 'SMS gateways', icon: Zap, status: 'success' },
+        { label: 'Sender IDs', value: '18 active', change: '+2 today', note: 'SMS gateways', icon: Repeat, status: 'success' },
         { label: 'Payment channels', value: '5 live', change: 'M-Pesa/Paybill', note: 'Channel activity', icon: Receipt, status: 'success' },
     ]
 
@@ -162,9 +162,9 @@ export default function DashboardPage() {
 
                     <div className="rounded-xl bg-gradient-to-br from-pace-purple to-[#3d1a75] p-6 text-white space-y-4 relative overflow-hidden group shadow-lg">
                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
-                            <Zap size={80} />
+                            <Repeat size={80} />
                         </div>
-                        <Zap size={24} className="opacity-50 relative z-10" />
+                        <Repeat size={24} className="opacity-50 relative z-10" />
                         <div className="relative z-10">
                             <h4 className="text-[13px] font-extrabold tracking-tight">Financial infrastructure</h4>
                             <p className="text-[11px] opacity-80 mt-2 leading-relaxed font-medium">System has 5 active Paybill channels synchronized with client account numbers.</p>
