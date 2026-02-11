@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { Activity, Zap, RefreshCw, Server, Shield, Network, Layout } from 'lucide-react'
+import { Activity, Cpu, RefreshCw, Server, Network, Layout } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useSearchParams } from 'next/navigation'
 import { Badge } from '@/components/Badge'
@@ -38,7 +38,7 @@ export default function PlatformHealthPage() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
                     { label: 'Average Uptime', val: '99.98%', note: 'Past 30 Days', icon: Activity, color: 'success' },
-                    { label: 'Response Time', val: '2.4ms', note: 'Fast', icon: Zap, color: 'success' },
+                    { label: 'Response Time', val: '2.4ms', note: 'Fast', icon: Cpu, color: 'success' },
                     { label: 'System Load', val: '14%', note: 'Optimized', icon: Server, color: 'info' },
                     { label: 'Bandwidth', val: '1.8 Gbps', note: 'Global Flow', icon: Network, color: 'success' },
                 ].map((s, i) => (
