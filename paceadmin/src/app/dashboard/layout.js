@@ -10,7 +10,7 @@ import {
     LogOut, ChevronRight, Clock,
     LayoutDashboard, Network, Receipt,
     ShieldCheck, MessageSquare, Globe, ChevronDown,
-    RefreshCw
+    RefreshCw, Bell
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -37,15 +37,53 @@ export default function DashboardLayout({ children }) {
                 { name: 'Hotspot Users', href: '/dashboard/customers?service=hotspot' },
             ]
         },
-        { id: 'billing', name: 'Finance hub', href: '/dashboard/invoices', icon: Receipt },
+        {
+            id: 'billing',
+            name: 'Finance hub',
+            icon: Receipt,
+            badge: 8,
+            children: [
+                { name: 'Invoices', href: '/dashboard/invoices' },
+                { name: 'Pending Payments', href: '/dashboard/invoices?status=pending' },
+                { name: 'Payment History', href: '/dashboard/payments' },
+            ]
+        },
         { id: 'network', name: 'Network nodes', href: '/dashboard/routers', icon: Network },
         { id: 'submissions', name: 'Applications', href: '/dashboard/applications', icon: FileText, badge: 12 },
-        { id: 'domains', name: 'Managed domains', href: '/dashboard/domains', icon: Globe },
+        {
+            id: 'domains',
+            name: 'Managed domains',
+            icon: Globe,
+            children: [
+                { name: 'Domain List', href: '/dashboard/domains' },
+                { name: 'DNS Management', href: '/dashboard/domains/dns' },
+                { name: 'SSL Certificates', href: '/dashboard/domains/ssl' },
+            ]
+        },
         { id: 'staff', name: 'System users', href: '/dashboard/users', icon: ShieldCheck },
-        { id: 'chat', name: 'Support chat', href: '/dashboard/chat', icon: MessageSquare },
-        { id: 'support', name: 'Service desk', href: '/dashboard/tickets', icon: Ticket },
-        { id: 'payments', name: 'Financials', href: '/dashboard/payments', icon: CreditCard },
-        { id: 'status', name: 'System health', href: '/dashboard/status', icon: Activity },
+        { id: 'chat', name: 'Support chat', href: '/dashboard/chat', icon: MessageSquare, badge: 5 },
+        {
+            id: 'support',
+            name: 'Service desk',
+            icon: Ticket,
+            badge: 24,
+            children: [
+                { name: 'All Tickets', href: '/dashboard/tickets' },
+                { name: 'Active Tickets', href: '/dashboard/tickets?status=active' },
+                { name: 'Closed Tickets', href: '/dashboard/tickets?status=closed' },
+            ]
+        },
+        { id: 'payments', name: 'Financials', href: '/dashboard/payments', icon: CreditCard, badge: 3 },
+        {
+            id: 'status',
+            name: 'System health',
+            icon: Activity,
+            children: [
+                { name: 'Real-time Stats', href: '/dashboard/status' },
+                { name: 'Network Health', href: '/dashboard/status?view=network' },
+                { name: 'Security Logs', href: '/dashboard/logs' },
+            ]
+        },
         { id: 'logs', name: 'Audit logs', href: '/dashboard/logs', icon: Clock },
         { id: 'settings', name: 'Preferences', href: '/dashboard/settings', icon: Settings },
     ]
@@ -84,21 +122,52 @@ export default function DashboardLayout({ children }) {
                         return (
                             <div key={item.id} className="space-y-1">
                                 {item.children ? (
-                                    <button
-                                        onClick={() => toggleMenu(item.id)}
-                                        className={cn(
-                                            "w-full flex items-center gap-3 px-3 py-2.5 rounded transition-all group relative",
-                                            isActive && !isExpanded ? "bg-pace-purple/5 text-pace-purple" : "text-admin-label hover:bg-gray-50 hover:text-admin-value"
-                                        )}
-                                    >
-                                        <item.icon size={16} className={cn("shrink-0", isActive ? "text-pace-purple" : "text-admin-dim group-hover:text-admin-value")} />
-                                        {isSidebarOpen && (
-                                            <div className="flex-1 flex items-center justify-between">
-                                                <span className="font-semibold">{item.name}</span>
-                                                <ChevronDown size={14} className={cn("transition-transform", isExpanded ? "rotate-180" : "")} />
+                                    <div className="space-y-1">
+                                        <button
+                                            onClick={() => toggleMenu(item.id)}
+                                            className={cn(
+                                                "w-full flex items-center gap-3 px-3 py-2.5 rounded transition-all group relative",
+                                                isActive && !isExpanded ? "bg-pace-purple/5 text-pace-purple" : "text-admin-label hover:bg-gray-50 hover:text-admin-value"
+                                            )}
+                                        >
+                                            <item.icon size={16} className={cn("shrink-0", isActive ? "text-pace-purple" : "text-admin-dim group-hover:text-admin-value")} />
+                                            {isSidebarOpen && (
+                                                <div className="flex-1 flex items-center justify-between">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="font-semibold">{item.name}</span>
+                                                        {item.badge && (
+                                                            <span className="text-[9px] px-1.5 py-0.5 rounded-full font-black min-w-[18px] text-center bg-pace-purple text-white">
+                                                                {item.badge}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    <ChevronDown size={14} className={cn("transition-transform", isExpanded ? "rotate-180" : "")} />
+                                                </div>
+                                            )}
+                                        </button>
+                                        {/* Submenu */}
+                                        {isSidebarOpen && isExpanded && (
+                                            <div className="ml-9 space-y-1 border-l border-gray-100 pl-2">
+                                                {item.children.map((child) => {
+                                                    const isChildActive = pathname === child.href;
+                                                    return (
+                                                        <Link
+                                                            key={child.name}
+                                                            href={child.href}
+                                                            className={cn(
+                                                                "block px-3 py-2 rounded text-[12px] transition-all",
+                                                                isChildActive
+                                                                    ? "bg-pace-purple/5 text-pace-purple font-bold"
+                                                                    : "text-admin-dim hover:text-admin-value hover:bg-gray-50"
+                                                            )}
+                                                        >
+                                                            {child.name}
+                                                        </Link>
+                                                    )
+                                                })}
                                             </div>
                                         )}
-                                    </button>
+                                    </div>
                                 ) : (
                                     <Link
                                         href={item.href}
@@ -124,29 +193,6 @@ export default function DashboardLayout({ children }) {
                                             </div>
                                         )}
                                     </Link>
-                                )}
-
-                                {/* Submenu */}
-                                {isSidebarOpen && item.children && isExpanded && (
-                                    <div className="ml-9 space-y-1 border-l border-gray-100 pl-2">
-                                        {item.children.map((child) => {
-                                            const isChildActive = pathname === child.href;
-                                            return (
-                                                <Link
-                                                    key={child.name}
-                                                    href={child.href}
-                                                    className={cn(
-                                                        "block px-3 py-2 rounded text-[12px] transition-all",
-                                                        isChildActive
-                                                            ? "bg-pace-purple/5 text-pace-purple font-bold"
-                                                            : "text-admin-dim hover:text-admin-value hover:bg-gray-50"
-                                                    )}
-                                                >
-                                                    {child.name}
-                                                </Link>
-                                            )
-                                        })}
-                                    </div>
                                 )}
                             </div>
                         )
@@ -188,11 +234,17 @@ export default function DashboardLayout({ children }) {
                                 className="pl-8 pr-3 py-2 w-64 bg-gray-50 border border-gray-200 rounded-lg text-[12px] focus:bg-white focus:ring-1 focus:ring-pace-purple/10 focus:border-pace-purple outline-none transition-all placeholder:text-admin-dim font-medium text-admin-value shadow-sm"
                             />
                         </div>
-                        <div className="flex items-center gap-3 border-l border-gray-100 pl-6 h-8">
-                            <div className="text-right">
-                                <p className="text-[12px] font-bold text-admin-value leading-none">Dennis Mutuku</p>
+                        <div className="flex items-center gap-4 border-l border-gray-100 pl-6 h-8">
+                            <Link href="/dashboard/notifications" className="relative p-1.5 text-admin-dim hover:text-pace-purple transition-colors rounded-lg hover:bg-pace-purple/5">
+                                <Bell size={18} />
+                                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+                            </Link>
+                            <div className="flex items-center gap-3 h-8">
+                                <div className="text-right hidden sm:block">
+                                    <p className="text-[12px] font-bold text-admin-value leading-none">Dennis Mutuku</p>
+                                </div>
+                                <div className="w-8 h-8 rounded-full border border-pace-border bg-pace-purple/5 flex items-center justify-center text-[11px] font-black text-pace-purple">DM</div>
                             </div>
-                            <div className="w-8 h-8 rounded-full border border-pace-border bg-pace-purple/5 flex items-center justify-center text-[11px] font-black text-pace-purple">DM</div>
                         </div>
                     </div>
                 </header>
