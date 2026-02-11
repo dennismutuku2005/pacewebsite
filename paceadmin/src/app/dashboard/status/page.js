@@ -40,7 +40,7 @@ export default function PlatformHealthPage() {
                     { label: 'Average Uptime', val: '99.98%', note: 'Past 30 Days', icon: Activity, color: 'success' },
                     { label: 'Response Time', val: '2.4ms', note: 'Fast', icon: Cpu, color: 'success' },
                     { label: 'System Load', val: '14%', note: 'Optimized', icon: Server, color: 'info' },
-                    { label: 'Bandwidth', val: '1.8 Gbps', note: 'Global Flow', icon: Network, color: 'success' },
+                    { label: 'Deployment Sync', val: 'Synchronized', note: 'Global Nodes', icon: RefreshCw, color: 'success' },
                 ].map((s, i) => (
                     <div key={i} className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:border-pace-purple/20 transition-all group">
                         <div className="flex justify-between items-start mb-4">
