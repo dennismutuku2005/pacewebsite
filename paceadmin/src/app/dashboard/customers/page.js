@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Search, Filter, Trash2, AlertCircle, MoreHorizontal, CreditCard, Shield, User, MapPin, Clock, Phone, Mail, Calendar, Wifi, Cable } from 'lucide-react'
+import { Search, Filter, Trash2, AlertCircle, MoreHorizontal, CreditCard, Shield, User, MapPin, Clock, Phone, Mail, Calendar, Wifi, Cable, Plus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/Badge'
 import { Modal } from '@/components/Modal'
@@ -92,8 +92,9 @@ export default function CustomersPage() {
                 </div>
                 <button
                     onClick={() => router.push('/dashboard/customers/new')}
-                    className="px-4 py-2 bg-pace-purple text-white rounded-lg text-[11px] font-bold hover:bg-[#3d1a75] transition-all uppercase tracking-widest shadow-md"
+                    className="px-4 py-2 bg-pace-purple text-white rounded-lg text-[11px] font-bold hover:bg-[#3d1a75] transition-all uppercase tracking-widest shadow-md flex items-center gap-2"
                 >
+                    <Plus size={14} />
                     Add new client
                 </button>
             </div>
