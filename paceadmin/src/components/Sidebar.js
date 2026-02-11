@@ -96,7 +96,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
                         alt="Pace"
                         width={isSidebarOpen ? 100 : 32}
                         height={isSidebarOpen ? 32 : 32}
-                        className={cn("h-auto w-auto object-contain transition-all", isSidebarOpen ? "scale-[1.3]" : "scale-100")}
+                        className={cn("h-auto w-auto object-contain transition-all", isSidebarOpen ? "scale-[0.6]" : "scale-100")}
                         priority
                     />
                 </Link>
