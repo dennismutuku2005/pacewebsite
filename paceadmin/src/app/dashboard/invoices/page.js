@@ -12,7 +12,12 @@ import { Badge } from '@/components/Badge'
 import { Modal } from '@/components/Modal'
 import { Skeleton } from '@/components/Skeleton'
 
+import { useSearchParams } from 'next/navigation'
+
 export default function InvoicingPage() {
+    const searchParams = useSearchParams()
+    const statusFilter = searchParams.get('status')
+
     const [selectedInvoice, setSelectedInvoice] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
 
@@ -21,11 +26,15 @@ export default function InvoicingPage() {
         return () => clearTimeout(timer)
     }, [])
 
-    const invoices = [
+    const initialInvoices = [
         { id: 'INV-240201', customer: 'SkyNet Solutions Ltd', amount: 'KES 45,000', date: '2024-02-01', status: 'Paid', channel: 'Paybill 247247', acc: 'ACC-82710' },
         { id: 'INV-240202', customer: 'Coast Connect Ltd', amount: 'KES 12,500', date: '2024-02-05', status: 'Overdue', channel: 'Paybill 247247', acc: 'ACC-11932' },
         { id: 'INV-240203', customer: 'RiftWiFi systems', amount: 'KES 45,000', date: '2024-02-06', status: 'Pending', channel: 'Paybill 880880', acc: 'ACC-44501' },
     ]
+
+    const filteredInvoices = statusFilter
+        ? initialInvoices.filter(inv => inv.status.toLowerCase() === statusFilter.toLowerCase())
+        : initialInvoices
 
     const getStatusVariant = (status) => {
         if (status === 'Paid') return 'success'
@@ -69,7 +78,7 @@ export default function InvoicingPage() {
                             </div>
                             <Badge variant={s.status} className="scale-90">Live</Badge>
                         </div>
-                        <p className="text-[10px] font-bold text-admin-label mb-1">{s.label}</p>
+                        <p className="text-[10px] font-bold text-admin-label mb-1 uppercase tracking-widest">{s.label}</p>
                         <h4 className="text-[20px] font-extrabold text-admin-value leading-none">{s.val}</h4>
                     </div>
                 ))}
@@ -86,17 +95,20 @@ export default function InvoicingPage() {
                     />
                 </div>
                 <div className="flex gap-2">
-                    {['All', 'Paid', 'Pending', 'Overdue'].map((tab) => (
-                        <button
-                            key={tab}
-                            className={cn(
-                                "px-4 py-2.5 rounded-lg text-[11px] font-bold transition-all border",
-                                tab === 'All' ? "bg-pace-purple text-white border-pace-purple shadow-md" : "bg-white text-admin-label border-gray-200 hover:border-pace-purple"
-                            )}
-                        >
-                            {tab}
-                        </button>
-                    ))}
+                    {['All', 'Paid', 'Pending', 'Overdue'].map((tab) => {
+                        const isSelected = (!statusFilter && tab === 'All') || (statusFilter?.toLowerCase() === tab.toLowerCase());
+                        return (
+                            <button
+                                key={tab}
+                                className={cn(
+                                    "px-4 py-2.5 rounded-lg text-[11px] font-bold transition-all border",
+                                    isSelected ? "bg-pace-purple text-white border-pace-purple shadow-md" : "bg-white text-admin-label border-gray-200 hover:border-pace-purple"
+                                )}
+                            >
+                                {tab}
+                            </button>
+                        )
+                    })}
                 </div>
             </div>
 
@@ -127,7 +139,7 @@ export default function InvoicingPage() {
                                     </tr>
                                 ))
                             ) : (
-                                invoices.map((inv) => (
+                                filteredInvoices.map((inv) => (
                                     <tr
                                         key={inv.id}
                                         onClick={() => setSelectedInvoice(inv)}
