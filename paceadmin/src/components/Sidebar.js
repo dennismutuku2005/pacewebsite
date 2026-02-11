@@ -6,13 +6,13 @@ import Image from 'next/image'
 import {
     Users, CreditCard, Ticket, Settings,
     Activity, FileText, Network, Receipt,
-    ShieldCheck, MessageSquare, Globe, ChevronDown,
+    UserRoundCheck, MessageSquare, Globe, ChevronDown,
     LogOut, LayoutDashboard, Clock
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function Sidebar({ isSidebarOpen, pathname }) {
-    const [openMenus, setOpenMenus] = useState(['members'])
+    const [openMenus, setOpenMenus] = useState([])
 
     const toggleMenu = (id) => {
         setOpenMenus(prev =>
@@ -55,7 +55,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
                 { name: 'SSL Certificates', href: '/dashboard/domains/ssl' },
             ]
         },
-        { id: 'staff', name: 'System users', href: '/dashboard/users', icon: ShieldCheck },
+        { id: 'staff', name: 'System users', href: '/dashboard/users', icon: UserRoundCheck },
         { id: 'chat', name: 'Support chat', href: '/dashboard/chat', icon: MessageSquare, badge: 5 },
         {
             id: 'support',
