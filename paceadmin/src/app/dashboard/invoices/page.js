@@ -166,7 +166,11 @@ export default function InvoicingPage() {
                                             <Badge variant={getStatusVariant(inv.status)}>{inv.status}</Badge>
                                         </td>
                                         <td className="px-6 py-5 text-right">
-                                            <button className="p-2 text-admin-dim hover:text-pace-purple hover:bg-gray-50 rounded-lg transition-all opacity-0 group-hover:opacity-100">
+                                            <button
+                                                onClick={(e) => { e.stopPropagation(); setSelectedInvoice(inv); }}
+                                                className="p-2 text-admin-dim hover:text-pace-purple hover:bg-gray-50 rounded-lg transition-all"
+                                                title="View Invoice Details"
+                                            >
                                                 <MoreHorizontal size={16} />
                                             </button>
                                         </td>
