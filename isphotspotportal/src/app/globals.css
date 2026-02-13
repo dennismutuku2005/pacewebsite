@@ -48,23 +48,23 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Remove default shadow behavior for clean 2D look */
-.shadow-sm,
+/* Remove default shadow behavior for clean 2D look - DISABLED based on feedback to improve contrast */
+/* .shadow-sm,
 .shadow-md,
 .shadow-lg,
 .shadow-xl,
 .shadow-2xl {
   shadow: none !important;
   box-shadow: none !important;
-}
+} */
 
 /* Excel-like Table Header */
 th {
-  font-weight: 800;
+  font-weight: 600;
   color: var(--admin-label);
   background-color: var(--pace-bg-subtle);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  /* text-transform: uppercase; -- Removed per user request */
+  letter-spacing: 0.02em;
 }
 
 /* Custom Scrollbar - Minimalists */
