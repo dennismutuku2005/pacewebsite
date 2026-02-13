@@ -87,8 +87,8 @@ export default function CustomersPage() {
             {/* Page Header */}
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-100 pb-4">
                 <div>
-                    <h1 className="text-[22px] font-black text-admin-value leading-tight tracking-tight text-pace-purple">Client directory</h1>
-                    <p className="text-[12px] text-admin-label mt-1 font-medium tracking-tight">Manage ISP members, account numbers, and active services.</p>
+                    <h1 className="text-[22px] font-black text-admin-value leading-tight tracking-tight text-pace-purple">All Customers</h1>
+                    <p className="text-[12px] text-admin-label mt-1 font-medium tracking-tight">Manage your clients and their accounts.</p>
                 </div>
                 <button
                     onClick={() => router.push('/dashboard/customers/new')}
@@ -122,10 +122,10 @@ export default function CustomersPage() {
                     <table className="w-full text-left text-[12px] whitespace-nowrap border-collapse">
                         <thead>
                             <tr className="bg-gray-50 border-b border-gray-100 font-bold text-admin-label uppercase tracking-widest text-[9px] opacity-60">
-                                <th className="px-6 py-4">Identity</th>
-                                <th className="px-6 py-4">Account details</th>
-                                <th className="px-6 py-4 text-center">Active services</th>
-                                <th className="px-6 py-4 text-center">Member status</th>
+                                <th className="px-6 py-4">Client Name</th>
+                                <th className="px-6 py-4">Account Info</th>
+                                <th className="px-6 py-4 text-center">Services</th>
+                                <th className="px-6 py-4 text-center">Status</th>
                                 <th className="px-6 py-4 text-right">Actions</th>
                             </tr>
                         </thead>
@@ -187,14 +187,19 @@ export default function CustomersPage() {
                                             <Badge variant={getStatusVariant(isp.status)}>{isp.status}</Badge>
                                         </td>
                                         <td className="px-6 py-5 text-right">
-                                            <div className="flex justify-end gap-2 items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <div className="flex justify-end gap-2 items-center">
                                                 <button
                                                     onClick={() => setDeleteModal(isp)}
                                                     className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                                                    title="Delete Customer"
                                                 >
                                                     <Trash2 size={16} />
                                                 </button>
-                                                <button className="p-2 text-admin-dim hover:text-admin-value hover:bg-gray-50 rounded-lg transition-all">
+                                                <button
+                                                    onClick={() => setSelectedCustomer(isp)}
+                                                    className="p-2 text-admin-dim hover:text-admin-value hover:bg-gray-50 rounded-lg transition-all"
+                                                    title="View Details"
+                                                >
                                                     <MoreHorizontal size={16} />
                                                 </button>
                                             </div>
@@ -211,12 +216,12 @@ export default function CustomersPage() {
             <Modal
                 isOpen={!!selectedCustomer}
                 onClose={() => setSelectedCustomer(null)}
-                title="Member infrastructure details"
+                title="Customer Details"
                 maxWidth="max-w-2xl"
                 footer={
                     <>
                         <button onClick={() => setSelectedCustomer(null)} className="px-6 py-2 border border-gray-200 text-admin-label rounded-lg font-bold text-[11px] hover:bg-gray-50 transition-all">Close</button>
-                        <button className="px-8 py-2 bg-pace-purple text-white rounded-lg font-bold text-[11px] hover:bg-[#3d1a75] transition-all shadow-md">Update account</button>
+                        <button className="px-8 py-2 bg-pace-purple text-white rounded-lg font-bold text-[11px] hover:bg-[#3d1a75] transition-all shadow-md">Edit Customer</button>
                     </>
                 }
             >
@@ -265,12 +270,12 @@ export default function CustomersPage() {
             <Modal
                 isOpen={!!deleteModal}
                 onClose={() => setDeleteModal(null)}
-                title="Account termination"
+                title="Delete Customer"
                 maxWidth="max-w-md"
                 footer={
                     <>
                         <button onClick={() => setDeleteModal(null)} className="flex-1 py-3 border border-gray-200 text-admin-label rounded-lg font-bold text-[11px] hover:bg-gray-50 transition-all">Cancel</button>
-                        <button className="flex-1 py-3 bg-red-500 text-white rounded-lg font-bold text-[11px] hover:bg-red-600 transition-all shadow-md">Terminate permanently</button>
+                        <button className="flex-1 py-3 bg-red-500 text-white rounded-lg font-bold text-[11px] hover:bg-red-600 transition-all shadow-md">Delete Account</button>
                     </>
                 }
             >
@@ -279,9 +284,9 @@ export default function CustomersPage() {
                         <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
                             <AlertCircle size={32} />
                         </div>
-                        <h3 className="text-[18px] font-extrabold text-admin-value">Purge member account?</h3>
+                        <h3 className="text-[18px] font-extrabold text-admin-value">Delete this customer?</h3>
                         <p className="text-[12px] text-admin-label font-medium leading-relaxed">
-                            You are removing <span className="text-admin-value font-bold">{deleteModal.name}</span>. This will disconnect account <span className="text-pace-purple font-bold">{deleteModal.accNumber}</span> and terminate all linked domains.
+                            You are deleting <span className="text-admin-value font-bold">{deleteModal.name}</span>. This will remove the account <span className="text-pace-purple font-bold">{deleteModal.accNumber}</span> and delete all linked data.
                         </p>
                     </div>
                 )}
