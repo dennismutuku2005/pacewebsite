@@ -163,14 +163,19 @@ export default function CustomersPage() {
                                             <p className="text-[11px] text-admin-dim font-medium italic">{customer.lastSeen}</p>
                                         </td>
                                         <td className="px-6 py-5 text-right">
-                                            <div className="flex justify-end gap-2 items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <div className="flex justify-end gap-2 items-center">
                                                 <button
                                                     onClick={() => setDeleteModal(customer)}
                                                     className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                                                    title="Delete Customer"
                                                 >
                                                     <Trash2 size={16} />
                                                 </button>
-                                                <button className="p-2 text-admin-dim hover:text-admin-value hover:bg-gray-50 rounded-lg transition-all">
+                                                <button
+                                                    onClick={() => setSelectedCustomer(customer)}
+                                                    className="p-2 text-admin-dim hover:text-admin-value hover:bg-gray-50 rounded-lg transition-all"
+                                                    title="View Details"
+                                                >
                                                     <MoreHorizontal size={16} />
                                                 </button>
                                             </div>
