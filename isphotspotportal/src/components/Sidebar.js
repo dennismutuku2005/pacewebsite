@@ -7,7 +7,7 @@ import {
     Users, CreditCard, Ticket, Settings,
     Activity, FileText, Network, Receipt,
     UserRoundCheck, MessageSquare, Globe, ChevronDown,
-    LogOut, LayoutDashboard, Clock
+    LogOut, LayoutDashboard, Clock, Smartphone, Bell
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Modal } from '@/components/Modal'
@@ -61,6 +61,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
             ]
         },
         { id: 'routers', name: 'Routers', href: '/dashboard/routers', icon: Network },
+        { id: 'mpesa', name: 'M-Pesa Transactions', href: '/dashboard/mpesa', icon: Smartphone },
         { id: 'billing', name: 'Billing', href: '/dashboard/billing', icon: Receipt },
         { id: 'notifications', name: 'Notifications', href: '/dashboard/notifications', icon: Bell },
         { id: 'logs', name: 'System Logs', href: '/dashboard/logs', icon: FileText },
