@@ -55,6 +55,7 @@ export function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile, pathname })
         { id: 'routers', name: 'Routers', href: '/dashboard/routers', icon: Network },
         { id: 'mpesa', name: 'M-Pesa Transactions', href: '/dashboard/mpesa', icon: Smartphone },
         { id: 'billing', name: 'Billing', href: '/dashboard/billing', icon: Receipt },
+        { id: 'messaging', name: 'Messaging', href: '/dashboard/messaging', icon: MessageSquare },
         { id: 'notifications', name: 'Notifications', href: '/dashboard/notifications', icon: Bell },
         { id: 'logs', name: 'Activity Logs', href: '/dashboard/logs', icon: FileText },
         { id: 'settings', name: 'Settings', href: '/dashboard/settings', icon: Settings },
