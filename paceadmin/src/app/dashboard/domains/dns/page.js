@@ -105,11 +105,11 @@ export default function DNSManagementPage() {
                                             <Badge variant="success">{record.status}</Badge>
                                         </td>
                                         <td className="px-6 py-5 text-right">
-                                            <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                                                <button className="p-2 text-admin-dim hover:text-pace-purple hover:bg-gray-50 rounded-lg transition-all">
+                                            <div className="flex justify-end gap-2 transition-all">
+                                                <button className="p-2 text-admin-dim hover:text-pace-purple hover:bg-gray-50 rounded-lg transition-all" title="Edit Record">
                                                     <Edit2 size={14} />
                                                 </button>
-                                                <button className="p-2 text-admin-dim hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
+                                                <button className="p-2 text-admin-dim hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete Record">
                                                     <Trash2 size={14} />
                                                 </button>
                                             </div>
