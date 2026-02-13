@@ -1,137 +1,157 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Clock, Search, Shield, Server, User, Database, ChevronLeft, ChevronRight, Filter } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import React, { useState } from 'react'
+import { Search, Filter, FileText, Activity, AlertCircle, Info, CheckCircle2, Clock } from 'lucide-react'
+import { Badge } from '@/components/Badge'
+import { Skeleton } from '@/components/Skeleton'
 
-export default function AuditLogsPage() {
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 1200)
-        return () => clearTimeout(timer)
-    }, [])
+export default function LogsPage() {
+    const [isLoading, setIsLoading] = useState(false)
 
     const logs = [
-        { id: 'LOG-8821', time: '14:20:12', user: 'Admin', action: 'Update License', target: 'SkyNet Solutions', status: 'Success' },
-        { id: 'LOG-8820', time: '14:15:05', user: 'System', action: 'Account Sync', target: 'Nairobi Region', status: 'Success' },
-        { id: 'LOG-8819', time: '14:10:44', user: 'Billing', action: 'Process Payment', target: 'INV-0221', status: 'Notice' },
-        { id: 'LOG-8818', time: '13:58:22', user: 'Admin', action: 'Change Config', target: 'Network Login', status: 'Success' },
-        { id: 'LOG-8817', time: '13:45:10', user: 'Auditor', action: 'Review Application', target: 'REC-1024', status: 'Success' },
-        { id: 'LOG-8816', time: '13:30:55', user: 'Admin', action: 'Successful Login', target: 'Portal', status: 'Info' },
+        {
+            id: 1,
+            type: 'info',
+            action: 'User Login',
+            description: 'MAC 00:1A:2B:3C:4D:5E authenticated successfully',
+            timestamp: '2026-02-13 14:05:32',
+            user: 'System',
+            ip: '197.248.3.14'
+        },
+        {
+            id: 2,
+            type: 'success',
+            action: 'Payment Processed',
+            description: 'M-Pesa transaction RCN1S2D3F4 completed - KSH 50',
+            timestamp: '2026-02-13 14:03:15',
+            user: '0712345678',
+            ip: '41.204.18.55'
+        },
+        {
+            id: 3,
+            type: 'warning',
+            action: 'Router Sync Failed',
+            description: 'Unable to connect to Kisumu Node - timeout after 30s',
+            timestamp: '2026-02-13 12:00:00',
+            user: 'System',
+            ip: '102.22.45.1'
+        },
+        {
+            id: 4,
+            type: 'info',
+            action: 'Theme Updated',
+            description: 'Premium Flow theme deployed to Nairobi Main Hub',
+            timestamp: '2026-02-13 10:30:00',
+            user: 'Admin',
+            ip: '197.248.3.14'
+        },
     ]
 
-    const TableSkeleton = () => (
-        <div className="animate-pulse">
-            {[...Array(6)].map((_, i) => (
-                <div key={i} className="flex border-b border-gray-50 h-[52px]">
-                    <div className="w-[10%] bg-gray-50 h-3 my-auto mx-5 rounded"></div>
-                    <div className="w-[10%] bg-gray-50 h-3 my-auto mx-5 rounded"></div>
-                    <div className="w-[15%] bg-gray-50 h-3 my-auto mx-5 rounded"></div>
-                    <div className="flex-1 bg-gray-50 h-3 my-auto mx-5 rounded"></div>
-                    <div className="w-[20%] bg-gray-50 h-3 my-auto mx-5 rounded"></div>
-                    <div className="w-[10%] bg-gray-50 h-3 my-auto mx-5 rounded"></div>
-                </div>
-            ))}
-        </div>
-    )
+    const getTypeConfig = (type) => {
+        switch (type) {
+            case 'success':
+                return { icon: CheckCircle2, variant: 'success', color: 'text-pace-green' }
+            case 'warning':
+                return { icon: AlertCircle, variant: 'warning', color: 'text-orange-500' }
+            case 'error':
+                return { icon: AlertCircle, variant: 'error', color: 'text-red-500' }
+            default:
+                return { icon: Info, variant: 'info', color: 'text-blue-500' }
+        }
+    }
 
     return (
-        <div className="space-y-6 font-figtree">
-
-            {/* Header */}
-            <div className="border-b border-gray-100 pb-4">
-                <h1 className="text-[20px] font-black text-admin-value leading-none">System Activity Logs</h1>
-                <p className="text-[12px] text-admin-label mt-2 font-medium">A history of activities and changes made within the system.</p>
+        <div className="space-y-6 font-figtree animate-in fade-in duration-700">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-50 pb-4">
+                <div>
+                    <h1 className="text-[20px] font-black text-pace-purple leading-tight tracking-tight uppercase">System Logs</h1>
+                    <p className="text-[11px] text-admin-label mt-1 font-medium tracking-tight opacity-70">Comprehensive audit trail of all system activities and events.</p>
+                </div>
             </div>
 
-            {/* Content Hub */}
-            <div className="flex flex-col md:flex-row items-center gap-2 h-9">
-                <div className="relative w-full md:w-80 h-full">
+            {/* Control Bar */}
+            <div className="flex flex-col md:flex-row items-center gap-3">
+                <div className="relative w-full md:w-96">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-admin-dim" size={14} />
                     <input
                         type="text"
-                        placeholder="Search records by ID, user or action..."
-                        className="w-full h-full pl-9 pr-3 rounded border border-pace-border bg-white focus:ring-1 focus:ring-pace-purple/10 focus:border-pace-purple outline-none text-[12px] font-black text-admin-value placeholder:text-admin-dim h-full"
+                        placeholder="Search logs by action, user, or IP..."
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-gray-100 bg-white focus:ring-1 focus:ring-pace-purple/10 focus:border-pace-purple outline-none text-[12px] font-medium text-admin-value shadow-sm transition-all"
                     />
                 </div>
-                <div className="flex gap-2 h-full text-[11px] font-black uppercase tracking-widest">
-                    <button className="px-6 h-full border border-pace-border text-admin-label rounded hover:border-pace-purple hover:text-pace-purple transition-all bg-white shadow-none flex items-center gap-2">
-                        <Filter size={12} /> Filter
+                <div className="flex gap-2">
+                    <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 text-admin-label rounded-xl hover:border-pace-purple hover:text-pace-purple transition-all bg-white text-[11px] font-bold">
+                        <Filter size={14} /> Filter Type
                     </button>
-                    <button className="px-4 h-full border border-pace-border text-admin-dim rounded hover:bg-gray-50 transition-all bg-white shadow-none">Export Logs</button>
+                    <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 text-admin-label rounded-xl hover:border-pace-purple hover:text-pace-purple transition-all bg-white text-[11px] font-bold">
+                        <Clock size={14} /> Date Range
+                    </button>
                 </div>
             </div>
 
-            {/* List View */}
-            <div className="border border-pace-border rounded bg-white overflow-hidden shadow-none">
-                <div className="px-5 py-3 border-b border-pace-border bg-pace-bg-subtle flex justify-between items-center">
-                    <h4 className="text-[10px] font-black text-admin-label uppercase tracking-widest">Master Activity List</h4>
-                    <span className="text-[9px] font-black text-admin-dim uppercase tracking-widest leading-none">Records are encrypted & immutable</span>
-                </div>
-                <div className="overflow-x-auto min-h-[400px]">
-                    <table className="w-full text-left text-[12px] whitespace-nowrap">
+            {/* Logs Table */}
+            <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left text-[12px] whitespace-nowrap border-collapse">
                         <thead>
-                            <tr className="bg-white border-b border-gray-100 font-bold text-admin-label uppercase tracking-widest text-[9px]">
-                                <th className="px-5 py-3 border-r border-gray-100">Event #</th>
-                                <th className="px-5 py-3 border-r border-gray-100 uppercase">Time</th>
-                                <th className="px-5 py-3 border-r border-gray-100 uppercase">Actor</th>
-                                <th className="px-5 py-3 border-r border-gray-100 uppercase">Activity</th>
-                                <th className="px-5 py-3 border-r border-gray-100 uppercase">Target</th>
-                                <th className="px-5 py-3 text-right uppercase">Result</th>
+                            <tr className="bg-gray-50/50 border-b border-gray-100 font-bold text-admin-dim uppercase tracking-widest text-[9px]">
+                                <th className="px-6 py-4">Timestamp</th>
+                                <th className="px-6 py-4">Event Type</th>
+                                <th className="px-6 py-4">Action</th>
+                                <th className="px-6 py-4">Description</th>
+                                <th className="px-6 py-4">User/Source</th>
+                                <th className="px-6 py-4">IP Address</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
                             {isLoading ? (
-                                <tr><td colSpan="6"><TableSkeleton /></td></tr>
-                            ) : (
-                                logs.map((log) => (
-                                    <tr key={log.id} className="hover:bg-gray-50 transition-colors group cursor-default">
-                                        <td className="px-5 py-3 font-mono text-admin-dim group-hover:text-admin-value border-r border-gray-50 font-black uppercase transition-colors">{log.id}</td>
-                                        <td className="px-5 py-3 font-black text-admin-dim border-r border-gray-50 tabular-nums">{log.time}</td>
-                                        <td className="px-5 py-3 border-r border-gray-50">
-                                            <div className="flex items-center gap-2">
-                                                <span className="font-black text-admin-value uppercase">{log.user}</span>
-                                            </div>
-                                        </td>
-                                        <td className="px-5 py-3 border-r border-gray-50 font-black text-admin-label uppercase tracking-tight">
-                                            {log.action}
-                                        </td>
-                                        <td className="px-5 py-3 border-r border-gray-50 font-black text-admin-dim group-hover:text-admin-label transition-colors">
-                                            {log.target}
-                                        </td>
-                                        <td className="px-5 py-3 text-right">
-                                            <span className="font-black uppercase text-[10px] tracking-widest px-2 py-0.5 rounded-sm border border-gray-100 text-admin-label">
-                                                {log.status}
-                                            </span>
-                                        </td>
+                                [...Array(5)].map((_, i) => (
+                                    <tr key={i}>
+                                        <td className="px-6 py-5"><Skeleton className="h-4 w-32" /></td>
+                                        <td className="px-6 py-5"><Skeleton className="h-4 w-20" /></td>
+                                        <td className="px-6 py-5"><Skeleton className="h-4 w-24" /></td>
+                                        <td className="px-6 py-5"><Skeleton className="h-4 w-48" /></td>
+                                        <td className="px-6 py-5"><Skeleton className="h-4 w-20" /></td>
+                                        <td className="px-6 py-5"><Skeleton className="h-4 w-28" /></td>
                                     </tr>
                                 ))
+                            ) : (
+                                logs.map((log) => {
+                                    const config = getTypeConfig(log.type)
+                                    return (
+                                        <tr key={log.id} className="hover:bg-gray-50/30 transition-colors group">
+                                            <td className="px-6 py-5 font-bold text-admin-dim">{log.timestamp}</td>
+                                            <td className="px-6 py-5">
+                                                <Badge variant={config.variant} className="text-[9px] font-black">
+                                                    <config.icon size={10} className="mr-1" />
+                                                    {log.type.toUpperCase()}
+                                                </Badge>
+                                            </td>
+                                            <td className="px-6 py-5 font-black text-admin-value uppercase">{log.action}</td>
+                                            <td className="px-6 py-5 font-medium text-admin-label max-w-md truncate">{log.description}</td>
+                                            <td className="px-6 py-5 font-bold text-admin-dim">{log.user}</td>
+                                            <td className="px-6 py-5 font-mono text-[11px] text-admin-dim">{log.ip}</td>
+                                        </tr>
+                                    )
+                                })
                             )}
                         </tbody>
                     </table>
                 </div>
-
-                {/* Pagination */}
-                <div className="p-4 bg-gray-50/50 border-t border-pace-border flex items-center justify-between">
-                    <p className="text-[11px] text-admin-label font-black uppercase tracking-tight">Log Entry Sequence: 8,816 — 8,821</p>
-                    <div className="flex items-center gap-1 h-8">
-                        <button className="px-3 h-full border border-pace-border rounded text-[10px] uppercase text-admin-label hover:text-admin-value bg-white font-black hover:border-pace-purple transition-all">
-                            <ChevronLeft size={14} />
-                        </button>
-                        <div className="flex gap-1 h-full">
-                            <button className="w-8 h-full rounded bg-pace-purple text-white text-[10px] font-black">1</button>
-                            <button className="w-8 h-full rounded border border-pace-border text-admin-label text-[10px] hover:bg-gray-50 bg-white font-black">2</button>
-                            <button className="w-8 h-full rounded border border-pace-border text-admin-label text-[10px] hover:bg-gray-50 bg-white font-black">3</button>
-                        </div>
-                        <button className="px-3 h-full border border-pace-border rounded text-[10px] uppercase text-admin-label hover:text-admin-value bg-white font-black hover:border-pace-purple transition-all">
-                            <ChevronRight size={14} />
-                        </button>
-                    </div>
-                </div>
             </div>
 
+            {/* Pagination */}
+            <div className="flex justify-between items-center">
+                <p className="text-[11px] text-admin-dim font-bold">Showing 1-10 of 245 log entries</p>
+                <div className="flex gap-2">
+                    <button className="px-4 py-2 border border-gray-200 text-admin-label rounded-lg text-[11px] font-bold hover:bg-gray-50 transition-all">
+                        Previous
+                    </button>
+                    <button className="px-4 py-2 bg-pace-purple text-white rounded-lg text-[11px] font-bold hover:bg-[#3d1a75] transition-all">
+                        Next
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }
