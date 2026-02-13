@@ -62,10 +62,10 @@ export default function LoginPage() {
                         <LoadingButton
                             type="submit"
                             isLoading={isAuthenticating}
-                            loadingText="Authenticating..."
+                            loadingText="Logging in..."
                             className="w-full bg-pace-purple text-white py-3.5 rounded font-black text-[12px] uppercase tracking-[3px] hover:bg-[#3d1a75] transition-all active:scale-[0.99] mt-6 shadow-none"
                         >
-                            Open Dashboard
+                            Login
                         </LoadingButton>
                     </form>
 
