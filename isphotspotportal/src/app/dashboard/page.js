@@ -60,21 +60,20 @@ export default function DashboardPage() {
     ]
 
     return (
-        <div className="space-y-6 font-figtree animate-in fade-in duration-700">
-
+        <div className="space-y-6 font-figtree animate-in fade-in duration-700 max-w-[1600px] mx-auto pb-10">
             {/* Title Section */}
-            <div className="pb-4 flex justify-between items-end border-b border-gray-50">
+            <div className="pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                 <div>
-                    <h1 className="text-[20px] font-black text-pace-purple leading-tight tracking-tight uppercase">Pace Wisp Overview</h1>
-                    <p className="text-[11px] text-admin-label mt-1 font-medium tracking-tight opacity-70">Real-time monitoring for hotspot performance and earnings.</p>
+                    <h1 className="text-xl font-bold text-gray-900 leading-tight">Overview</h1>
+                    <p className="text-sm text-gray-500 mt-1">Real-time monitoring for hotpsot performance.</p>
                 </div>
                 <div className="flex gap-2">
                     <button
                         onClick={() => { setIsRefreshing(true); setTimeout(() => setIsRefreshing(false), 1000); }}
-                        className="p-2 bg-pace-purple/10 text-pace-purple rounded-lg hover:bg-pace-purple/20 transition-all flex items-center gap-2 px-3"
+                        className="p-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-all flex items-center gap-2 px-3 shadow-sm"
                     >
-                        <RefreshCw size={14} className={cn(isRefreshing ? "animate-spin" : "")} />
-                        <span className="text-[10px] font-bold uppercase">Refresh Dashboard</span>
+                        <RefreshCw size={14} className={cn(isRefreshing ? "animate-spin" : "text-gray-400")} />
+                        <span className="text-xs font-semibold">Refresh</span>
                     </button>
                 </div>
             </div>
@@ -85,17 +84,16 @@ export default function DashboardPage() {
                     [...Array(4)].map((_, i) => <CardSkeleton key={i} />)
                 ) : (
                     metrics.map((metric, i) => (
-                        <div key={i} className="bg-white border border-gray-100 rounded-xl p-5 hover:border-pace-purple/30 transition-all shadow-sm group">
-                            <div className="flex justify-between items-start mb-3">
-                                <div className="w-9 h-9 rounded-lg bg-pace-purple/5 flex items-center justify-center text-pace-purple group-hover:scale-110 transition-transform">
-                                    <metric.icon size={18} />
+                        <div key={i} className="bg-white border border-gray-100 rounded-xl p-5 hover:border-purple-200 transition-all shadow-sm">
+                            <div className="flex justify-between items-start mb-4">
+                                <div className="w-10 h-10 rounded-lg bg-gray-50 flex items-center justify-center text-purple-600">
+                                    <metric.icon size={20} />
                                 </div>
-                                <Badge variant={metric.status === 'success' ? 'success' : 'info'} className="text-[9px] font-black px-1.5">{metric.change}</Badge>
+                                <Badge variant={metric.status === 'success' ? 'success' : 'info'} className="text-[10px] font-medium px-2 py-0.5">{metric.change}</Badge>
                             </div>
                             <div>
-                                <p className="text-[10px] font-black text-admin-dim uppercase tracking-wider mb-1">{metric.label}</p>
-                                <h3 className="text-[20px] font-black text-admin-value leading-none">{metric.value}</h3>
-                                <p className="text-[9px] font-bold text-admin-dim mt-2 opacity-50 uppercase tracking-tighter">{metric.note}</p>
+                                <h3 className="text-2xl font-bold text-gray-900">{metric.value}</h3>
+                                <p className="text-sm font-medium text-gray-500 mb-1">{metric.label}</p>
                             </div>
                         </div>
                     ))
@@ -104,125 +102,146 @@ export default function DashboardPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 {/* Area Graph: Today Entries */}
-                <div className="lg:col-span-8 bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                <div className="lg:col-span-8 bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
                     <div className="flex justify-between items-center mb-6">
                         <div>
-                            <h4 className="text-[10px] font-black text-admin-dim uppercase tracking-widest mb-1">Entry Velocity</h4>
-                            <p className="text-[15px] font-black text-admin-value uppercase tracking-tight">Today's Traffic Flow</p>
-                        </div>
-                        <div className="flex items-center gap-2 px-3 py-1 bg-pace-purple/5 rounded-full">
-                            <Activity size={12} className="text-pace-purple" />
-                            <span className="text-[10px] font-black text-pace-purple">LIVE UPDATES</span>
+                            <h4 className="text-base font-bold text-gray-900">Entry Traffic</h4>
+                            <p className="text-xs text-gray-500 mt-1">Visitors throughout the day</p>
                         </div>
                     </div>
-                    <div className="h-[250px] w-full">
+                    <div className="h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart data={entryData}>
+                            <AreaChart data={entryData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                                 <defs>
                                     <linearGradient id="colorEntries" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#4B1D8F" stopOpacity={0.1} />
-                                        <stop offset="95%" stopColor="#4B1D8F" stopOpacity={0} />
+                                        <stop offset="5%" stopColor="#9333ea" stopOpacity={0.1} />
+                                        <stop offset="95%" stopColor="#9333ea" stopOpacity={0} />
                                     </linearGradient>
                                 </defs>
-                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F9FAFB" />
-                                <XAxis dataKey="time" axisLine={false} tickLine={false} tick={{ fontSize: 9, fontWeight: 700, fill: '#9CA3AF' }} />
-                                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 9, fontWeight: 700, fill: '#9CA3AF' }} />
-                                <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', fontSize: '11px', fontWeight: '800', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', backgroundColor: 'white' }} />
-                                <Area type="monotone" dataKey="entries" stroke="#4B1D8F" strokeWidth={3} fillOpacity={1} fill="url(#colorEntries)" />
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                                <XAxis
+                                    dataKey="time"
+                                    axisLine={false}
+                                    tickLine={false}
+                                    tick={{ fontSize: 11, fill: '#6b7280' }}
+                                    dy={10}
+                                />
+                                <YAxis
+                                    axisLine={false}
+                                    tickLine={false}
+                                    tick={{ fontSize: 11, fill: '#6b7280' }}
+                                />
+                                <Tooltip
+                                    contentStyle={{ borderRadius: '8px', border: 'none', fontSize: '12px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                    cursor={{ stroke: '#e5e7eb' }}
+                                />
+                                <Area
+                                    type="monotone"
+                                    dataKey="entries"
+                                    stroke="#9333ea"
+                                    strokeWidth={2}
+                                    fillOpacity={1}
+                                    fill="url(#colorEntries)"
+                                />
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>
                 </div>
 
                 {/* Recent Entries Widget */}
-                <div className="lg:col-span-4 bg-white border border-gray-100 rounded-2xl p-6 shadow-sm flex flex-col">
+                <div className="lg:col-span-4 bg-white border border-gray-100 rounded-xl p-6 shadow-sm flex flex-col">
                     <div className="flex justify-between items-center mb-6">
-                        <h4 className="text-[10px] font-black text-admin-dim uppercase tracking-widest">Recent Entries</h4>
-                        <Badge variant="outline" className="text-[9px]">LATEST</Badge>
+                        <h4 className="text-base font-bold text-gray-900">Recent Activity</h4>
                     </div>
-                    <div className="flex-1 space-y-5">
+                    <div className="flex-1 space-y-0">
                         {recentEntries.map((entry) => (
-                            <div key={entry.id} className="flex items-center justify-between border-b border-gray-50 pb-4 last:border-0 last:pb-0">
+                            <div key={entry.id} className="flex items-center justify-between border-b border-gray-50 py-4 last:border-0 last:pb-0 first:pt-0">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-admin-dim group-hover:bg-pace-purple/5 group-hover:text-pace-purple">
+                                    <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400">
                                         <Smartphone size={14} />
                                     </div>
                                     <div>
-                                        <p className="text-[11px] font-black text-admin-value leading-none uppercase">{entry.mac}</p>
-                                        <p className="text-[9px] font-bold text-admin-dim mt-1 tracking-tighter uppercase">{entry.plan}</p>
+                                        <p className="text-sm font-semibold text-gray-900">{entry.mac}</p>
+                                        <p className="text-xs text-gray-500 mt-0.5">{entry.plan}</p>
                                     </div>
                                 </div>
                                 <div className="text-right">
-                                    <p className="text-[11px] font-black text-pace-purple">KSH {entry.amount}</p>
-                                    <p className="text-[9px] text-admin-dim mt-1 font-bold italic">{entry.time}</p>
+                                    <p className="text-sm font-bold text-gray-900">KSH {entry.amount}</p>
+                                    <p className="text-xs text-gray-400 mt-0.5">{entry.time}</p>
                                 </div>
                             </div>
                         ))}
                     </div>
-                    <button className="w-full mt-6 py-2.5 bg-gray-50 text-[10px] font-black text-admin-label uppercase tracking-widest hover:bg-pace-purple hover:text-white transition-all rounded-lg">
-                        See All Entries
+                    <button className="w-full mt-6 py-2 border border-gray-200 text-xs font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all rounded-lg">
+                        View All
                     </button>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 {/* Mikrotik Routers Widget */}
-                <div className="lg:col-span-4 bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                <div className="lg:col-span-4 bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
                     <div className="flex justify-between items-center mb-6">
-                        <h4 className="text-[10px] font-black text-admin-dim uppercase tracking-widest">Mikrotik Nodes</h4>
-                        <div className="flex items-center gap-1 text-[9px] font-black text-pace-green">
-                            <div className="w-1.5 h-1.5 rounded-full bg-pace-green animate-pulse" />
-                            <span>HEALTHY</span>
+                        <h4 className="text-base font-bold text-gray-900">Routers</h4>
+                        <div className="flex items-center gap-1.5 px-2 py-1 bg-green-50 rounded-full">
+                            <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                            <span className="text-[10px] font-semibold text-green-700">System Healthy</span>
                         </div>
                     </div>
                     <div className="space-y-4">
                         {mikrotikStatus.map((router) => (
-                            <div key={router.id} className="p-3 bg-gray-50/50 rounded-xl border border-transparent hover:border-pace-purple/10 transition-all">
+                            <div key={router.id} className="p-3 bg-gray-50 rounded-lg border border-transparent hover:border-purple-100 transition-all">
                                 <div className="flex justify-between items-start">
                                     <div className="flex items-center gap-3">
-                                        <div className={cn("p-2 rounded-lg", router.status === 'Online' ? "bg-pace-green/10 text-pace-green" : "bg-red-50 text-red-400")}>
+                                        <div className={cn("p-2 rounded-lg", router.status === 'Online' ? "bg-white text-green-600 shadow-sm" : "bg-white text-red-500 shadow-sm")}>
                                             <Wifi size={14} />
                                         </div>
                                         <div>
-                                            <p className="text-[11px] font-black text-admin-value leading-none uppercase">{router.name}</p>
-                                            <p className="text-[9px] font-bold text-admin-dim mt-1">{router.ip}</p>
+                                            <p className="text-xs font-bold text-gray-900">{router.name}</p>
+                                            <p className="text-[10px] font-medium text-gray-500 mt-0.5">{router.ip}</p>
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <p className={cn("text-[9px] font-black uppercase", router.status === 'Online' ? "text-pace-green" : "text-red-500")}>{router.status}</p>
-                                        <p className="text-[9px] font-bold text-admin-dim mt-1 uppercase">CPU: {router.load}</p>
+                                        <Badge variant={router.status === 'Online' ? 'success' : 'error'} className="text-[10px] px-2 py-0.5">{router.status}</Badge>
+                                        <p className="text-[10px] font-medium text-gray-400 mt-1">CPU: {router.load}</p>
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
-                    {/* Fade effect and see more */}
-                    <div className="mt-4 pt-4 border-t border-gray-50 text-center relative">
-                        <div className="absolute top-[-20px] left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none" />
-                        <button className="text-[10px] font-black text-pace-purple hover:underline uppercase tracking-widest flex items-center justify-center gap-2 mx-auto">
-                            See More Routers <ArrowRight size={12} />
-                        </button>
-                    </div>
                 </div>
 
                 {/* Earnings Bar Graph */}
-                <div className="lg:col-span-8 bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                <div className="lg:col-span-8 bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
                     <div className="flex justify-between items-center mb-6">
                         <div>
-                            <h4 className="text-[10px] font-black text-admin-dim uppercase tracking-widest mb-1">Financial Trends</h4>
-                            <p className="text-[15px] font-black text-admin-value uppercase tracking-tight">Recent Daily Earnings</p>
+                            <h4 className="text-base font-bold text-gray-900">Revenue</h4>
+                            <p className="text-xs text-gray-500 mt-1">Daily income performance</p>
                         </div>
                     </div>
-                    <div className="h-[200px] w-full">
+                    <div className="h-[250px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
-                            <BarChart data={revenueData}>
-                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F9FAFB" />
-                                <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 9, fontWeight: 700, fill: '#9CA3AF' }} />
-                                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 9, fontWeight: 700, fill: '#9CA3AF' }} />
-                                <Tooltip cursor={{ fill: '#F9FAFB' }} contentStyle={{ borderRadius: '12px', border: 'none', fontSize: '11px', fontWeight: '800', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', backgroundColor: 'white' }} />
-                                <Bar dataKey="amount" radius={[4, 4, 0, 0]} barSize={40}>
+                            <BarChart data={revenueData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                                <XAxis
+                                    dataKey="label"
+                                    axisLine={false}
+                                    tickLine={false}
+                                    tick={{ fontSize: 11, fill: '#6b7280' }}
+                                    dy={10}
+                                />
+                                <YAxis
+                                    axisLine={false}
+                                    tickLine={false}
+                                    tick={{ fontSize: 11, fill: '#6b7280' }}
+                                />
+                                <Tooltip
+                                    cursor={{ fill: '#f9fafb' }}
+                                    contentStyle={{ borderRadius: '8px', border: 'none', fontSize: '12px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                />
+                                <Bar dataKey="amount" radius={[4, 4, 0, 0]} barSize={50} fill="#9333ea">
                                     {revenueData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={index === revenueData.length - 1 ? '#4B1D8F' : '#E5E7EB'} />
+                                        <Cell key={`cell-${index}`} fill={index === revenueData.length - 1 ? '#9333ea' : '#e5e7eb'} />
                                     ))}
                                 </Bar>
                             </BarChart>
