@@ -47,10 +47,10 @@ export default function DashboardPage() {
     }, [])
 
     const metrics = [
-        { label: 'Active connections', value: '1,284', change: '+14% growth', note: 'Managed clients', icon: Users, status: 'success' },
-        { label: 'Applications today', value: '42 units', change: '+5 new', note: 'Pending review', icon: Activity, status: 'info' },
-        { label: 'Sender IDs', value: '18 active', change: '+2 today', note: 'SMS gateways', icon: Repeat, status: 'success' },
-        { label: 'Payment channels', value: '5 live', change: 'M-Pesa/Paybill', note: 'Channel activity', icon: Receipt, status: 'success' },
+        { label: 'Active Clients', value: '1,284', change: '+14% growth', note: 'Managed clients', icon: Users, status: 'success' },
+        { label: 'New Applications', value: '42 units', change: '+5 new', note: 'Pending review', icon: Activity, status: 'info' },
+        { label: 'SMS Gateways', value: '18 active', change: '+2 today', note: 'SMS gateways', icon: Repeat, status: 'success' },
+        { label: 'Payment Methods', value: '5 live', change: 'M-Pesa/Paybill', note: 'Channel activity', icon: Receipt, status: 'success' },
     ]
 
     return (
@@ -59,8 +59,8 @@ export default function DashboardPage() {
             {/* Title Section */}
             <div className="pb-4 flex justify-between items-end border-b border-gray-50">
                 <div>
-                    <h1 className="text-[24px] font-black text-admin-value leading-tight tracking-tight text-pace-purple">Command Hub</h1>
-                    <p className="text-[12px] text-admin-label mt-1 font-medium tracking-tight opacity-70">Real-time infrastructure and financial health monitoring.</p>
+                    <h1 className="text-[24px] font-black text-admin-value leading-tight tracking-tight text-pace-purple">Dashboard</h1>
+                    <p className="text-[12px] text-admin-label mt-1 font-medium tracking-tight opacity-70">Monitor your network and finances.</p>
                 </div>
                 <div className="flex gap-2">
                     <button className="px-4 py-2 border border-gray-100 text-admin-label rounded-xl text-[11px] font-bold hover:bg-gray-50 transition-all bg-white/50 backdrop-blur-sm shadow-sm">
@@ -106,8 +106,8 @@ export default function DashboardPage() {
                 <div className="lg:col-span-8 border border-gray-100/50 rounded-3xl bg-white/40 backdrop-blur-sm p-8 shadow-sm">
                     <div className="flex justify-between items-center mb-8">
                         <div>
-                            <h4 className="text-[10px] font-black text-admin-label uppercase tracking-widest mb-1 opacity-50">User Acquisition</h4>
-                            <p className="text-[18px] font-black text-admin-value uppercase tracking-tight">Weekly Growth Velocity</p>
+                            <h4 className="text-[10px] font-black text-admin-label uppercase tracking-widest mb-1 opacity-50">New Clients</h4>
+                            <p className="text-[18px] font-black text-admin-value uppercase tracking-tight">Weekly Growth</p>
                         </div>
                         <div className="flex items-center gap-2 px-3 py-1.5 bg-pace-green/5 rounded-lg border border-pace-green/10">
                             <TrendingUp size={14} className="text-pace-green" />
@@ -198,7 +198,7 @@ export default function DashboardPage() {
                     </div>
 
                     <button className="w-full mt-8 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl text-[10px] font-black text-admin-label uppercase tracking-widest hover:bg-pace-purple hover:text-white hover:border-pace-purple transition-all group">
-                        View Finance Hub
+                        View All Finances
                     </button>
                 </div>
             </div>
@@ -207,8 +207,8 @@ export default function DashboardPage() {
             <div className="border border-gray-100/50 rounded-3xl bg-white/40 backdrop-blur-sm p-8 shadow-sm">
                 <div className="flex justify-between items-center mb-8">
                     <div>
-                        <h4 className="text-[10px] font-black text-admin-label uppercase tracking-widest mb-1 opacity-50">Financial Distribution</h4>
-                        <p className="text-[18px] font-black text-admin-value uppercase tracking-tight">Monthly Revenue Cycles</p>
+                        <h4 className="text-[10px] font-black text-admin-label uppercase tracking-widest mb-1 opacity-50">Revenue Breakdown</h4>
+                        <p className="text-[18px] font-black text-admin-value uppercase tracking-tight">Monthly Revenue</p>
                     </div>
                     <div className="flex gap-2">
                         {['Income', 'Billed'].map((t) => (
