@@ -1,14 +1,23 @@
 "use client"
 
 import React, { useState } from 'react'
-import { Search, ShieldAlert, Phone, ShieldCheck, UserX, AlertCircle } from 'lucide-react'
+import { Search, ShieldAlert, Phone, ShieldCheck, UserX, AlertCircle, Unlock, Ban, AlertTriangle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/Badge'
+import { Modal } from '@/components/Modal'
 
 export default function BlockStkPage() {
     const [mobile, setMobile] = useState('')
     const [searchResult, setSearchResult] = useState(null)
     const [isSearching, setIsSearching] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    // Mock data for blocked numbers
+    const blockedNumbers = [
+        { id: 1, name: 'John Doe', mobile: '0712 345 678', reason: 'Fraudulent Activity', date: '2023-10-25' },
+        { id: 2, name: 'Jane Smith', mobile: '0722 111 222', reason: 'Repeated Failed Push', date: '2023-10-28' },
+        { id: 3, name: 'Michael Brown', mobile: '0733 444 555', reason: 'Security Flag', date: '2023-11-02' },
+    ]
 
     const handleSearch = () => {
         if (!mobile) return
@@ -16,92 +25,189 @@ export default function BlockStkPage() {
         // Mock API call
         setTimeout(() => {
             setSearchResult({
-                name: 'John Doe',
+                name: 'David Kimani',
                 mobile: mobile,
                 status: 'Active',
-                lastTransaction: 'KSH 50 - 2026-02-13',
+                lastTransaction: 'KSH 50 - 2 mins ago',
                 macAddress: '00:1A:2B:3C:4D:5E'
             })
             setIsSearching(false)
+            setIsModalOpen(true)
         }, 800)
     }
 
+    const handleBlock = () => {
+        // Logic to block user
+        setIsModalOpen(false)
+        setMobile('')
+        setSearchResult(null)
+    }
+
     return (
-        <div className="max-w-4xl mx-auto space-y-8 font-figtree animate-in fade-in duration-700">
-            <div className="text-center space-y-2 border-b border-gray-50 pb-8">
-                <div className="w-16 h-16 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-red-100">
-                    <ShieldAlert size={32} />
+        <div className="max-w-[1600px] mx-auto space-y-8 font-figtree animate-in fade-in duration-700">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-100 pb-4">
+                <div>
+                    <h1 className="text-xl font-bold text-gray-900 leading-tight">STK Security Control</h1>
+                    <p className="text-sm text-gray-500 mt-1">Manage and restrict customers from initiating STK push payments.</p>
                 </div>
-                <h1 className="text-[24px] font-black text-admin-value uppercase tracking-tight">Financial Security Center</h1>
-                <p className="text-[13px] text-admin-label font-medium opacity-70">Search and restrict customers from making STK payments.</p>
             </div>
 
-            <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
-                <div className="space-y-6">
-                    <div>
-                        <label className="text-[10px] font-black text-admin-dim uppercase tracking-widest mb-3 block">Customer Mobile Number</label>
-                        <div className="flex gap-3">
-                            <div className="relative flex-1">
-                                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-admin-dim" size={18} />
+            {/* Search Section - Stacked on top */}
+            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
+                <div className="max-w-3xl">
+                    <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        <ShieldAlert size={18} className="text-red-500" />
+                        Block New Number
+                    </h3>
+                    <div className="flex gap-4 items-end">
+                        <div className="flex-1">
+                            <label className="text-xs font-semibold text-gray-700 mb-1.5 block">Customer Mobile Number</label>
+                            <div className="relative">
+                                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
                                 <input
                                     type="text"
-                                    placeholder="Enter mobile number (e.g. 0712345678)"
+                                    placeholder="e.g. 0712345678"
                                     value={mobile}
                                     onChange={(e) => setMobile(e.target.value)}
-                                    className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-2 focus:ring-red-100 focus:border-red-400 outline-none text-[14px] font-bold text-admin-value transition-all"
+                                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                                    className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-200 bg-white focus:ring-1 focus:ring-pace-purple focus:border-pace-purple outline-none text-sm text-gray-900 placeholder:text-gray-400 transition-all shadow-sm"
                                 />
                             </div>
-                            <button
-                                onClick={handleSearch}
-                                disabled={isSearching}
-                                className="px-8 py-4 bg-admin-value text-white rounded-2xl font-black text-[12px] uppercase tracking-widest hover:bg-black transition-all shadow-lg active:scale-95 disabled:opacity-50"
-                            >
-                                {isSearching ? 'Scanning...' : 'Search User'}
-                            </button>
                         </div>
+                        <button
+                            onClick={handleSearch}
+                            disabled={isSearching || !mobile}
+                            className="px-6 py-2.5 bg-gray-900 text-white rounded-lg font-medium text-sm hover:bg-gray-800 transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-w-[140px]"
+                        >
+                            {isSearching ? (
+                                <span className="animate-pulse">Searching...</span>
+                            ) : (
+                                <>
+                                    <Search size={16} />
+                                    Find Customer
+                                </>
+                            )}
+                        </button>
                     </div>
+                </div>
+            </div>
 
-                    {searchResult && (
-                        <div className="mt-8 p-6 bg-gray-50 rounded-2xl border border-gray-100 animate-in slide-in-from-top duration-500">
-                            <div className="flex items-start justify-between">
-                                <div className="space-y-4">
-                                    <div>
-                                        <p className="text-[10px] font-black text-admin-dim uppercase tracking-widest mb-1">Customer Profile</p>
-                                        <h3 className="text-[18px] font-black text-admin-value uppercase leading-none">{searchResult.name}</h3>
-                                        <p className="text-[12px] text-admin-label font-bold mt-1.5">{searchResult.mobile}</p>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="p-3 bg-white rounded-xl border border-gray-100">
-                                            <p className="text-[9px] font-black text-admin-dim uppercase mb-1">Status</p>
-                                            <Badge variant="success" className="text-[9px] font-black uppercase">{searchResult.status}</Badge>
-                                        </div>
-                                        <div className="p-3 bg-white rounded-xl border border-gray-100">
-                                            <p className="text-[9px] font-black text-admin-dim uppercase mb-1">MAC Address</p>
-                                            <p className="text-[11px] font-extrabold text-admin-value">{searchResult.macAddress}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="text-right space-y-4">
-                                    <div className="inline-flex flex-col items-end">
-                                        <p className="text-[9px] font-black text-admin-dim uppercase mb-1">Recent Activity</p>
-                                        <p className="text-[11px] font-bold text-admin-label">{searchResult.lastTransaction}</p>
-                                    </div>
-                                    <button className="w-full py-4 bg-red-500 text-white rounded-2xl font-black text-[12px] uppercase tracking-widest hover:bg-red-600 transition-all shadow-xl shadow-red-100 flex items-center justify-center gap-2">
-                                        <UserX size={18} />
-                                        Block STK Access
-                                    </button>
+            {/* Blocked List Table - Stacked below */}
+            <div className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+                <div className="p-6 border-b border-gray-100 flex justify-between items-center">
+                    <h3 className="text-base font-bold text-gray-900">Blocked Numbers</h3>
+                    <Badge variant="error" className="text-xs">{blockedNumbers.length} Blocked</Badge>
+                </div>
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left text-sm whitespace-nowrap">
+                        <thead>
+                            <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 font-medium">
+                                <th className="px-6 py-3 font-semibold">Customer</th>
+                                <th className="px-6 py-3 font-semibold">Mobile Number</th>
+                                <th className="px-6 py-3 font-semibold">Block Reason</th>
+                                <th className="px-6 py-3 font-semibold">Date Blocked</th>
+                                <th className="px-6 py-3 font-semibold text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-50">
+                            {blockedNumbers.map((user) => (
+                                <tr key={user.id} className="hover:bg-gray-50 transition-colors">
+                                    <td className="px-6 py-4">
+                                        <span className="font-medium text-gray-900">{user.name}</span>
+                                    </td>
+                                    <td className="px-6 py-4 text-gray-600 font-mono text-xs">
+                                        {user.mobile}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <Badge variant="outline" className="bg-red-50 text-red-600 border-red-100 font-normal">
+                                            {user.reason}
+                                        </Badge>
+                                    </td>
+                                    <td className="px-6 py-4 text-gray-500 text-xs">
+                                        {user.date}
+                                    </td>
+                                    <td className="px-6 py-4 text-right">
+                                        <button className="px-3 py-1.5 bg-white border border-gray-200 text-gray-600 rounded-lg text-xs font-medium hover:bg-green-50 hover:text-green-600 hover:border-green-200 transition-all shadow-sm flex items-center gap-1.5 ml-auto">
+                                            <Unlock size={14} />
+                                            Unblock
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                            {blockedNumbers.length === 0 && (
+                                <tr>
+                                    <td colSpan="5" className="px-6 py-12 text-center text-gray-400">
+                                        <ShieldCheck size={48} className="mx-auto mb-3 text-gray-200" />
+                                        <p className="font-medium">No blocked numbers found</p>
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {/* Block Confirmation Modal */}
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                title="Confirm STK Block"
+                maxWidth="max-w-lg"
+                footer={
+                    <>
+                        <button
+                            onClick={() => setIsModalOpen(false)}
+                            className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm font-medium transition-colors"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={handleBlock}
+                            className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 shadow-sm flex items-center gap-2"
+                        >
+                            <Ban size={16} />
+                            Confirm Block
+                        </button>
+                    </>
+                }
+            >
+                {searchResult && (
+                    <div className="space-y-6">
+                        <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100">
+                            <div className="w-12 h-12 rounded-full bg-white border border-gray-100 flex items-center justify-center text-gray-400 shadow-sm shrink-0">
+                                <UserX size={24} />
+                            </div>
+                            <div>
+                                <h4 className="text-lg font-bold text-gray-900">{searchResult.name}</h4>
+                                <p className="text-sm text-gray-500 font-medium">{searchResult.mobile}</p>
+                                <div className="flex items-center gap-2 mt-2">
+                                    <Badge variant="success" className="text-[10px] px-2 py-0.5">{searchResult.status}</Badge>
+                                    <span className="text-xs text-gray-400">•</span>
+                                    <span className="text-xs text-gray-500 font-mono">{searchResult.macAddress}</span>
                                 </div>
                             </div>
-                            <div className="mt-6 flex items-start gap-3 p-4 bg-orange-50 rounded-xl border border-orange-100">
-                                <AlertCircle size={18} className="text-orange-500 shrink-0" />
-                                <p className="text-[11px] text-orange-700 font-medium leading-relaxed">
-                                    Blocking STK access will prevent this customer from initiating any M-Pesa push payments. This is a security measure to prevent fraudulent transactions or multiple failed attempts.
+                        </div>
+
+                        <div className="p-4 bg-orange-50 rounded-xl border border-orange-100 flex gap-3">
+                            <AlertTriangle size={20} className="text-orange-500 shrink-0 mt-0.5" />
+                            <div className="space-y-1">
+                                <p className="text-sm font-bold text-orange-800">Warning: Action is immediate</p>
+                                <p className="text-xs text-orange-700 leading-relaxed">
+                                    Blocking this number will prevent all future M-Pesa push requests. This should only be done for flagged fraudulent numbers or excessive failed attempts.
                                 </p>
                             </div>
                         </div>
-                    )}
-                </div>
-            </div>
+
+                        <div className="space-y-2">
+                            <label className="text-xs font-semibold text-gray-700 ml-1">Reason for blocking (Optional)</label>
+                            <textarea
+                                className="w-full p-3 rounded-lg border border-gray-200 bg-white text-sm focus:ring-1 focus:ring-red-500 focus:border-red-500 outline-none min-h-[80px]"
+                                placeholder="e.g. Excessive failed transactions..."
+                            ></textarea>
+                        </div>
+                    </div>
+                )}
+            </Modal>
         </div>
     )
 }
