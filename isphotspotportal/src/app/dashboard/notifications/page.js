@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { Bell, CheckCircle2, AlertCircle, Info, Wifi, CreditCard, Clock } from 'lucide-react'
+import { Bell, CheckCircle2, AlertCircle, Info, Wifi, CreditCard, Clock, Check } from 'lucide-react'
 import { Badge } from '@/components/Badge'
 
 export default function NotificationsPage() {
@@ -44,67 +44,83 @@ export default function NotificationsPage() {
         },
     ]
 
-    const getTypeColor = (type) => {
+    const getTypeConfig = (type) => {
         switch (type) {
-            case 'success': return 'bg-pace-green/10 text-pace-green border-pace-green/20'
-            case 'warning': return 'bg-orange-50 text-orange-500 border-orange-200'
-            case 'info': return 'bg-blue-50 text-blue-500 border-blue-200'
-            default: return 'bg-gray-50 text-admin-dim border-gray-200'
+            case 'success': return { variant: 'success', color: 'text-pace-green' }
+            case 'warning': return { variant: 'warning', color: 'text-orange-500' }
+            case 'info': return { variant: 'info', color: 'text-blue-500' }
+            default: return { variant: 'default', color: 'text-gray-500' }
         }
     }
 
     return (
-        <div className="space-y-6 font-figtree animate-in fade-in duration-700">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-50 pb-4">
+        <div className="space-y-6 font-figtree animate-in fade-in duration-700 max-w-[1600px] mx-auto">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-100 pb-4">
                 <div>
-                    <h1 className="text-[20px] font-black text-pace-purple leading-tight tracking-tight uppercase">Notification Center</h1>
-                    <p className="text-[11px] text-admin-label mt-1 font-medium tracking-tight opacity-70">System alerts, payment confirmations, and status updates.</p>
+                    <h1 className="text-xl font-bold text-gray-900 leading-tight">Notifications</h1>
+                    <p className="text-sm text-gray-500 mt-1">System alerts and updates.</p>
                 </div>
-                <button className="px-4 py-2 border border-gray-200 text-admin-label rounded-lg text-[11px] font-bold hover:bg-gray-50 transition-all uppercase tracking-widest">
-                    Mark All Read
+                <button className="px-4 py-2 border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 transition-all flex items-center gap-2">
+                    <Check size={16} />
+                    Mark all read
                 </button>
             </div>
 
-            <div className="space-y-3">
-                {notifications.map((notif) => (
-                    <div
-                        key={notif.id}
-                        className={`bg-white border rounded-2xl p-6 transition-all hover:shadow-md ${notif.read ? 'border-gray-100 opacity-70' : 'border-pace-purple/20 shadow-sm'
-                            }`}
-                    >
-                        <div className="flex items-start gap-4">
-                            <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center shrink-0 ${getTypeColor(notif.type)}`}>
-                                <notif.icon size={20} />
-                            </div>
-                            <div className="flex-1">
-                                <div className="flex items-start justify-between gap-4">
-                                    <div>
-                                        <h3 className="text-[14px] font-black text-admin-value uppercase leading-tight">{notif.title}</h3>
-                                        <p className="text-[12px] text-admin-label font-medium mt-2 leading-relaxed">{notif.message}</p>
-                                    </div>
-                                    {!notif.read && (
-                                        <div className="w-2 h-2 rounded-full bg-pace-purple animate-pulse shrink-0 mt-1" />
-                                    )}
-                                </div>
-                                <div className="flex items-center gap-2 mt-4 text-[10px] text-admin-dim font-bold">
-                                    <Clock size={12} />
-                                    <span>{notif.time}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            {notifications.length === 0 && (
-                <div className="text-center py-16">
-                    <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Bell size={32} className="text-admin-dim" />
-                    </div>
-                    <h3 className="text-[16px] font-black text-admin-value uppercase">All Caught Up!</h3>
-                    <p className="text-[12px] text-admin-label mt-2">No new notifications at the moment.</p>
+            <div className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden">
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left text-sm whitespace-nowrap">
+                        <thead>
+                            <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 font-medium">
+                                <th className="px-4 py-3 font-semibold w-24">Status</th>
+                                <th className="px-4 py-3 font-semibold">Title</th>
+                                <th className="px-4 py-3 font-semibold">Message</th>
+                                <th className="px-4 py-3 font-semibold">Time</th>
+                                <th className="px-4 py-3 font-semibold w-24">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-50">
+                            {notifications.length === 0 ? (
+                                <tr>
+                                    <td colSpan="5" className="px-6 py-12 text-center text-gray-400">
+                                        <Bell size={32} className="mx-auto mb-3 opacity-20" />
+                                        <p>No new notifications</p>
+                                    </td>
+                                </tr>
+                            ) : (
+                                notifications.map((notif) => {
+                                    const config = getTypeConfig(notif.type)
+                                    return (
+                                        <tr key={notif.id} className={`hover:bg-gray-50 transition-colors group ${!notif.read ? 'bg-purple-50/10' : ''}`}>
+                                            <td className="px-4 py-3">
+                                                <Badge variant={config.variant} className="text-[10px] px-2 py-0.5 font-medium uppercase">
+                                                    {notif.type}
+                                                </Badge>
+                                            </td>
+                                            <td className="px-4 py-3 font-semibold text-gray-800 flex items-center gap-2">
+                                                {!notif.read && <div className="w-1.5 h-1.5 rounded-full bg-pace-purple shrink-0" />}
+                                                {notif.title}
+                                            </td>
+                                            <td className="px-4 py-3 text-gray-500 max-w-md truncate" title={notif.message}>
+                                                {notif.message}
+                                            </td>
+                                            <td className="px-4 py-3 text-gray-400 text-xs">
+                                                {notif.time}
+                                            </td>
+                                            <td className="px-4 py-3">
+                                                {!notif.read && (
+                                                    <button className="text-pace-purple text-xs font-bold hover:underline">
+                                                        Read
+                                                    </button>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            )}
+                        </tbody>
+                    </table>
                 </div>
-            )}
+            </div>
         </div>
     )
 }
