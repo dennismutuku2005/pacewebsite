@@ -84,7 +84,7 @@ export default function ManagePricesPage() {
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-between items-center px-2">
+            <div className="flex flex-col sm:flex-row justify-between items-center px-2 gap-4">
                 <p className="text-sm text-gray-500">Showing 1-{allPrices.length} of {allPrices.length} plans</p>
                 <div className="flex gap-2">
                     <button className="px-4 py-2 border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 transition-all disabled:opacity-50" disabled>
