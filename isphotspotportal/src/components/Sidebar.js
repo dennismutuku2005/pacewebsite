@@ -25,15 +25,7 @@ export function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile, pathname })
     const navigation = [
         { id: 'dashboard', name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
         { id: 'entries', name: 'Entries', href: '/dashboard/entries', icon: Clock },
-        {
-            id: 'income',
-            name: 'Incomes',
-            icon: CreditCard,
-            children: [
-                { name: 'Income', href: '/dashboard/income' },
-                { name: 'Income Report', href: '/dashboard/income/report' },
-            ]
-        },
+        { id: 'income', name: 'Income', href: '/dashboard/income', icon: CreditCard },
         {
             id: 'customers',
             name: 'Customers',
