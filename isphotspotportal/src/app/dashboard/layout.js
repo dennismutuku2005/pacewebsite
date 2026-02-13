@@ -112,7 +112,7 @@ export default function DashboardLayout({ children }) {
                 </header>
 
                 {/* Page Content */}
-                <div className="p-4 sm:p-6 lg:p-8 flex-1 overflow-x-hidden">
+                <div className="p-4 flex-1 overflow-x-hidden">
                     {children}
                 </div>
             </main>
