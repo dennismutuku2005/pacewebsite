@@ -71,7 +71,7 @@ export default function DashboardPage() {
                 <div className="flex gap-2">
                     <button
                         onClick={() => { setIsRefreshing(true); setTimeout(() => setIsRefreshing(false), 1000); }}
-                        className="flex items-center gap-2 px-4 py-2 border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition-all bg-white text-sm font-medium"
+                        className="flex items-center gap-2 px-4 py-2 border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition-all bg-white text-sm font-medium w-full sm:w-auto justify-center"
                     >
                         <RefreshCw size={16} className={cn(isRefreshing && "animate-spin")} />
                         {isRefreshing ? 'Syncing...' : 'Refresh Data'}
@@ -110,7 +110,7 @@ export default function DashboardPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 {/* Traffic Chart */}
-                <div className="lg:col-span-8 bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
+                <div className="lg:col-span-8 bg-white border border-gray-100 rounded-xl p-6 shadow-sm overflow-hidden">
                     <div className="flex justify-between items-center mb-6">
                         <div>
                             <h4 className="text-base font-bold text-gray-900">Network Traffic</h4>
@@ -118,7 +118,7 @@ export default function DashboardPage() {
                         </div>
                         <Badge variant="outline" className="text-xs">Live</Badge>
                     </div>
-                    <div className="h-[300px] w-full">
+                    <div className="h-[300px] w-full min-w-[300px] overflow-x-auto">
                         <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={entryData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                                 <defs>
@@ -196,7 +196,7 @@ export default function DashboardPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 {/* Router Status List */}
-                <div className="lg:col-span-4 bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
+                <div className="lg:col-span-4 bg-white border border-gray-100 rounded-xl p-6 shadow-sm order-2 lg:order-1">
                     <div className="flex justify-between items-center mb-6">
                         <h4 className="text-base font-bold text-gray-900">Router Health</h4>
                         <div className="flex items-center gap-1.5 px-2.5 py-1 bg-green-50 rounded-full border border-green-100">
@@ -242,8 +242,8 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Revenue Bar Chart */}
-                <div className="lg:col-span-8 bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
-                    <div className="flex justify-between items-center mb-6">
+                <div className="lg:col-span-8 bg-white border border-gray-100 rounded-xl p-6 shadow-sm order-1 lg:order-2 overflow-hidden">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
                         <div>
                             <h4 className="text-base font-bold text-gray-900">Weekly Revenue</h4>
                             <p className="text-xs text-gray-500 mt-1">Income performance vs last week</p>
@@ -259,7 +259,7 @@ export default function DashboardPage() {
                             </div>
                         </div>
                     </div>
-                    <div className="h-[280px] w-full">
+                    <div className="h-[280px] w-full min-w-[300px] overflow-x-auto">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={revenueData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
