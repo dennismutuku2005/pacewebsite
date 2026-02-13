@@ -16,7 +16,7 @@ export default function SettingsPage() {
 
             <div className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
                 <div className="p-8 border-b border-gray-50 bg-gradient-to-r from-gray-50/50 to-white">
-                    <div className="flex items-center gap-6">
+                    <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-center sm:text-left">
                         <div className="relative group">
                             <div className="w-24 h-24 rounded-full bg-white border-4 border-white shadow-lg flex items-center justify-center text-pace-purple font-bold text-3xl overflow-hidden relative">
                                 <div className="absolute inset-0 bg-gradient-to-br from-pace-purple to-purple-800 opacity-10"></div>
@@ -28,11 +28,11 @@ export default function SettingsPage() {
                         </div>
                         <div>
                             <h3 className="text-xl font-bold text-gray-900">Dennis Mutuku</h3>
-                            <p className="text-sm text-gray-500 font-medium mt-1 flex items-center gap-2">
+                            <p className="text-sm text-gray-500 font-medium mt-1 flex items-center justify-center sm:justify-start gap-2">
                                 <Shield size={14} className="text-pace-purple" />
                                 ISP Senior Administrator
                             </p>
-                            <div className="flex gap-2 mt-3">
+                            <div className="flex gap-2 mt-3 justify-center sm:justify-start">
                                 <Badge variant="success" className="text-[10px] px-2 py-0.5 font-medium border-green-200 bg-green-50 text-green-700">Verified Account</Badge>
                                 <Badge variant="outline" className="text-[10px] px-2 py-0.5 font-medium border-gray-200 text-gray-500">2FA Enabled</Badge>
                             </div>
@@ -88,12 +88,12 @@ export default function SettingsPage() {
                         </div>
                     </div>
 
-                    <div className="pt-6 border-t border-gray-50 flex items-center justify-between">
+                    <div className="pt-6 border-t border-gray-50 flex flex-col-reverse sm:flex-row items-center justify-between gap-4">
                         <button className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors flex items-center gap-2">
                             <Key size={16} />
                             Change Password
                         </button>
-                        <button className="px-6 py-2.5 bg-pace-purple text-white rounded-lg font-medium text-sm hover:bg-pace-purple/90 transition-all shadow-sm flex items-center gap-2">
+                        <button className="w-full sm:w-auto px-6 py-2.5 bg-pace-purple text-white rounded-lg font-medium text-sm hover:bg-pace-purple/90 transition-all shadow-sm flex items-center justify-center gap-2">
                             <Save size={16} />
                             Save Changes
                         </button>
