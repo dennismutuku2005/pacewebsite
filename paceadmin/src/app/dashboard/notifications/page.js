@@ -162,7 +162,11 @@ export default function NotificationsPage() {
                                             <Badge variant={getStatusVariant(notif.status)}>{notif.status}</Badge>
                                         </td>
                                         <td className="px-6 py-5 text-right">
-                                            <button className="p-2 text-admin-dim hover:text-admin-value hover:bg-gray-50 rounded-lg transition-all opacity-0 group-hover:opacity-100">
+                                            <button
+                                                className="p-2 text-admin-dim hover:text-admin-value hover:bg-gray-50 rounded-lg transition-all"
+                                                title="More Options"
+                                                onClick={() => { }}
+                                            >
                                                 <MoreHorizontal size={16} />
                                             </button>
                                         </td>
