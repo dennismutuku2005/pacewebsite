@@ -26,7 +26,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
         { id: 'summary', name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
         {
             id: 'members',
-            name: 'Client Base',
+            name: 'Customers',
             icon: Users,
             children: [
                 { name: 'All Members', href: '/dashboard/customers' },
@@ -36,7 +36,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
         },
         {
             id: 'billing',
-            name: 'Finance hub',
+            name: 'Finance',
             icon: Receipt,
             badge: 8,
             children: [
@@ -49,7 +49,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
         { id: 'submissions', name: 'Applications', href: '/dashboard/applications', icon: FileText, badge: 12 },
         {
             id: 'domains',
-            name: 'Managed domains',
+            name: 'Domains',
             icon: Globe,
             children: [
                 { name: 'Domain List', href: '/dashboard/domains' },
@@ -57,11 +57,11 @@ export function Sidebar({ isSidebarOpen, pathname }) {
                 { name: 'SSL Certificates', href: '/dashboard/domains/ssl' },
             ]
         },
-        { id: 'staff', name: 'System users', href: '/dashboard/users', icon: UserRoundCheck },
+        { id: 'staff', name: 'Staff', href: '/dashboard/users', icon: UserRoundCheck },
         { id: 'chat', name: 'Support chat', href: '/dashboard/chat', icon: MessageSquare, badge: 5 },
         {
             id: 'support',
-            name: 'Service desk',
+            name: 'Support',
             icon: Ticket,
             badge: 24,
             children: [
@@ -70,10 +70,10 @@ export function Sidebar({ isSidebarOpen, pathname }) {
                 { name: 'Closed Tickets', href: '/dashboard/tickets?status=closed' },
             ]
         },
-        { id: 'payments', name: 'Financials', href: '/dashboard/payments', icon: CreditCard, badge: 3 },
+        { id: 'payments', name: 'Accounting', href: '/dashboard/payments', icon: CreditCard, badge: 3 },
         {
             id: 'status',
-            name: 'System health',
+            name: 'System Status',
             icon: Activity,
             children: [
                 { name: 'Real-time Stats', href: '/dashboard/status' },
@@ -81,7 +81,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
                 { name: 'Security Logs', href: '/dashboard/logs' },
             ]
         },
-        { id: 'logs', name: 'Audit logs', href: '/dashboard/logs', icon: Clock },
+        { id: 'logs', name: 'Activity Logs', href: '/dashboard/logs', icon: Clock },
         { id: 'settings', name: 'Preferences', href: '/dashboard/settings', icon: Settings },
     ]
 
@@ -197,7 +197,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
                         className="w-full flex items-center gap-3 px-3 py-2.5 text-admin-dim hover:text-red-600 transition-colors rounded hover:bg-red-50 font-bold text-[11px] tracking-tight"
                     >
                         <LogOut size={16} />
-                        {isSidebarOpen && <span>Sign Out account</span>}
+                        {isSidebarOpen && <span>Sign Out</span>}
                     </button>
                 </div>
             </aside>
@@ -206,7 +206,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
             <Modal
                 isOpen={showLogoutModal}
                 onClose={() => setShowLogoutModal(false)}
-                title="Confirm Sign Out"
+                title="Sign Out?"
                 maxWidth="max-w-md"
                 footer={
                     <>
@@ -214,7 +214,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
                             onClick={() => setShowLogoutModal(false)}
                             className="px-6 py-2 border border-gray-200 text-admin-label rounded-lg font-bold text-[11px] hover:bg-gray-50 transition-all uppercase tracking-wider"
                         >
-                            Decline
+                            Cancel
                         </button>
                         <button
                             onClick={() => {
@@ -223,14 +223,14 @@ export function Sidebar({ isSidebarOpen, pathname }) {
                             }}
                             className="px-8 py-2 bg-red-600 text-white rounded-lg font-bold text-[11px] hover:bg-red-700 transition-all shadow-md uppercase tracking-wider"
                         >
-                            Accept & Sign Out
+                            Sign Out
                         </button>
                     </>
                 }
             >
                 <div className="p-1">
                     <p className="text-[13px] text-admin-label font-medium leading-relaxed">
-                        Are you sure you want to sign out of your administrative account? You will need to re-authenticate to access the command hub.
+                        Are you sure you want to sign out? You will need to sign in again to access the dashboard.
                     </p>
                 </div>
             </Modal>
