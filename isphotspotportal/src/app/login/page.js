@@ -4,24 +4,33 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { Spinner, LoadingButton } from '@/components/Loader'
+import { LoadingButton, PageLoader } from '@/components/Loader'
 
 export default function LoginPage() {
     const router = useRouter()
     const [isAuthenticating, setIsAuthenticating] = useState(false)
+    const [isRedirecting, setIsRedirecting] = useState(false)
 
     const enterDashboard = (e) => {
         e.preventDefault()
         setIsAuthenticating(true)
         setTimeout(() => {
-            router.push('/dashboard')
+            setIsAuthenticating(false)
+            setIsRedirecting(true)
+            setTimeout(() => {
+                router.push('/dashboard')
+            }, 800)
         }, 1200)
+    }
+
+    if (isRedirecting) {
+        return <PageLoader message="Loading Dashboard..." />
     }
 
     return (
         <div className="h-screen w-screen flex bg-[#F9FAFB] font-figtree text-[13px] overflow-hidden">
 
-            {/* Login Container - Minimalist 2D */}
+            {/* Login Container */}
             <div className="w-full lg:w-[500px] h-full bg-white border-r border-gray-200 flex flex-col justify-center px-12 lg:px-20 relative">
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -30,10 +39,10 @@ export default function LoginPage() {
                 >
                     <div className="mb-12">
                         <div className="flex mb-8">
-                            <Image src="/logo.png" alt="Pace Logo" width={90} height={30} className="h-7 w-auto object-contain grayscale" priority />
+                            <Image src="/logo.png" alt="Pace Wisp" width={90} height={30} className="h-7 w-auto object-contain grayscale" priority />
                         </div>
-                        <h1 className="text-[24px] font-black text-admin-value leading-none tracking-tight">Main Portal</h1>
-                        <p className="text-[12px] text-admin-label mt-3 font-bold uppercase tracking-tight">Enter your credentials</p>
+                        <h1 className="text-[24px] font-black text-admin-value leading-none tracking-tight">Pace Wisp Portal</h1>
+                        <p className="text-[12px] text-admin-label mt-3 font-bold uppercase tracking-tight">Hotspot Management System</p>
                     </div>
 
                     <form onSubmit={enterDashboard} className="space-y-5">
@@ -65,21 +74,21 @@ export default function LoginPage() {
                             loadingText="Authenticating..."
                             className="w-full bg-pace-purple text-white py-3.5 rounded font-black text-[12px] uppercase tracking-[3px] hover:bg-[#3d1a75] transition-all active:scale-[0.99] mt-6 shadow-none"
                         >
-                            Open Dashboard
+                            Access Portal
                         </LoadingButton>
                     </form>
 
                     <div className="mt-16 pt-10 border-t border-gray-50">
                         <p className="text-[10px] text-admin-dim font-bold leading-relaxed uppercase tracking-widest">
-                            © 2026 Pace WISP Software systems.
+                            © 2026 Pace Wisp. All rights reserved.
                         </p>
                     </div>
                 </motion.div>
             </div>
 
-            {/* Hero Side - User Centered */}
+            {/* Hero Side */}
             <div className="hidden lg:flex flex-1 bg-white items-center justify-center p-20 relative overflow-hidden">
-                {/* Flat Grid Pattern */}
+                {/* Grid Pattern */}
                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
                     <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                         <defs>
@@ -93,8 +102,12 @@ export default function LoginPage() {
 
                 <div className="max-w-md relative z-10">
                     <div className="w-12 h-1 bg-pace-purple mb-8"></div>
-                    <h4 className="text-[32px] font-black text-admin-value leading-[1.1] tracking-tighter mb-6 uppercase">Manage Your ISP <br /> Business Faster.</h4>
-                    <p className="text-admin-label text-[14px] font-bold leading-relaxed tracking-tight">A unified administrative experience designed for speed, clarity, and control. Manage your clients, licenses, and networks in one clean 2D workspace.</p>
+                    <h4 className="text-[32px] font-black text-admin-value leading-[1.1] tracking-tighter mb-6 uppercase">
+                        Hotspot Management <br /> Made Simple.
+                    </h4>
+                    <p className="text-admin-label text-[14px] font-bold leading-relaxed tracking-tight">
+                        Complete control over your MikroTik hotspot network. Manage customers, track payments, monitor routers, and configure captive portals - all in one unified dashboard.
+                    </p>
                 </div>
             </div>
         </div>
