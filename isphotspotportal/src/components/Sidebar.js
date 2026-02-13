@@ -53,7 +53,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
         },
         {
             id: 'captive',
-            name: 'Manage Captive',
+            name: 'Captive Portal',
             icon: Globe,
             children: [
                 { name: 'Manage Prices', href: '/dashboard/captive/prices' },
@@ -64,7 +64,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
         { id: 'mpesa', name: 'M-Pesa Transactions', href: '/dashboard/mpesa', icon: Smartphone },
         { id: 'billing', name: 'Billing', href: '/dashboard/billing', icon: Receipt },
         { id: 'notifications', name: 'Notifications', href: '/dashboard/notifications', icon: Bell },
-        { id: 'logs', name: 'System Logs', href: '/dashboard/logs', icon: FileText },
+        { id: 'logs', name: 'Activity Logs', href: '/dashboard/logs', icon: FileText },
         { id: 'settings', name: 'Settings', href: '/dashboard/settings', icon: Settings },
     ]
 
@@ -180,7 +180,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
                         className="w-full flex items-center gap-3 px-3 py-2.5 text-admin-dim hover:text-red-600 transition-colors rounded hover:bg-red-50 font-bold text-[11px] tracking-tight"
                     >
                         <LogOut size={16} />
-                        {isSidebarOpen && <span>Sign Out account</span>}
+                        {isSidebarOpen && <span>Sign Out</span>}
                     </button>
                 </div>
             </aside>
@@ -189,7 +189,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
             <Modal
                 isOpen={showLogoutModal}
                 onClose={() => setShowLogoutModal(false)}
-                title="Confirm Sign Out"
+                title="Sign Out?"
                 maxWidth="max-w-md"
                 footer={
                     <>
@@ -197,7 +197,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
                             onClick={() => setShowLogoutModal(false)}
                             className="px-6 py-2 border border-gray-200 text-admin-label rounded-lg font-bold text-[11px] hover:bg-gray-50 transition-all uppercase tracking-wider"
                         >
-                            Decline
+                            Cancel
                         </button>
                         <button
                             onClick={() => {
@@ -206,14 +206,14 @@ export function Sidebar({ isSidebarOpen, pathname }) {
                             }}
                             className="px-8 py-2 bg-red-600 text-white rounded-lg font-bold text-[11px] hover:bg-red-700 transition-all shadow-md uppercase tracking-wider"
                         >
-                            Accept & Sign Out
+                            Sign Out
                         </button>
                     </>
                 }
             >
                 <div className="p-1">
                     <p className="text-[13px] text-admin-label font-medium leading-relaxed">
-                        Are you sure you want to sign out of your Pace Wisp account? You will need to re-authenticate to access the portal.
+                        Are you sure you want to sign out? You will need to sign in again to access the portal.
                     </p>
                 </div>
             </Modal>
