@@ -130,7 +130,7 @@ export default function RoutersPage() {
                                             <p className="text-[9px] text-admin-dim mt-1.5 font-bold uppercase opacity-50">{router.lastSync}</p>
                                         </td>
                                         <td className="px-6 py-5 text-right">
-                                            <button className="p-2 text-admin-dim hover:text-admin-value hover:bg-gray-50 rounded-lg transition-all">
+                                            <button className="p-2 text-admin-dim hover:text-admin-value hover:bg-gray-50 rounded-lg transition-all" title="Router Options">
                                                 <MoreHorizontal size={18} />
                                             </button>
                                         </td>
