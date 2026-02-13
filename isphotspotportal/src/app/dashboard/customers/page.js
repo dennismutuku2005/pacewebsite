@@ -1,13 +1,12 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { Search, Filter, Trash2, AlertCircle, MoreHorizontal, CreditCard, Shield, User, MapPin, Clock, Phone, Mail, Calendar, Wifi, Cable, Plus } from 'lucide-react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Search, Filter, Trash2, AlertCircle, MoreHorizontal, Phone, Wifi, User, Clock, CheckCircle, XCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/Badge'
 import { Modal } from '@/components/Modal'
 import { Skeleton } from '@/components/Skeleton'
-import { useSearchParams } from 'next/navigation'
 
 export default function CustomersPage() {
     const router = useRouter()
@@ -17,57 +16,63 @@ export default function CustomersPage() {
     const [selectedCustomer, setSelectedCustomer] = useState(null)
     const [deleteModal, setDeleteModal] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
+    const [isLoadingMore, setIsLoadingMore] = useState(false)
+    const [customers, setCustomers] = useState([])
+    const [hasMore, setHasMore] = useState(true)
+    const observer = useRef()
 
-    // Hotspot customer data
-    const initialCustomers = [
-        {
-            id: 'CUST-001',
-            mac: '00:1A:2B:3C:4D:5E',
-            mobile: '0712345678',
-            status: 'Active',
-            lastSeen: '2 mins ago',
-            totalSpent: 'KSH 2,450',
-            sessions: 42
-        },
-        {
-            id: 'CUST-002',
-            mac: 'AA:BB:CC:DD:EE:FF',
-            mobile: '0787654321',
-            status: 'Active',
-            lastSeen: '15 mins ago',
-            totalSpent: 'KSH 1,200',
-            sessions: 28
-        },
-        {
-            id: 'CUST-003',
-            mac: '11:22:33:44:55:66',
-            mobile: '0700112233',
-            status: 'Blocked',
-            lastSeen: '2 days ago',
-            totalSpent: 'KSH 5,800',
-            sessions: 95
-        },
-        {
-            id: 'CUST-004',
-            mac: 'FF:EE:DD:CC:BB:AA',
-            mobile: '0722998877',
-            status: 'Active',
-            lastSeen: '1 hour ago',
-            totalSpent: 'KSH 850',
-            sessions: 15
-        }
-    ]
+    // Mock initial data generation
+    const generateCustomers = (count, startIndex = 0) => {
+        return Array.from({ length: count }).map((_, i) => {
+            const index = startIndex + i + 1;
+            return {
+                id: `CUST-${index.toString().padStart(3, '0')}`,
+                mac: `00:1A:${Math.floor(Math.random() * 99)}:${Math.floor(Math.random() * 99)}:5E`,
+                mobile: `07${Math.floor(Math.random() * 90000000 + 10000000)}`,
+                status: Math.random() > 0.2 ? 'Active' : 'Blocked',
+                lastSeen: `${Math.floor(Math.random() * 59)} mins ago`,
+                totalSpent: `KSH ${Math.floor(Math.random() * 5000)}`,
+                sessions: Math.floor(Math.random() * 100)
+            }
+        })
+    }
 
-    const [customers, setCustomers] = useState(initialCustomers)
-
+    // Initial load
     useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 800)
+        const timer = setTimeout(() => {
+            setCustomers(generateCustomers(20))
+            setIsLoading(false)
+        }, 800)
         return () => clearTimeout(timer)
     }, [])
 
+    // Infinite Scroll Observer
+    const lastCustomerElementRef = useCallback(node => {
+        if (isLoading || isLoadingMore) return
+        if (observer.current) observer.current.disconnect()
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && hasMore) {
+                loadMoreCustomers()
+            }
+        })
+        if (node) observer.current.observe(node)
+    }, [isLoading, isLoadingMore, hasMore])
+
+    const loadMoreCustomers = async () => {
+        setIsLoadingMore(true)
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 1000))
+
+        setCustomers(prev => [...prev, ...generateCustomers(10, prev.length)])
+        setIsLoadingMore(false)
+
+        // Stop after 100 items for demo purpose
+        if (customers.length >= 100) setHasMore(false)
+    }
+
     const filteredCustomers = serviceFilter
-        ? initialCustomers.filter(customer => customer.status.toLowerCase() === serviceFilter)
-        : initialCustomers
+        ? customers.filter(customer => customer.status.toLowerCase() === serviceFilter)
+        : customers
 
     const getStatusVariant = (status) => {
         if (status === 'Active') return 'success'
@@ -76,112 +81,131 @@ export default function CustomersPage() {
     }
 
     return (
-        <div className="space-y-6 font-figtree">
+        <div className="space-y-6 font-figtree max-w-[1600px] mx-auto">
             {/* Page Header */}
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-100 pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-[20px] font-black text-pace-purple leading-tight tracking-tight uppercase">Customer Database</h1>
-                    <p className="text-[11px] text-admin-label mt-1 font-medium tracking-tight opacity-70">Manage hotspot users, MAC addresses, and mobile numbers.</p>
+                    <h1 className="text-xl font-bold text-gray-900">Customer Database</h1>
+                    <p className="text-sm text-gray-500 mt-1">Manage hotspot users, MAC addresses, and mobile numbers.</p>
                 </div>
             </div>
 
             {/* Control Bar */}
-            <div className="flex flex-col md:flex-row items-center gap-3">
-                <div className="relative w-full md:w-80">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-admin-dim" size={14} />
+            <div className="flex flex-col md:flex-row items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                <div className="relative w-full md:w-96">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     <input
                         type="text"
                         placeholder="Search MAC or mobile number..."
-                        className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-gray-200 bg-white focus:ring-1 focus:ring-pace-purple/10 focus:border-pace-purple outline-none text-[12px] font-medium text-admin-value shadow-sm"
+                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-purple-100 focus:border-purple-200 outline-none text-sm text-gray-700 transition-all placeholder:text-gray-400"
                     />
                 </div>
-                <div className="flex gap-2">
-                    <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 text-admin-label rounded-lg hover:border-pace-purple hover:text-pace-purple transition-all bg-white text-[11px] font-bold">
-                        <Filter size={14} /> Filter
+                <div className="flex gap-2 w-full md:w-auto">
+                    <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition-all bg-white text-sm font-medium whitespace-nowrap">
+                        <Filter size={16} /> Filter
+                    </button>
+                    <button className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all text-sm font-medium whitespace-nowrap ml-auto md:ml-0">
+                        Add Customer
                     </button>
                 </div>
             </div>
 
             {/* Main Data Table */}
-            <div className="border border-gray-100 rounded-xl overflow-hidden bg-white shadow-sm">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left text-[12px] whitespace-nowrap border-collapse">
-                        <thead>
-                            <tr className="bg-gray-50 border-b border-gray-100 font-bold text-admin-label uppercase tracking-widest text-[9px] opacity-60">
-                                <th className="px-6 py-4">Customer ID</th>
-                                <th className="px-6 py-4">MAC Address</th>
-                                <th className="px-6 py-4">Mobile Number</th>
-                                <th className="px-6 py-4">Total Spent</th>
-                                <th className="px-6 py-4 text-center">Status</th>
-                                <th className="px-6 py-4">Last Seen</th>
-                                <th className="px-6 py-4 text-right">Actions</th>
+            <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+                <div className="overflow-x-auto custom-scrollbar">
+                    <table className="w-full text-left whitespace-nowrap">
+                        <thead className="bg-gray-50/50 border-b border-gray-100">
+                            <tr>
+                                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Customer ID</th>
+                                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">MAC Address</th>
+                                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Mobile Number</th>
+                                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Total Spent</th>
+                                <th className="px-6 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Last Seen</th>
+                                <th className="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
                             {isLoading ? (
-                                [...Array(4)].map((_, i) => (
+                                [...Array(8)].map((_, i) => (
                                     <tr key={i}>
-                                        <td className="px-6 py-5"><Skeleton className="h-4 w-24" /></td>
-                                        <td className="px-6 py-5"><Skeleton className="h-4 w-32" /></td>
-                                        <td className="px-6 py-5"><Skeleton className="h-4 w-28" /></td>
-                                        <td className="px-6 py-5"><Skeleton className="h-4 w-20" /></td>
-                                        <td className="px-6 py-5 text-center"><Skeleton className="h-4 w-20 mx-auto" /></td>
-                                        <td className="px-6 py-5"><Skeleton className="h-4 w-24" /></td>
-                                        <td className="px-6 py-5 text-right"><Skeleton className="h-8 w-8 ml-auto" /></td>
+                                        <td className="px-6 py-4"><Skeleton className="h-4 w-24" /></td>
+                                        <td className="px-6 py-4"><Skeleton className="h-4 w-32" /></td>
+                                        <td className="px-6 py-4"><Skeleton className="h-4 w-28" /></td>
+                                        <td className="px-6 py-4"><Skeleton className="h-4 w-20" /></td>
+                                        <td className="px-6 py-4 text-center"><Skeleton className="h-6 w-16 mx-auto rounded-full" /></td>
+                                        <td className="px-6 py-4"><Skeleton className="h-4 w-24" /></td>
+                                        <td className="px-6 py-4 text-right"><Skeleton className="h-8 w-8 ml-auto" /></td>
                                     </tr>
                                 ))
                             ) : (
-                                filteredCustomers.map((customer) => (
-                                    <tr key={customer.id} className="hover:bg-gray-50/50 transition-colors group">
-                                        <td className="px-6 py-5">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-9 h-9 rounded-lg bg-pace-purple/5 border border-pace-purple/10 flex items-center justify-center text-pace-purple font-black text-[11px]">
-                                                    {customer.id.split('-')[1]}
-                                                </div>
-                                                <p className="font-bold text-admin-value leading-none uppercase text-[11px]">{customer.id}</p>
-                                            </div>
-                                        </td>
-                                        <td
-                                            onClick={() => setSelectedCustomer(customer)}
-                                            className="px-6 py-5 cursor-pointer"
+                                filteredCustomers.map((customer, index) => {
+                                    const isLast = index === filteredCustomers.length - 1
+                                    return (
+                                        <tr
+                                            key={customer.id}
+                                            ref={isLast ? lastCustomerElementRef : null}
+                                            className="hover:bg-gray-50/80 transition-colors group"
                                         >
-                                            <p className="font-extrabold text-admin-value leading-none uppercase">{customer.mac}</p>
-                                        </td>
-                                        <td className="px-6 py-5">
-                                            <div className="flex items-center gap-2">
-                                                <Phone size={12} className="text-admin-dim" />
-                                                <p className="font-bold text-admin-label">{customer.mobile}</p>
-                                            </div>
-                                        </td>
-                                        <td className="px-6 py-5">
-                                            <p className="font-black text-pace-purple">{customer.totalSpent}</p>
-                                        </td>
-                                        <td className="px-6 py-5 text-center">
-                                            <Badge variant={getStatusVariant(customer.status)}>{customer.status}</Badge>
-                                        </td>
-                                        <td className="px-6 py-5">
-                                            <p className="text-[11px] text-admin-dim font-medium italic">{customer.lastSeen}</p>
-                                        </td>
-                                        <td className="px-6 py-5 text-right">
-                                            <div className="flex justify-end gap-2 items-center">
-                                                <button
-                                                    onClick={() => setDeleteModal(customer)}
-                                                    className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all"
-                                                    title="Delete Customer"
-                                                >
-                                                    <Trash2 size={16} />
-                                                </button>
-                                                <button
-                                                    onClick={() => setSelectedCustomer(customer)}
-                                                    className="p-2 text-admin-dim hover:text-admin-value hover:bg-gray-50 rounded-lg transition-all"
-                                                    title="View Details"
-                                                >
-                                                    <MoreHorizontal size={16} />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))
+                                            <td className="px-6 py-4">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center text-xs font-bold ring-4 ring-white">
+                                                        {customer.id.split('-')[1]}
+                                                    </div>
+                                                    <span className="font-medium text-gray-900 text-sm">{customer.id}</span>
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className="font-mono text-sm text-gray-600 bg-gray-50 px-2 py-1 rounded border border-gray-100">{customer.mac}</span>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <div className="flex items-center gap-2 text-gray-600">
+                                                    <Phone size={14} className="text-gray-400" />
+                                                    <span className="text-sm">{customer.mobile}</span>
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className="font-semibold text-gray-900">{customer.totalSpent}</span>
+                                            </td>
+                                            <td className="px-6 py-4 text-center">
+                                                <Badge variant={getStatusVariant(customer.status)}>{customer.status}</Badge>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className="text-sm text-gray-500">{customer.lastSeen}</span>
+                                            </td>
+                                            <td className="px-6 py-4 text-right">
+                                                <div className="flex justify-end gap-1">
+                                                    <button
+                                                        onClick={() => setDeleteModal(customer)}
+                                                        className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition-all"
+                                                        title="Delete Customer"
+                                                    >
+                                                        <Trash2 size={16} />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setSelectedCustomer(customer)}
+                                                        className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded transition-all"
+                                                        title="View Details"
+                                                    >
+                                                        <MoreHorizontal size={16} />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            )}
+
+                            {/* Loading More Indicator */}
+                            {isLoadingMore && (
+                                <tr>
+                                    <td colSpan="7" className="px-6 py-4 text-center text-gray-400 text-sm">
+                                        <div className="flex items-center justify-center gap-2">
+                                            <div className="w-4 h-4 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+                                            Loading more customers...
+                                        </div>
+                                    </td>
+                                </tr>
                             )}
                         </tbody>
                     </table>
@@ -193,46 +217,50 @@ export default function CustomersPage() {
                 isOpen={!!selectedCustomer}
                 onClose={() => setSelectedCustomer(null)}
                 title="Customer Details"
-                maxWidth="max-w-2xl"
+                maxWidth="max-w-xl"
                 footer={
                     <>
-                        <button onClick={() => setSelectedCustomer(null)} className="px-6 py-2 border border-gray-200 text-admin-label rounded-lg font-bold text-[11px] hover:bg-gray-50 transition-all">Close</button>
-                        <button className="px-8 py-2 bg-pace-purple text-white rounded-lg font-bold text-[11px] hover:bg-[#3d1a75] transition-all shadow-md">View History</button>
+                        <button onClick={() => setSelectedCustomer(null)} className="px-4 py-2 text-gray-500 hover:text-gray-700 font-medium text-sm">Close</button>
+                        <button className="px-4 py-2 bg-purple-600 text-white rounded-lg font-medium text-sm hover:bg-purple-700 transition-all shadow-sm">View History</button>
                     </>
                 }
             >
                 {selectedCustomer && (
-                    <div className="space-y-8">
+                    <div className="space-y-6">
                         <div className="grid grid-cols-3 gap-4">
                             {[
-                                { label: 'Total Spent', val: selectedCustomer.totalSpent, badge: 'info' },
-                                { label: 'Sessions', val: selectedCustomer.sessions, badge: 'default' },
-                                { label: 'Status', val: selectedCustomer.status, badge: getStatusVariant(selectedCustomer.status) }
+                                { label: 'Total Spent', val: selectedCustomer.totalSpent },
+                                { label: 'Sessions', val: selectedCustomer.sessions },
+                                { label: 'Status', val: selectedCustomer.status, badge: true }
                             ].map((s, i) => (
-                                <div key={i} className="border border-gray-100 rounded-xl p-4 bg-gray-50/50">
-                                    <p className="text-[10px] font-bold text-admin-label uppercase tracking-widest mb-2 leading-none opacity-50">{s.label}</p>
-                                    <p className="text-[16px] font-black text-admin-value leading-none">{s.val}</p>
+                                <div key={i} className="p-4 bg-gray-50 rounded-xl border border-gray-100">
+                                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">{s.label}</p>
+                                    {s.badge ? (
+                                        <Badge variant={getStatusVariant(s.val)}>{s.val}</Badge>
+                                    ) : (
+                                        <p className="text-lg font-semibold text-gray-900">{s.val}</p>
+                                    )}
                                 </div>
                             ))}
                         </div>
 
-                        <div className="border border-gray-100 rounded-xl bg-white overflow-hidden shadow-sm">
-                            <div className="bg-gray-50 px-5 py-3 border-b border-gray-100">
-                                <h3 className="text-[10px] font-bold text-admin-label uppercase tracking-widest opacity-50">Customer Information</h3>
+                        <div className="rounded-xl border border-gray-200 overflow-hidden">
+                            <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Information</h3>
                             </div>
-                            <div className="divide-y divide-gray-50">
+                            <div className="divide-y divide-gray-100 bg-white">
                                 {[
                                     { label: 'MAC Address', val: selectedCustomer.mac, icon: Wifi },
                                     { label: 'Mobile Number', val: selectedCustomer.mobile, icon: Phone },
                                     { label: 'Customer ID', val: selectedCustomer.id, icon: User },
                                     { label: 'Last Activity', val: selectedCustomer.lastSeen, icon: Clock },
                                 ].map((item, i) => (
-                                    <div key={i} className="px-5 py-4 flex items-center justify-between text-[12px]">
-                                        <div className="flex items-center gap-3 text-admin-label font-bold">
-                                            <item.icon size={14} className="text-admin-dim" />
+                                    <div key={i} className="px-4 py-3 flex items-center justify-between text-sm">
+                                        <div className="flex items-center gap-3 text-gray-600">
+                                            <item.icon size={16} className="text-gray-400" />
                                             <span>{item.label}</span>
                                         </div>
-                                        <span className="font-extrabold text-admin-value">{item.val}</span>
+                                        <span className="font-medium text-gray-900">{item.val}</span>
                                     </div>
                                 ))}
                             </div>
@@ -246,23 +274,25 @@ export default function CustomersPage() {
                 isOpen={!!deleteModal}
                 onClose={() => setDeleteModal(null)}
                 title="Block Customer"
-                maxWidth="max-w-md"
+                maxWidth="max-w-sm"
                 footer={
                     <>
-                        <button onClick={() => setDeleteModal(null)} className="flex-1 py-3 border border-gray-200 text-admin-label rounded-lg font-bold text-[11px] hover:bg-gray-50 transition-all">Cancel</button>
-                        <button className="flex-1 py-3 bg-red-500 text-white rounded-lg font-bold text-[11px] hover:bg-red-600 transition-all shadow-md">Block Customer</button>
+                        <button onClick={() => setDeleteModal(null)} className="flex-1 py-2.5 border border-gray-200 text-gray-600 rounded-lg font-medium text-sm hover:bg-gray-50 transition-all">Cancel</button>
+                        <button className="flex-1 py-2.5 bg-red-600 text-white rounded-lg font-medium text-sm hover:bg-red-700 transition-all shadow-sm">Block Customer</button>
                     </>
                 }
             >
                 {deleteModal && (
-                    <div className="text-center space-y-4">
-                        <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <AlertCircle size={32} />
+                    <div className="text-center space-y-4 py-4">
+                        <div className="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto">
+                            <AlertCircle size={24} />
                         </div>
-                        <h3 className="text-[18px] font-extrabold text-admin-value">Block this customer?</h3>
-                        <p className="text-[12px] text-admin-label font-medium leading-relaxed">
-                            You are blocking <span className="text-admin-value font-bold">{deleteModal.mac}</span> ({deleteModal.mobile}). This will prevent them from accessing the hotspot network.
-                        </p>
+                        <div>
+                            <h3 className="text-lg font-bold text-gray-900">Block this customer?</h3>
+                            <p className="text-sm text-gray-500 mt-2">
+                                You are about to block <span className="font-semibold text-gray-900">{deleteModal.mac}</span>. This action can be undone later.
+                            </p>
+                        </div>
                     </div>
                 )}
             </Modal>
