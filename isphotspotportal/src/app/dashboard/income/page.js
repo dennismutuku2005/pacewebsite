@@ -74,50 +74,52 @@ export default function IncomePage() {
                     <p className="text-xs text-gray-500 mt-1">Daily revenue breakdown (Mon - Sun)</p>
                 </div>
 
-                <div className="h-[400px] w-full min-w-[500px] overflow-x-auto">
-                    {isMounted ? (
-                        <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart data={weeklyData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                                <defs>
-                                    <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.1} />
-                                        <stop offset="95%" stopColor="#7c3aed" stopOpacity={0} />
-                                    </linearGradient>
-                                </defs>
-                                <XAxis
-                                    dataKey="day"
-                                    axisLine={false}
-                                    tickLine={false}
-                                    tick={{ fontSize: 12, fill: '#9ca3af', fontWeight: 500 }}
-                                    dy={10}
-                                />
-                                <YAxis
-                                    axisLine={false}
-                                    tickLine={false}
-                                    tick={{ fontSize: 12, fill: '#9ca3af', fontWeight: 500 }}
-                                    tickFormatter={(value) => `KSH ${value / 1000}k`}
-                                />
-                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
-                                <Tooltip
-                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                                    cursor={{ stroke: '#e5e7eb', strokeWidth: 1 }}
-                                    formatter={(value) => [`KSH ${value}`, 'Revenue']}
-                                />
-                                <Area
-                                    type="monotone"
-                                    dataKey="amount"
-                                    stroke="#7c3aed"
-                                    strokeWidth={3}
-                                    fillOpacity={1}
-                                    fill="url(#colorIncome)"
-                                />
-                            </AreaChart>
-                        </ResponsiveContainer>
-                    ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                            <Skeleton className="w-full h-full rounded-lg" />
-                        </div>
-                    )}
+                <div className="overflow-x-auto w-full pb-2">
+                    <div className="h-[350px] min-w-[600px]">
+                        {isMounted ? (
+                            <ResponsiveContainer width="100%" height="100%">
+                                <AreaChart data={weeklyData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                    <defs>
+                                        <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.1} />
+                                            <stop offset="95%" stopColor="#7c3aed" stopOpacity={0} />
+                                        </linearGradient>
+                                    </defs>
+                                    <XAxis
+                                        dataKey="day"
+                                        axisLine={false}
+                                        tickLine={false}
+                                        tick={{ fontSize: 12, fill: '#9ca3af', fontWeight: 500 }}
+                                        dy={10}
+                                    />
+                                    <YAxis
+                                        axisLine={false}
+                                        tickLine={false}
+                                        tick={{ fontSize: 12, fill: '#9ca3af', fontWeight: 500 }}
+                                        tickFormatter={(value) => `KSH ${value / 1000}k`}
+                                    />
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                                    <Tooltip
+                                        contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                                        cursor={{ stroke: '#e5e7eb', strokeWidth: 1 }}
+                                        formatter={(value) => [`KSH ${value}`, 'Revenue']}
+                                    />
+                                    <Area
+                                        type="monotone"
+                                        dataKey="amount"
+                                        stroke="#7c3aed"
+                                        strokeWidth={3}
+                                        fillOpacity={1}
+                                        fill="url(#colorIncome)"
+                                    />
+                                </AreaChart>
+                            </ResponsiveContainer>
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center bg-gray-50 rounded-lg">
+                                <span className="text-gray-400 text-sm font-medium animate-pulse">Loading Chart...</span>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
