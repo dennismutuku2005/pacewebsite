@@ -212,7 +212,7 @@ export function Sidebar({ isSidebarOpen, pathname }) {
             >
                 <div className="p-1">
                     <p className="text-[13px] text-admin-label font-medium leading-relaxed">
-                        Are you sure you want to sign out of your administrative account? You will need to re-authenticate to access the command hub.
+                        Are you sure you want to sign out of your Pace Wisp account? You will need to re-authenticate to access the portal.
                     </p>
                 </div>
             </Modal>
