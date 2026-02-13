@@ -103,7 +103,7 @@ export default function ChatPage() {
                     </div>
                     <div className="flex items-center gap-2">
                         <button className="p-2 text-admin-dim hover:text-pace-purple rounded transition-all"><Phone size={18} /></button>
-                        <button className="p-2 text-admin-dim hover:text-pace-purple rounded transition-all"><MoreHorizontal size={18} /></button>
+                        <button className="p-2 text-admin-dim hover:text-pace-purple rounded transition-all" title="Chat Options"><MoreHorizontal size={18} /></button>
                     </div>
                 </div>
 
