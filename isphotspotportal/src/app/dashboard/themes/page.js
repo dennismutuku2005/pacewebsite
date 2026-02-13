@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react'
-import { Layout, Check, Server, Folder, Globe, UploadCloud, RefreshCw, Smartphone } from 'lucide-react'
+import { Layout, Check, Server, Folder, Globe, UploadCloud, RefreshCw, Smartphone, Plus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function ThemesPage() {
@@ -16,7 +16,7 @@ export default function ThemesPage() {
 
     const handleUpdate = () => {
         setIsUpdating(true)
-        setTimeout(() => setIsRefreshing(false), 2000)
+        setTimeout(() => setIsUpdating(false), 2000)
     }
 
     return (
