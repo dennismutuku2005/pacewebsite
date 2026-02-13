@@ -61,76 +61,75 @@ export default function LogsPage() {
     }
 
     return (
-        <div className="space-y-6 font-figtree animate-in fade-in duration-700">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-50 pb-4">
+        <div className="space-y-6 font-figtree animate-in fade-in duration-700 max-w-[1600px] mx-auto">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-100 pb-4">
                 <div>
-                    <h1 className="text-[20px] font-black text-pace-purple leading-tight tracking-tight uppercase">System Logs</h1>
-                    <p className="text-[11px] text-admin-label mt-1 font-medium tracking-tight opacity-70">Comprehensive audit trail of all system activities and events.</p>
+                    <h1 className="text-xl font-bold text-gray-900 leading-tight">System Logs</h1>
+                    <p className="text-sm text-gray-500 mt-1">Audit trail of system activities and events.</p>
                 </div>
             </div>
 
             {/* Control Bar */}
             <div className="flex flex-col md:flex-row items-center gap-3">
                 <div className="relative w-full md:w-96">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-admin-dim" size={14} />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
                     <input
                         type="text"
-                        placeholder="Search logs by action, user, or IP..."
-                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-gray-100 bg-white focus:ring-1 focus:ring-pace-purple/10 focus:border-pace-purple outline-none text-[12px] font-medium text-admin-value shadow-sm transition-all"
+                        placeholder="Search logs..."
+                        className="w-full pl-9 pr-3 py-2 rounded-lg border border-gray-200 bg-white focus:ring-1 focus:ring-pace-purple focus:border-pace-purple outline-none text-sm text-gray-700 placeholder:text-gray-400 shadow-sm transition-all"
                     />
                 </div>
-                <div className="flex gap-2">
-                    <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 text-admin-label rounded-xl hover:border-pace-purple hover:text-pace-purple transition-all bg-white text-[11px] font-bold">
-                        <Filter size={14} /> Filter Type
+                <div className="flex gap-2 w-full md:w-auto">
+                    <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-3 py-2 border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition-all bg-white text-sm font-medium">
+                        <Filter size={16} /> Filter
                     </button>
-                    <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 text-admin-label rounded-xl hover:border-pace-purple hover:text-pace-purple transition-all bg-white text-[11px] font-bold">
-                        <Clock size={14} /> Date Range
+                    <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-3 py-2 border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition-all bg-white text-sm font-medium">
+                        <Clock size={16} /> Date
                     </button>
                 </div>
             </div>
 
             {/* Logs Table */}
-            <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
+            <div className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left text-[12px] whitespace-nowrap border-collapse">
+                    <table className="w-full text-left text-sm whitespace-nowrap">
                         <thead>
-                            <tr className="bg-gray-50/50 border-b border-gray-100 font-bold text-admin-dim uppercase tracking-widest text-[9px]">
-                                <th className="px-6 py-4">Timestamp</th>
-                                <th className="px-6 py-4">Event Type</th>
-                                <th className="px-6 py-4">Action</th>
-                                <th className="px-6 py-4">Description</th>
-                                <th className="px-6 py-4">User/Source</th>
-                                <th className="px-6 py-4">IP Address</th>
+                            <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 font-medium">
+                                <th className="px-4 py-3 font-semibold">Timestamp</th>
+                                <th className="px-4 py-3 font-semibold">Event Type</th>
+                                <th className="px-4 py-3 font-semibold">Action</th>
+                                <th className="px-4 py-3 font-semibold">Description</th>
+                                <th className="px-4 py-3 font-semibold">User</th>
+                                <th className="px-4 py-3 font-semibold">IP Address</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
                             {isLoading ? (
                                 [...Array(5)].map((_, i) => (
                                     <tr key={i}>
-                                        <td className="px-6 py-5"><Skeleton className="h-4 w-32" /></td>
-                                        <td className="px-6 py-5"><Skeleton className="h-4 w-20" /></td>
-                                        <td className="px-6 py-5"><Skeleton className="h-4 w-24" /></td>
-                                        <td className="px-6 py-5"><Skeleton className="h-4 w-48" /></td>
-                                        <td className="px-6 py-5"><Skeleton className="h-4 w-20" /></td>
-                                        <td className="px-6 py-5"><Skeleton className="h-4 w-28" /></td>
+                                        <td className="px-4 py-3"><Skeleton className="h-4 w-32" /></td>
+                                        <td className="px-4 py-3"><Skeleton className="h-4 w-20" /></td>
+                                        <td className="px-4 py-3"><Skeleton className="h-4 w-24" /></td>
+                                        <td className="px-4 py-3"><Skeleton className="h-4 w-48" /></td>
+                                        <td className="px-4 py-3"><Skeleton className="h-4 w-20" /></td>
+                                        <td className="px-4 py-3"><Skeleton className="h-4 w-28" /></td>
                                     </tr>
                                 ))
                             ) : (
                                 logs.map((log) => {
                                     const config = getTypeConfig(log.type)
                                     return (
-                                        <tr key={log.id} className="hover:bg-gray-50/30 transition-colors group">
-                                            <td className="px-6 py-5 font-bold text-admin-dim">{log.timestamp}</td>
-                                            <td className="px-6 py-5">
-                                                <Badge variant={config.variant} className="text-[9px] font-black">
-                                                    <config.icon size={10} className="mr-1" />
-                                                    {log.type.toUpperCase()}
+                                        <tr key={log.id} className="hover:bg-gray-50 transition-colors group">
+                                            <td className="px-4 py-3 text-gray-500 text-xs">{log.timestamp}</td>
+                                            <td className="px-4 py-3">
+                                                <Badge variant={config.variant} className="text-[10px] px-2 py-0.5 font-medium">
+                                                    {log.type}
                                                 </Badge>
                                             </td>
-                                            <td className="px-6 py-5 font-black text-admin-value uppercase">{log.action}</td>
-                                            <td className="px-6 py-5 font-medium text-admin-label max-w-md truncate">{log.description}</td>
-                                            <td className="px-6 py-5 font-bold text-admin-dim">{log.user}</td>
-                                            <td className="px-6 py-5 font-mono text-[11px] text-admin-dim">{log.ip}</td>
+                                            <td className="px-4 py-3 font-medium text-gray-700">{log.action}</td>
+                                            <td className="px-4 py-3 text-gray-500 max-w-md truncate" title={log.description}>{log.description}</td>
+                                            <td className="px-4 py-3 text-gray-600">{log.user}</td>
+                                            <td className="px-4 py-3 font-mono text-xs text-gray-400">{log.ip}</td>
                                         </tr>
                                     )
                                 })
@@ -141,13 +140,13 @@ export default function LogsPage() {
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-between items-center">
-                <p className="text-[11px] text-admin-dim font-bold">Showing 1-10 of 245 log entries</p>
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p className="text-sm text-gray-500">Showing 1-10 of 245 log entries</p>
                 <div className="flex gap-2">
-                    <button className="px-4 py-2 border border-gray-200 text-admin-label rounded-lg text-[11px] font-bold hover:bg-gray-50 transition-all">
+                    <button className="px-4 py-2 border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 transition-all disabled:opacity-50">
                         Previous
                     </button>
-                    <button className="px-4 py-2 bg-pace-purple text-white rounded-lg text-[11px] font-bold hover:bg-[#3d1a75] transition-all">
+                    <button className="px-4 py-2 bg-white border border-gray-200 text-gray-600 hover:text-pace-purple hover:border-pace-purple rounded-lg text-sm font-medium transition-all">
                         Next
                     </button>
                 </div>
