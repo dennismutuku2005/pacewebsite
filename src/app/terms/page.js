@@ -5,6 +5,7 @@ import { apiService } from '@/services/apiService';
 
 export default function Terms() {
     const [content, setContent] = useState('');
+    const [updatedAt, setUpdatedAt] = useState('');
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -12,6 +13,7 @@ export default function Terms() {
             try {
                 const data = await apiService.getTerms();
                 setContent(data.content || '');
+                setUpdatedAt(data.updated_at || '');
             } catch (error) {
                 console.error("Failed to fetch terms", error);
             } finally {
@@ -25,12 +27,14 @@ export default function Terms() {
         <div className="bg-white">
             <PageHero
                 title="Terms of Service"
-                subtitle="Please read our terms and conditions carefully."
+                subtitle={updatedAt ? `Last Updated: ${new Date(updatedAt).toLocaleDateString()}` : "Please read our terms and conditions carefully."}
             />
 
-            <div className="max-w-4xl mx-auto px-6 lg:px-8 py-24 text-gray-600 space-y-8">
+            <div className="max-w-4xl mx-auto px-6 lg:px-8 py-24">
                 {isLoading ? (
-                    <p>Loading...</p>
+                    <div className="flex items-center justify-center py-20">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-tappi-purple"></div>
+                    </div>
                 ) : (
                     <div
                         className="prose prose-lg max-w-none"
