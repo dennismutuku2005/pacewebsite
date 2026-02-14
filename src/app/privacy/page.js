@@ -1,6 +1,26 @@
+"use client"
+import { useState, useEffect } from "react";
 import PageHero from "../components/PageHero";
+import { apiService } from '@/services/apiService';
 
 export default function Privacy() {
+    const [content, setContent] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchContent = async () => {
+            try {
+                const data = await apiService.getPrivacyPolicy();
+                setContent(data.content || '');
+            } catch (error) {
+                console.error("Failed to fetch privacy policy", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchContent();
+    }, []);
+
     return (
         <div className="bg-white">
             <PageHero
@@ -9,39 +29,14 @@ export default function Privacy() {
             />
 
             <div className="max-w-4xl mx-auto px-6 lg:px-8 py-24 text-gray-600 space-y-8">
-                <section>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Information We Collect</h2>
-                    <p className="leading-relaxed mb-4">
-                        We collect information that you provide directly to us, such as when you create an account, update your profile, or communicate with us. This may include:
-                    </p>
-                    <ul className="list-disc pl-5 space-y-2">
-                        <li>Name and contact information</li>
-                        <li>Business details</li>
-                        <li>Payment information</li>
-                        <li>Communication history</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">2. How We Use Your Information</h2>
-                    <p className="leading-relaxed">
-                        We use the information we collect to provide, maintain, and improve our services, to process your transactions, and to communicate with you about products, services, offers, and events.
-                    </p>
-                </section>
-
-                <section>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">3. Data Security</h2>
-                    <p className="leading-relaxed">
-                        We implement reasonable security measures to protect your personal information from unauthorized access, use, or disclosure. However, no method of transmission over the Internet is completely secure.
-                    </p>
-                </section>
-
-                <section>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Contact Us</h2>
-                    <p className="leading-relaxed">
-                        If you have any questions about this Privacy Policy, please contact us at <a href="mailto:privacy@tappi.app" className="text-tappi-purple hover:underline">privacy@tappi.app</a>.
-                    </p>
-                </section>
+                {isLoading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <div
+                        className="prose prose-lg max-w-none"
+                        dangerouslySetInnerHTML={{ __html: content || "No privacy policy content available." }}
+                    />
+                )}
             </div>
         </div>
     );
