@@ -12,11 +12,10 @@ export default function ChatWidget() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.1, y: -4 }}
                 whileTap={{ scale: 0.9 }}
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="w-14 h-14 bg-[#25D366] text-white rounded-full shadow-[0_8px_30px_rgb(37,211,102,0.4)] flex items-center justify-center hover:bg-[#20ba5a] transition-colors group relative"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center hover:bg-[#20ba5a] transition-colors group relative"
                 aria-label="Chat on WhatsApp"
             >
                 {/* Notification Badge */}
@@ -31,7 +30,7 @@ export default function ChatWidget() {
                 </svg>
 
                 {/* Tooltip */}
-                <div className="absolute right-full mr-4 bg-white text-gray-900 px-4 py-2 rounded-xl text-sm font-bold shadow-xl border border-gray-100 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none translate-x-2 group-hover:translate-x-0">
+                <div className="absolute right-full mr-4 bg-white text-gray-900 px-4 py-2 rounded-xl text-sm font-bold border border-gray-100 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                     Need help? Chat on WhatsApp
                 </div>
             </motion.a>
