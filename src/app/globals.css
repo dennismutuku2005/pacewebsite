@@ -39,14 +39,16 @@ body {
 }
 
 /* Input & Form Styling */
-input, textarea, select {
+input,
+textarea,
+select {
   color: var(--foreground);
   background-color: transparent;
 }
 
 /* Fix for light-background inputs in dark mode */
-.bg-white input, 
-.bg-white textarea, 
+.bg-white input,
+.bg-white textarea,
 .bg-white select {
   color: #171717 !important;
 }
@@ -57,7 +59,8 @@ input, textarea, select {
 }
 
 .bg-white ::placeholder {
-  color: #6b7280; /* gray-500 for better contrast on white */
+  color: #6b7280;
+  /* gray-500 for better contrast on white */
 }
 
 @utility text-gradient-orange {
@@ -66,4 +69,69 @@ input, textarea, select {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
+}
+
+/* Basic Typography for HTML Content */
+.prose {
+  color: #374151;
+  /* gray-700 */
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: #111827;
+  /* gray-900 */
+  font-weight: 700;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+.prose h1 {
+  font-size: 2.25rem;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+}
+
+.prose p {
+  margin-bottom: 1em;
+}
+
+.prose strong,
+.prose b {
+  font-weight: 700;
+  color: #111827;
+}
+
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+.prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+.prose a {
+  color: var(--tappi-purple);
+  text-decoration: underline;
+}
+
+.prose-sm {
+  font-size: 0.875rem;
+}
+
+.prose-lg {
+  font-size: 1.125rem;
 }
