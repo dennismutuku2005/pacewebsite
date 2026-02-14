@@ -87,7 +87,7 @@ export default function Testimonials() {
                         {[...testimonials.slice(0, 3), ...testimonials.slice(0, 3), ...testimonials.slice(0, 3)].map((testimonial, index) => (
                             <div
                                 key={index}
-                                className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 w-[380px] flex-shrink-0 flex flex-col"
+                                className="bg-white rounded-2xl p-6 border border-gray-100 w-[380px] flex-shrink-0 flex flex-col"
                             >
                                 {/* Rating Stars */}
                                 <div className="flex gap-1 mb-3">
@@ -138,7 +138,7 @@ export default function Testimonials() {
                         {[...testimonials.slice(3, 6), ...testimonials.slice(3, 6), ...testimonials.slice(3, 6)].map((testimonial, index) => (
                             <div
                                 key={index}
-                                className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 w-[380px] flex-shrink-0 flex flex-col"
+                                className="bg-white rounded-2xl p-6 border border-gray-100 w-[380px] flex-shrink-0 flex flex-col"
                             >
                                 {/* Rating Stars */}
                                 <div className="flex gap-1 mb-3">
@@ -177,7 +177,7 @@ export default function Testimonials() {
                             Ready to join these successful WISPs?
                         </p>
                         <a href="/apply">
-                            <button className="bg-tappi-purple text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-tappi-purple-dark transition-all hover:-translate-y-1 shadow-lg hover:shadow-xl">
+                            <button className="bg-tappi-purple text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-tappi-purple-dark transition-all">
                                 Start Your Journey
                             </button>
                         </a>
