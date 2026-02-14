@@ -39,7 +39,7 @@ export default function Home() {
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                 <Link href="/apply">
-                  <button className="w-full sm:w-auto bg-tappi-green text-white px-8 py-3.5 rounded-xl font-bold text-lg hover:bg-green-600 transition-all hover:-translate-y-1 shadow-[0_8px_30px_rgba(44,179,74,0.3)] flex items-center justify-center gap-2">
+                  <button className="w-full sm:w-auto bg-tappi-green text-white px-8 py-3.5 rounded-xl font-bold text-lg hover:bg-green-600 transition-all flex items-center justify-center gap-2">
                     Get Started Free
                   </button>
                 </Link>
@@ -68,7 +68,7 @@ export default function Home() {
                     alt="Hero phone"
                     width={600}
                     height={600}
-                    className="w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-contain"
                     priority
                   />
                 </div>
@@ -106,8 +106,7 @@ export default function Home() {
             {/* Feature 1 */}
             <ScrollReveal delay={0.1}>
               <motion.div
-                whileHover={{ y: -8 }}
-                className="p-8 rounded-3xl bg-white hover:shadow-xl transition-all duration-300 border border-gray-100 group"
+                className="p-8 rounded-3xl bg-white transition-all duration-300 border border-gray-100 group"
               >
                 <div className="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-7 h-7 text-tappi-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,8 +129,7 @@ export default function Home() {
             {/* Feature 2 */}
             <ScrollReveal delay={0.2}>
               <motion.div
-                whileHover={{ y: -8 }}
-                className="p-8 rounded-3xl bg-white hover:shadow-xl transition-all duration-300 border border-gray-100 group"
+                className="p-8 rounded-3xl bg-white transition-all duration-300 border border-gray-100 group"
               >
                 <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-7 h-7 text-tappi-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,8 +152,7 @@ export default function Home() {
             {/* Feature 3 */}
             <ScrollReveal delay={0.3}>
               <motion.div
-                whileHover={{ y: -8 }}
-                className="p-8 rounded-3xl bg-white hover:shadow-xl transition-all duration-300 border border-gray-100 group"
+                className="p-8 rounded-3xl bg-white transition-all duration-300 border border-gray-100 group"
               >
                 <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -178,8 +175,7 @@ export default function Home() {
             {/* Feature 4 */}
             <ScrollReveal delay={0.4}>
               <motion.div
-                whileHover={{ y: -8 }}
-                className="p-8 rounded-3xl bg-white hover:shadow-xl transition-all duration-300 border border-gray-100 group"
+                className="p-8 rounded-3xl bg-white transition-all duration-300 border border-gray-100 group"
               >
                 <div className="w-14 h-14 rounded-full bg-orange-100 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -202,8 +198,7 @@ export default function Home() {
             {/* Feature 5 */}
             <ScrollReveal delay={0.5}>
               <motion.div
-                whileHover={{ y: -8 }}
-                className="p-8 rounded-3xl bg-white hover:shadow-xl transition-all duration-300 border border-gray-100 group"
+                className="p-8 rounded-3xl bg-white transition-all duration-300 border border-gray-100 group"
               >
                 <div className="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-7 h-7 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -226,8 +221,7 @@ export default function Home() {
             {/* Feature 6 */}
             <ScrollReveal delay={0.6}>
               <motion.div
-                whileHover={{ y: -8 }}
-                className="p-8 rounded-3xl bg-white hover:shadow-xl transition-all duration-300 border border-gray-100 group"
+                className="p-8 rounded-3xl bg-white transition-all duration-300 border border-gray-100 group"
               >
                 <div className="w-14 h-14 rounded-full bg-indigo-100 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-7 h-7 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -266,7 +260,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <ScrollReveal delay={0.1}>
-              <div className="bg-white rounded-3xl p-8 shadow-lg border-2 border-tappi-purple/20 hover:border-tappi-purple transition-all">
+              <div className="bg-white rounded-3xl p-8 border-2 border-tappi-purple/20 hover:border-tappi-purple transition-all">
                 <div className="text-center">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Hotspot</h3>
                   <div className="text-5xl font-bold text-tappi-purple mb-2">3%</div>
@@ -281,7 +275,7 @@ export default function Home() {
             </ScrollReveal>
 
             <ScrollReveal delay={0.2}>
-              <div className="bg-white rounded-3xl p-8 shadow-lg border-2 border-tappi-green/20 hover:border-tappi-green transition-all">
+              <div className="bg-white rounded-3xl p-8 border-2 border-tappi-green/20 hover:border-tappi-green transition-all">
                 <div className="text-center">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">PPPoE</h3>
                   <div className="flex items-baseline justify-center gap-2 mb-2">
@@ -318,7 +312,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/apply">
-                <button className="bg-gradient-to-r from-tappi-orange-start to-tappi-orange-end text-white px-10 py-4 rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-orange-500/30 transition-all hover:-translate-y-1 flex items-center gap-2">
+                <button className="bg-gradient-to-r from-tappi-orange-start to-tappi-orange-end text-white px-10 py-4 rounded-xl font-bold text-lg transition-all flex items-center gap-2">
                   Get Started Now
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
