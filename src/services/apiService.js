@@ -1,5 +1,5 @@
 
-const API_BASE_URL = 'http://localhost/pace.com/backend/endpoints';
+const API_BASE_URL = 'http://localhost/pace.com/backend/endpoints/user';
 
 export const apiService = {
   // Applications
