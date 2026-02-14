@@ -19,7 +19,7 @@ export default function PricingPage() {
 
                         {/* Hotspot Pricing */}
                         <ScrollReveal delay={0.1}>
-                            <div className="relative bg-gradient-to-br from-tappi-purple to-tappi-purple-dark rounded-3xl p-8 lg:p-10 text-white shadow-2xl hover:shadow-3xl transition-all hover:-translate-y-2 duration-300">
+                            <div className="relative bg-gradient-to-br from-tappi-purple to-tappi-purple-dark rounded-3xl p-8 lg:p-10 text-white border border-white/10 transition-all duration-300">
                                 <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
 
                                 <div className="relative z-10">
@@ -79,7 +79,7 @@ export default function PricingPage() {
                                     </div>
 
                                     <Link href="/apply">
-                                        <button className="w-full bg-white text-tappi-purple px-6 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all hover:shadow-lg">
+                                        <button className="w-full bg-white text-tappi-purple px-6 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all">
                                             Get Started with Hotspot
                                         </button>
                                     </Link>
@@ -89,7 +89,7 @@ export default function PricingPage() {
 
                         {/* PPPoE Pricing */}
                         <ScrollReveal delay={0.2}>
-                            <div className="relative bg-gradient-to-br from-tappi-green to-green-600 rounded-3xl p-8 lg:p-10 text-white shadow-2xl hover:shadow-3xl transition-all hover:-translate-y-2 duration-300">
+                            <div className="relative bg-gradient-to-br from-tappi-green to-green-600 rounded-3xl p-8 lg:p-10 text-white border border-white/10 transition-all duration-300">
                                 <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
 
                                 <div className="relative z-10">
@@ -150,7 +150,7 @@ export default function PricingPage() {
                                     </div>
 
                                     <Link href="/apply">
-                                        <button className="w-full bg-white text-tappi-green px-6 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all hover:shadow-lg">
+                                        <button className="w-full bg-white text-tappi-green px-6 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all">
                                             Get Started with PPPoE
                                         </button>
                                     </Link>
@@ -161,7 +161,7 @@ export default function PricingPage() {
 
                     {/* Combined Package */}
                     <ScrollReveal delay={0.3}>
-                        <div className="relative bg-gradient-to-r from-tappi-orange-start via-tappi-orange-mid to-tappi-orange-end rounded-3xl p-8 lg:p-12 text-white shadow-2xl overflow-hidden">
+                        <div className="relative bg-[#0A0A0A] rounded-3xl p-8 lg:p-12 text-white overflow-hidden border border-white/5">
                             <div className="absolute top-0 right-0 w-60 h-60 bg-white/10 rounded-full blur-3xl"></div>
                             <div className="absolute bottom-0 left-0 w-60 h-60 bg-white/10 rounded-full blur-3xl"></div>
 
@@ -207,7 +207,7 @@ export default function PricingPage() {
                                 </div>
 
                                 <Link href="/apply">
-                                    <button className="bg-white text-tappi-orange-mid px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all hover:shadow-2xl hover:-translate-y-1 inline-flex items-center gap-2">
+                                    <button className="bg-white text-tappi-orange-mid px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all inline-flex items-center gap-2">
                                         Get Complete Solution
                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
