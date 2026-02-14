@@ -186,7 +186,7 @@ export default function ProductsPage() {
                             const colors = getColorClasses(product.color);
                             return (
                                 <ScrollReveal key={index} delay={index * 0.1}>
-                                    <div className={`bg-white rounded-3xl p-8 border-2 ${colors.border} ${colors.hover} transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full flex flex-col`}>
+                                    <div className={`bg-white rounded-3xl p-8 border-2 ${colors.border} h-full flex flex-col`}>
                                         <div className={`w-16 h-16 ${colors.bg} rounded-2xl flex items-center justify-center mb-6 ${colors.text}`}>
                                             {product.icon}
                                         </div>
@@ -238,7 +238,7 @@ export default function ProductsPage() {
                             </div>
 
                             <Link href="/apply">
-                                <button className="bg-white text-tappi-purple px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all hover:shadow-2xl inline-flex items-center gap-2">
+                                <button className="bg-white text-tappi-purple px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all inline-flex items-center gap-2">
                                     Get Started Now
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
