@@ -7,7 +7,7 @@ import {
     Users, CreditCard, Ticket, Settings,
     Activity, FileText, Network, Receipt,
     UserRoundCheck, MessageSquare, Globe, ChevronDown,
-    LogOut, LayoutDashboard, Clock, Smartphone, Bell
+    LogOut, LayoutDashboard, Clock, Smartphone, Bell, Code
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Modal } from '@/components/Modal'
