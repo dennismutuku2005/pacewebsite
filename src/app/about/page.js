@@ -115,7 +115,7 @@ export default function About() {
                                     color: "orange"
                                 }
                             ].map((value, i) => (
-                                <div key={i} className={`bg-${value.color === 'purple' ? 'purple' : value.color === 'green' ? 'green' : 'orange'}-50 p-8 rounded-3xl border border-${value.color === 'purple' ? 'purple' : value.color === 'green' ? 'green' : 'orange'}-100 hover:shadow-xl transition-shadow duration-300`}>
+                                <div key={i} className={`bg-${value.color === 'purple' ? 'purple' : value.color === 'green' ? 'green' : 'orange'}-50 p-8 rounded-3xl border border-${value.color === 'purple' ? 'purple' : value.color === 'green' ? 'green' : 'orange'}-100 transition-all duration-300`}>
                                     <div className={`w-12 h-12 bg-${value.color === 'purple' ? 'tappi-purple' : value.color === 'green' ? 'tappi-green' : 'orange-500'} rounded-xl flex items-center justify-center text-white mb-6`}>
                                         {value.icon}
                                     </div>
