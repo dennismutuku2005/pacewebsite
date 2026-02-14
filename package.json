@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "gita": "python git_sync.py"
   },
   "dependencies": {
     "clsx": "^2.1.1",
