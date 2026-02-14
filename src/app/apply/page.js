@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import PageHero from '../components/PageHero';
 import ScrollReveal from '../components/ScrollReveal';
+import { apiService } from '@/services/apiService';
 
 export default function ApplyPage() {
     const [formData, setFormData] = useState({
@@ -18,6 +19,7 @@ export default function ApplyPage() {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,11 +32,34 @@ export default function ApplyPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+        setSubmitStatus(null);
+        setErrorMessage('');
 
-        // Simulate form submission to admin
-        setTimeout(() => {
+        try {
+            console.log("Submitting application payload:", formData);
+            // Artificial delay for better UX and to ensure loading state is visible
+            await new Promise(resolve => setTimeout(resolve, 800));
+
+            // Map form data to backend expected format matching the new DB schema
+            const payload = {
+                company_name: formData.companyName,
+                contact_person: formData.contactPerson,
+                email: formData.email,
+                phone: formData.phone,
+                location: formData.location,
+                service_type: formData.serviceType,
+                current_users: formData.currentUsers,
+                expected_growth: formData.expectedGrowth,
+                message: formData.message
+            };
+
+            const result = await apiService.submitApplication(payload);
+
+            if (result.error) {
+                throw new Error(result.error);
+            }
+
             setSubmitStatus('success');
-            setIsSubmitting(false);
             // Reset form
             setFormData({
                 companyName: '',
@@ -47,7 +72,13 @@ export default function ApplyPage() {
                 location: '',
                 message: ''
             });
-        }, 1500);
+        } catch (error) {
+            console.error("Submission failed:", error);
+            setSubmitStatus('error');
+            setErrorMessage('Failed to submit application. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -71,11 +102,18 @@ export default function ApplyPage() {
                     </ScrollReveal>
 
                     <ScrollReveal delay={0.2}>
-                        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 lg:p-12">
+                        <div className="bg-white rounded-3xl border border-gray-100 p-8 lg:p-12">
                             {submitStatus === 'success' && (
                                 <div className="mb-8 p-4 bg-tappi-green/10 border border-tappi-green rounded-xl">
                                     <p className="text-tappi-green font-semibold text-center">
                                         ✓ Application submitted successfully! We'll contact you soon.
+                                    </p>
+                                </div>
+                            )}
+                            {submitStatus === 'error' && (
+                                <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-xl">
+                                    <p className="text-red-600 font-semibold text-center">
+                                        {errorMessage}
                                     </p>
                                 </div>
                             )}
@@ -255,7 +293,7 @@ export default function ApplyPage() {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="w-full bg-tappi-purple text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-tappi-purple-dark transition-all hover:-translate-y-1 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                        className="w-full bg-tappi-purple text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-tappi-purple-dark transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                                     >
                                         {isSubmitting ? 'Submitting...' : 'Submit Application'}
                                     </button>
