@@ -1,14 +1,14 @@
-import { Rubik, Geist_Mono } from "next/font/google";
+import { Figtree, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 import ChatWidget from "./components/ChatWidget";
 
-const rubik = Rubik({
+const figtree = Figtree({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-rubik",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-figtree",
 });
 
 const geistMono = Geist_Mono({
@@ -23,8 +23,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${rubik.variable} ${geistMono.variable}`}>
-      <body className="antialiased min-h-screen flex flex-col bg-white font-rubik">
+    <html lang="en" className={`${figtree.variable} ${geistMono.variable}`}>
+      <body className="antialiased min-h-screen flex flex-col bg-white font-figtree">
         <Header />
         <main className="flex-grow">
           {children}
