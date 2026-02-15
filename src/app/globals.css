@@ -16,8 +16,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-rubik);
-  --font-mono: var(--font-rubik);
+  --font-sans: var(--font-figtree);
+  --font-mono: var(--font-figtree);
 
   /* Add theme colors */
   --color-tappi-purple: var(--tappi-purple);
@@ -35,7 +35,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-rubik), Arial, Helvetica, sans-serif;
+  font-family: var(--font-figtree), sans-serif;
 }
 
 /* Input & Form Styling */
