@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-rubik overflow-x-hidden selection:bg-tappi-orange-mid selection:text-white">
+    <div className="min-h-screen bg-white text-gray-900 font-figtree overflow-x-hidden selection:bg-tappi-orange-mid selection:text-white">
 
       {/* Hero Section */}
       <div className="bg-tappi-purple text-white relative overflow-hidden">
@@ -27,13 +27,13 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              <h1 className="text-4xl lg:text-[4.5rem] font-bold leading-[1.1] mb-6 font-rubik tracking-tight">
+              <h1 className="text-4xl lg:text-[4.5rem] font-bold leading-[1.1] mb-6 font-figtree tracking-tight">
                 Utility Software <br />
                 for <span className="text-gradient-orange inline-block transform hover:scale-105 transition-transform duration-300">Wireless</span> <br />
                 Internet Providers
               </h1>
 
-              <p className="text-lg text-purple-100/80 mb-8 max-w-lg mx-auto lg:mx-0 font-rubik leading-relaxed font-light">
+              <p className="text-lg text-purple-100/80 mb-8 max-w-lg mx-auto lg:mx-0 font-figtree leading-relaxed font-light">
                 Streamline your WISP operations with our cutting-edge billing systems for Hotspot and PPPoE. Manage users, track revenue, and grow your business effortlessly.
               </p>
 
