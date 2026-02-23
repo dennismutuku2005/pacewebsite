@@ -1,5 +1,5 @@
 
-const API_BASE_URL = 'http://localhost/pace.com/backend/endpoints/user';
+const API_BASE_URL = 'https://api.pacewisp.co.ke/endpoints/user';
 
 export const apiService = {
   // Applications
