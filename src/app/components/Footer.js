@@ -69,11 +69,11 @@ export default function Footer() {
                     <div className="lg:col-span-2">
                         <h4 className="text-white font-bold mb-6">Contact</h4>
                         <div className="space-y-4 text-sm">
-                            <p>Email: <a href="mailto:support@pacewisp.com" className="text-tappi-green hover:underline">support@pacewisp.com</a></p>
+                            <p>Email: <a href="mailto:support@pacewisp.co.ke" className="text-tappi-green hover:underline">support@pacewisp.com</a></p>
                             <div>
                                 <p className="text-gray-500 uppercase text-xs font-bold tracking-wider mb-2">Support</p>
                                 <p>24/7 Technical Support</p>
-                                <p className="mt-1">WhatsApp: +254 700 000 000</p>
+                                <p className="mt-1">WhatsApp: +254 74139 0949</p>
                             </div>
                         </div>
                     </div>
