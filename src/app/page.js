@@ -4,9 +4,21 @@ import Image from 'next/image';
 import PartnersMarquee from './components/PartnersMarquee';
 import ScrollReveal from './components/ScrollReveal';
 import Testimonials from './components/Testimonials';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
 
 export default function Home() {
+  const [paymentAmount, setPaymentAmount] = useState(30);
+
+  useEffect(() => {
+    const amounts = [10, 20, 30, 50, 100];
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+      currentIndex = (currentIndex + 1) % amounts.length;
+      setPaymentAmount(amounts[currentIndex]);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div className="min-h-screen bg-white text-gray-900 font-figtree overflow-x-hidden selection:bg-tappi-orange-mid selection:text-white">
 
@@ -62,15 +74,86 @@ export default function Home() {
                 {/* Background Glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-purple-600/30 blur-[80px] rounded-full pointer-events-none"></div>
 
-                <div className="relative z-10 w-[600px] h-[600px] lg:w-96 lg:h-96">
+                <div className="relative z-10 w-full max-w-[500px] aspect-square lg:w-96 lg:h-96 mx-auto">
+                  {/* Simulated Phone Screen Content - Only visible inside the phone frame */}
+                  <div className="absolute inset-x-[15%] top-[15%] bottom-[15%] z-20 flex flex-col items-center justify-center pointer-events-none overflow-hidden sm:inset-x-[20%] lg:inset-x-[8%]">
+                    <div className="w-full px-4 py-2 flex flex-col items-center text-center">
+                      <motion.div
+                        key={paymentAmount}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="bg-white/20 backdrop-blur-md rounded-lg p-2 border border-white/20 mb-2 w-full max-w-[100px]"
+                      >
+                        <p className="text-[8px] uppercase font-bold text-purple-200">Status</p>
+                        <p className="text-xs font-bold text-white">Online</p>
+                      </motion.div>
+                      <motion.div
+                        key={paymentAmount + "amount"}
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-white flex flex-col items-center"
+                      >
+                        <p className="text-[8px] text-purple-200">Revenue</p>
+                        <p className="text-lg font-black leading-tight">KES {paymentAmount}</p>
+                      </motion.div>
+                    </div>
+                  </div>
+
                   <Image
                     src="/hero-phone.png"
                     alt="Hero phone"
                     width={600}
                     height={600}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain relative z-10"
                     priority
                   />
+
+                  {/* Payment Badge - Refined for mobile visibility */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.8, duration: 0.5 }}
+                    className="absolute -right-4 top-[20%] sm:right-0 lg:-right-16 bg-white/10 backdrop-blur-lg border border-white/20 p-2 rounded-xl shadow-2xl z-30 flex items-center gap-2 w-40 sm:w-48 lg:w-52"
+                  >
+                    <div className="w-7 h-7 bg-tappi-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-tappi-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[8px] text-blue-300 uppercase font-black tracking-widest leading-none mb-1">M-Pesa</p>
+                      <AnimatePresence mode="wait">
+                        <motion.p
+                          key={paymentAmount}
+                          initial={{ opacity: 0, y: 3 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -3 }}
+                          className="text-[10px] sm:text-[11px] font-bold text-white truncate"
+                        >
+                          Recv KES {paymentAmount}
+                        </motion.p>
+                      </AnimatePresence>
+                    </div>
+                  </motion.div>
+
+                  {/* Network/Router Badge - Refined for mobile visibility */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 1, duration: 0.5 }}
+                    className="absolute -left-4 bottom-[20%] sm:left-0 lg:-left-20 bg-white/10 backdrop-blur-lg border border-dashed border-white/20 p-2 rounded-xl shadow-2xl z-30 flex items-center gap-2 w-36 sm:w-44 lg:w-48"
+                  >
+                    <div className="w-7 h-7 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <div className="relative">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-ping absolute inset-0"></div>
+                        <div className="w-2 h-2 bg-blue-500 rounded-full relative"></div>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-[8px] text-blue-300 uppercase font-black tracking-widest leading-none mb-1">Status</p>
+                      <p className="text-[10px] sm:text-[11px] font-bold text-white tracking-wide">Routers Online</p>
+                    </div>
+                  </motion.div>
                 </div>
               </motion.div>
             </ScrollReveal>
@@ -263,8 +346,11 @@ export default function Home() {
               <div className="bg-white rounded-3xl p-8 border-2 border-tappi-purple/20 hover:border-tappi-purple transition-all">
                 <div className="text-center">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Hotspot</h3>
-                  <div className="text-5xl font-bold text-tappi-purple mb-2">3%</div>
-                  <p className="text-gray-600 mb-6">of Hotspot Revenue</p>
+                  <div className="flex items-baseline justify-center gap-2 mb-2">
+                    <span className="text-5xl font-bold text-tappi-purple">1,499</span>
+                    <span className="text-2xl font-semibold text-gray-600">KES</span>
+                  </div>
+                  <p className="text-gray-600 mb-6">Flat Fee (Up to 110 clients)</p>
                   <Link href="/pricing">
                     <button className="w-full bg-tappi-purple text-white px-6 py-3 rounded-xl font-bold hover:bg-tappi-purple-dark transition-all">
                       View Details
