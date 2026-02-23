@@ -1,6 +1,7 @@
 
 const API_BASE_URL = 'https://api.pacewisp.co.ke/endpoints/user';
 
+
 export const apiService = {
   // Applications
   submitApplication: async (data) => {
