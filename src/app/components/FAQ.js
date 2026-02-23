@@ -8,7 +8,7 @@ const faqs = [
     },
     {
         question: "How much does Pace WISP cost?",
-        answer: "Our pricing is simple and transparent: 3% of your Hotspot revenue and 28 KES per PPPoE user. This ensures our success is directly tied to yours, with no hidden fees."
+        answer: "Our pricing is simple and transparent: KES 1,499 flat fee (up to 110 clients) + KES 8 per additional client for Hotspot, and KES 28 per PPPoE user. This ensures predictable costs as your business grows."
     },
     {
         question: "Can Pace WISP integrate with my existing infrastructure?",
