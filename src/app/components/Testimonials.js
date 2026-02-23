@@ -24,7 +24,7 @@ const testimonials = [
         company: "SkyNet Services",
         location: "Kisumu, Kenya",
         image: "DO",
-        text: "Best investment we've made! The 3% revenue model for hotspot is fair and the 28 KES per user for PPPoE is very affordable. Support team is always responsive.",
+        text: "Best investment we've made! The flat fee model for hotspot is simple and the 28 KES per user for PPPoE is very affordable. Support team is always responsive.",
         rating: 5
     },
     {
