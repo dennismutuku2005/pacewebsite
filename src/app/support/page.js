@@ -18,7 +18,7 @@ export default function Support() {
                         </div>
                         <h3 className="text-xl font-bold text-gray-900 mb-2">Email Us</h3>
                         <p className="text-gray-500 mb-4">For general inquiries</p>
-                        <a href="mailto:hey@tappi.app" className="text-tappi-purple font-semibold hover:underline">hey@tappi.app</a>
+                        <a href="mailto:hey@pacewisp.co.ke" className="text-tappi-purple font-semibold hover:underline">hey@tappi.app</a>
                     </div>
 
                     <div className="p-8 rounded-3xl bg-green-50 border border-green-100 text-center">
@@ -27,16 +27,7 @@ export default function Support() {
                         </div>
                         <h3 className="text-xl font-bold text-gray-900 mb-2">Call Us</h3>
                         <p className="text-gray-500 mb-4">Mon-Fri from 8am to 5pm</p>
-                        <a href="tel:+254715412061" className="text-tappi-green font-semibold hover:underline">+254 715 412 061</a>
-                    </div>
-
-                    <div className="p-8 rounded-3xl bg-blue-50 border border-blue-100 text-center">
-                        <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center text-blue-500 mx-auto mb-6 shadow-sm">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
-                        </div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">Live Chat</h3>
-                        <p className="text-gray-500 mb-4">Instant support</p>
-                        <button className="text-blue-600 font-semibold hover:underline">Start Chat</button>
+                        <a href="tel:+254741390949" className="text-tappi-green font-semibold hover:underline">+254 74139 0949</a>
                     </div>
                 </div>
 
