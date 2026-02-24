@@ -52,7 +52,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                 <Link href="/apply">
                   <button className="w-full sm:w-auto bg-tappi-green text-white px-8 py-3.5 rounded-xl font-bold text-lg hover:bg-green-600 transition-all flex items-center justify-center gap-2">
-                    Get Started Free
+                    Get Started Now
                   </button>
                 </Link>
                 <Link href="/pricing">
