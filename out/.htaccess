@@ -1,0 +1,14 @@
+Options -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /pace.com/pacewebsite/out/
+  
+  # If the request is not for a real file or directory
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  
+  # Fallback to index.html for SPA routes
+  RewriteRule . index.html [L]
+</IfModule>
