@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.pacewisp.com/sitemap.xml
+Sitemap: https://pacewisp.co.ke/sitemap.xml

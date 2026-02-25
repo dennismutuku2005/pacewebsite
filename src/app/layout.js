@@ -22,7 +22,7 @@ export const metadata = {
   openGraph: {
     title: "Pace WISP - Utility Software for Wireless Internet Providers",
     description: "Empowering WISPs with cutting-edge billing systems and management tools. Streamline your operations with our Hotspot and PPPoE solutions.",
-    url: "https://www.pacewisp.com",
+    url: "https://pacewisp.co.ke",
     siteName: "Pace WISP",
     images: [
       {
@@ -42,7 +42,7 @@ export const metadata = {
     images: ["/og-image.png"],
   },
   alternates: {
-    canonical: "https://www.pacewisp.com"
+    canonical: "https://pacewisp.co.ke"
   }
 };
 
