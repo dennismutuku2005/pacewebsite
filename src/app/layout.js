@@ -19,6 +19,31 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Pace WISP - Utility Software for Wireless Internet Providers",
   description: "Empowering WISPs with cutting-edge billing systems and management tools. Streamline your operations with our Hotspot and PPPoE solutions.",
+  openGraph: {
+    title: "Pace WISP - Utility Software for Wireless Internet Providers",
+    description: "Empowering WISPs with cutting-edge billing systems and management tools. Streamline your operations with our Hotspot and PPPoE solutions.",
+    url: "https://pacewisp.com",
+    siteName: "Pace WISP",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Pace WISP - Wireless Internet Billing Solutions",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pace WISP - Utility Software for Wireless Internet Providers",
+    description: "Empowering WISPs with cutting-edge billing systems and management tools.",
+    images: ["/og-image.png"],
+  },
+  alternates: {
+    canonical: "https://pacewisp.com"
+  }
 };
 
 export default function RootLayout({ children }) {

@@ -79,15 +79,6 @@ export default function Home() {
                   <div className="absolute inset-x-[15%] top-[15%] bottom-[15%] z-20 flex flex-col items-center justify-center pointer-events-none overflow-hidden sm:inset-x-[20%] lg:inset-x-[8%]">
                     <div className="w-full px-4 py-2 flex flex-col items-center text-center">
                       <motion.div
-                        key={paymentAmount}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="bg-white/20 backdrop-blur-md rounded-lg p-2 border border-white/20 mb-2 w-full max-w-[100px]"
-                      >
-                        <p className="text-[8px] uppercase font-bold text-purple-200">Status</p>
-                        <p className="text-xs font-bold text-white">Online</p>
-                      </motion.div>
-                      <motion.div
                         key={paymentAmount + "amount"}
                         initial={{ opacity: 0, y: 5 }}
                         animate={{ opacity: 1, y: 0 }}
