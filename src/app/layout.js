@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://pacewisp.co.ke"),
   title: "Pace WISP - Utility Software for Wireless Internet Providers",
   description: "Empowering WISPs with cutting-edge billing systems and management tools. Streamline your operations with our Hotspot and PPPoE solutions.",
   openGraph: {
@@ -26,7 +27,7 @@ export const metadata = {
     siteName: "Pace WISP",
     images: [
       {
-        url: "/og-image.png",
+        url: "https://pacewisp.co.ke/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Pace WISP - Wireless Internet Billing Solutions",
@@ -39,7 +40,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Pace WISP - Utility Software for Wireless Internet Providers",
     description: "Empowering WISPs with cutting-edge billing systems and management tools.",
-    images: ["/og-image.png"],
+    images: ["https://pacewisp.co.ke/og-image.jpg"],
   },
   alternates: {
     canonical: "https://pacewisp.co.ke"
