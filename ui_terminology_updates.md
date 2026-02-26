@@ -23,7 +23,7 @@ We have streamlined the application language to be more user-friendly and less t
 
 ### **3. Customer Management**
 - **Client Directory** → **All Customers**
-- **Member Infrastructure Details** → **Customer Details**
+- **Member  Details** → **Customer Details**
 - **Purge Member Account** → **Delete Customer?**
 - **Terminate Permanently** → **Delete Account**
 - **Identity** → **Client Name**

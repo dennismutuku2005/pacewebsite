@@ -92,7 +92,7 @@ export default function Features() {
                 </svg>
             ),
             title: "Network Monitoring",
-            description: "Real-time monitoring of your network infrastructure. Get instant alerts when issues arise and track performance metrics.",
+            description: "Real-time monitoring of your network . Get instant alerts when issues arise and track performance metrics.",
             benefits: [
                 "Uptime monitoring",
                 "Bandwidth graphs",

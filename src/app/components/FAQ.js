@@ -11,7 +11,7 @@ const faqs = [
         answer: "Our pricing is simple and transparent: KES 1,499 flat fee (up to 110 clients) + KES 8 per additional client for Hotspot, and KES 28 per PPPoE user. This ensures predictable costs as your business grows."
     },
     {
-        question: "Can Pace WISP integrate with my existing infrastructure?",
+        question: "Can Pace WISP integrate with my existing Routers?",
         answer: "Yes! Pace WISP seamlessly integrates with industry-leading platforms including Mikrotik routers, and we partner with Digital Ocean for reliable hosting. Our system is designed to work with your existing setup."
     },
     {
