@@ -40,10 +40,30 @@ def git_sync():
         if not run_command(f'git add "{file_path}"'):
             continue
             
-        # 2. Commit the file
-        commit_message = f"Auto-update: {os.path.basename(file_path)}"
+        # 2. Determine Step/Type for conventional commits
+        status_proc = subprocess.run(["git", "status", "--porcelain", file_path], capture_output=True, text=True)
+        status_output = status_proc.stdout.strip()
+        status_code = status_output[:2].strip() if status_output else "M"
+        
+        filename = os.path.basename(file_path)
+        
+        if status_code == "??" or status_code == "A":
+            prefix = "feature"
+            description = f"added {filename}"
+        elif status_code == "D":
+            prefix = "fix"
+            description = f"removed {filename}"
+        else:
+            # Default to update, use fix for maintenance keywords
+            prefix = "update"
+            if any(k in filename.lower() for k in ["fix", "bug", "err", "remove", "clean"]):
+                prefix = "fix"
+            description = f"refined {filename} functionality"
+
+        commit_message = f"{prefix}: {description}"
+        
+        # 3. Commit the file
         if not run_command(f'git commit -m "{commit_message}"'):
-            # If commit fails (e.g. no changes, though porcelain should prevent this), try to push anyway or skip
             pass
             
         # 3. Push the file
