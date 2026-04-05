@@ -28,15 +28,16 @@ export default function Home() {
     ];
 
     return (
-        <div className="min-h-screen bg-background text-on-surface">
+        <div className="min-h-screen bg-background text-on-surface overflow-hidden">
             {/* HERO SECTION - DARK MODE FORCED */}
             <section className="relative pt-32 pb-10 lg:pt-40 lg:pb-32 overflow-hidden flex flex-col justify-center min-h-[85vh] bg-background">
                 {/* Left side contained content */}
                 <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full relative z-10 flex flex-col lg:block">
                     <div className="lg:w-1/2 lg:pr-12">
                         <motion.div 
-                            initial={{ opacity: 0, x: -20 }}
+                            initial={{ opacity: 0, x: -80 }}
                             animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
                             className="relative z-10"
                         >
                             <h1 className="text-4xl md:text-5xl lg:text-7xl font-semibold tracking-tight leading-loose lg:leading-tight mb-8 text-white">
@@ -57,10 +58,10 @@ export default function Home() {
 
                     {/* Right side bleeding / squeezed dashboard image */}
                     <motion.div 
-                        initial={{ opacity: 0, x: 40 }}
+                        initial={{ opacity: 0, x: 80 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.2, duration: 0.8 }}
-                        className="relative w-full h-[280px] sm:h-[400px] mt-8 lg:mt-0 lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:right-0 lg:w-[55vw] lg:h-[800px] z-0"
+                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                        className="relative w-full h-[280px] sm:h-[400px] mt-8 lg:mt-0 lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:right-0 lg:w-[55vw] lg:h-[120%] z-0"
                     >
                         {/* Hidden gradient mask on mobile (so image doesn't get cut off), shown on desktop */}
                         <div className="w-full h-full relative lg:[mask-image:linear-gradient(to_right,transparent_0%,black_15%,black_100%)] [-webkit-mask-image:none] lg:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_15%,black_100%)]">
@@ -77,23 +78,34 @@ export default function Home() {
             </section>
 
             {/* DEDICATED PARTNERS SECTION */}
-            <section className="py-16 border-y border-white/5 opacity-80 bg-surface-container-low">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
+            <section className="py-16 border-y border-white/5 opacity-80 bg-surface-container-low overflow-hidden">
+                <motion.div 
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.6 }}
+                    className="max-w-7xl mx-auto px-6 lg:px-12 text-center"
+                >
                     <p className="text-sm font-medium mb-12 text-on-surface-variant tracking-[0.2em] uppercase">Trusted Infrastructure Partners</p>
-                    <div className="relative w-full overflow-hidden flex items-center justify-center">
+                    <div className="relative w-full flex items-center justify-center">
                         <div className="flex flex-nowrap justify-start lg:justify-center items-center gap-10 lg:gap-32 w-full overflow-x-auto snap-x snap-mandatory py-4" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
                             <div className="relative w-28 h-12 lg:w-56 lg:h-24 flex-shrink-0 snap-center"><Image src="/cloudflare.png" alt="Cloudflare" fill className="object-contain" /></div>
                             <div className="relative w-36 h-12 lg:w-64 lg:h-24 flex-shrink-0 snap-center"><Image src="/digitalocean.png" alt="DigitalOcean" fill className="object-contain" /></div>
                             <div className="relative w-28 h-12 lg:w-48 lg:h-24 flex-shrink-0 snap-center"><Image src="/safaricom.png" alt="Safaricom" fill className="object-contain" /></div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </section>
 
             {/* DARK MODE SECTIONS */}
-            <section className="py-24 max-w-7xl mx-auto px-6 lg:px-12">
+            <section className="py-32 max-w-7xl mx-auto px-6 lg:px-12 overflow-hidden">
                 <div className="grid lg:grid-cols-2 gap-20 items-center">
-                    <div>
+                    <motion.div
+                        initial={{ opacity: 0, x: -80 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
                         <h3 className="text-3xl font-semibold tracking-tight mb-6 text-white">Live Network View</h3>
                         <p className="text-on-surface-variant leading-relaxed font-normal mb-8 max-w-lg">
                             Monitor every PPPoE session and Hotspot identity with ease. Our interface mirrors your network instantly without complex setups.
@@ -107,25 +119,34 @@ export default function Home() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                     <motion.div 
-                        whileHover={{ scale: 1.02 }}
-                        className="bg-surface-container-low border border-white/5 rounded-2xl overflow-hidden shadow-xl relative aspect-[16/9]"
+                        initial={{ opacity: 0, x: 80 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="bg-surface-container-low border border-white/5 rounded-2xl shadow-xl relative aspect-[16/9]"
                     >
                         <Image 
                             src="/entries.png" 
                             alt="Live Entries" 
                             fill 
-                            className="object-contain sm:object-cover"
+                            className="object-contain sm:object-cover rounded-2xl"
                         />
                     </motion.div>
                 </div>
             </section>
 
             {/* Services Bento */}
-            <section className="py-24 max-w-7xl mx-auto px-6 lg:px-12">
+            <section className="py-24 max-w-7xl mx-auto px-6 lg:px-12 overflow-hidden">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <motion.div initial={{opacity:0, y:20}} whileInView={{opacity:1, y:0}} viewport={{once:true}} className="md:col-span-2 bg-surface-container-low border border-white/5 p-12 rounded-2xl relative group overflow-hidden">
+                    <motion.div 
+                        initial={{ opacity: 0, x: -80 }} 
+                        whileInView={{ opacity: 1, x: 0 }} 
+                        viewport={{ once: true, margin: "-100px" }} 
+                        transition={{ duration: 0.6 }}
+                        className="md:col-span-2 bg-surface-container-low border border-white/5 p-12 rounded-2xl relative group shadow-lg"
+                    >
                         <h3 className="text-2xl font-semibold mb-4 text-white">PPPoE Automation</h3>
                         <p className="text-on-surface-variant leading-relaxed max-w-md font-normal">
                             Complete subscriber provisioning with tight bandwidth control. Our system manages low-latency sessions for hundreds of concurrent users without manual input.
@@ -136,21 +157,39 @@ export default function Home() {
                         </div>
                     </motion.div>
                     
-                    <motion.div initial={{opacity:0, y:20}} whileInView={{opacity:1, y:0}} viewport={{once:true}} transition={{delay: 0.1}} className="bg-surface-container-low border border-white/5 p-12 rounded-2xl">
+                    <motion.div 
+                        initial={{ opacity: 0, x: 80 }} 
+                        whileInView={{ opacity: 1, x: 0 }} 
+                        viewport={{ once: true, margin: "-100px" }} 
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="bg-surface-container-low border border-white/5 p-12 rounded-2xl shadow-lg"
+                    >
                         <h3 className="text-xl font-semibold mb-4 text-white">M-Pesa Built In</h3>
                         <p className="text-on-surface-variant text-sm leading-relaxed mb-8 font-normal">
                             Zero-friction payment collection. We handle the Daraja configuration so sessions activate immediately via MPESA STK push.
                         </p>
                     </motion.div>
 
-                    <motion.div initial={{opacity:0, y:20}} whileInView={{opacity:1, y:0}} viewport={{once:true}} className="bg-surface-container-low border border-white/5 p-12 rounded-2xl">
+                    <motion.div 
+                        initial={{ opacity: 0, x: -80 }} 
+                        whileInView={{ opacity: 1, x: 0 }} 
+                        viewport={{ once: true, margin: "-100px" }} 
+                        transition={{ duration: 0.6 }}
+                        className="bg-surface-container-low border border-white/5 p-12 rounded-2xl shadow-lg"
+                    >
                         <h3 className="text-xl font-semibold mb-4 text-white">Network Graphing</h3>
                         <p className="text-on-surface-variant text-sm leading-relaxed font-normal">
                             View bandwidth spikes and active routing faults in a unified console. Monitor hardware stress proactively.
                         </p>
                     </motion.div>
 
-                    <motion.div initial={{opacity:0, y:20}} whileInView={{opacity:1, y:0}} viewport={{once:true}} transition={{delay: 0.1}} className="md:col-span-2 bg-primary-container border border-primary/20 p-12 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 group">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 80 }} 
+                        whileInView={{ opacity: 1, y: 0 }} 
+                        viewport={{ once: true, margin: "-100px" }} 
+                        transition={{ duration: 0.6 }}
+                        className="md:col-span-2 bg-primary-container border border-primary/20 p-12 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 group shadow-lg"
+                    >
                         <div>
                             <h3 className="text-2xl font-semibold mb-2 text-white">Bring your operations online</h3>
                             <p className="text-white/70 max-w-sm font-normal">No coding or deployment required from you. Fill out the application form and our team configures your network.</p>
@@ -165,15 +204,26 @@ export default function Home() {
             </section>
 
             {/* Pricing Section */}
-            <section className="py-32 bg-surface-container-lowest border-y border-white/5">
+            <section className="py-32 bg-surface-container-lowest border-y border-white/5 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                    <div className="text-center mb-20">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-center mb-20"
+                    >
                         <h3 className="text-4xl font-semibold tracking-tight text-white">Simple Pricing</h3>
-                    </div>
+                    </motion.div>
                     
                     <div className="grid md:grid-cols-2 max-w-4xl mx-auto gap-8">
                         {/* Hotspot Pricing */}
-                        <motion.div initial={{opacity:0, y:20}} whileInView={{opacity:1, y:0}} viewport={{once:true}} className="bg-surface-container-low border border-white/5 p-10 rounded-3xl flex flex-col hover:border-white/20 transition-colors">
+                        <motion.div 
+                            initial={{ opacity: 0, x: -80 }} 
+                            whileInView={{ opacity: 1, x: 0 }} 
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{ duration: 0.6, ease: "easeOut" }}
+                            className="bg-surface-container-low border border-white/5 p-10 rounded-3xl flex flex-col hover:border-white/20 transition-colors shadow-lg"
+                        >
                             <h4 className="text-xl font-medium tracking-wide mb-2 text-white">Hotspot Billing</h4>
                             <div className="text-4xl font-semibold mb-6 text-white">KES 1,500<span className="text-base font-normal text-on-surface-variant ml-2">/mo</span></div>
                             <p className="text-sm text-on-surface-variant mb-8">Covers up to 110 concurrent users. Overage is just KES 8 each.</p>
@@ -197,7 +247,13 @@ export default function Home() {
                         </motion.div>
                         
                         {/* PPPoE Pricing */}
-                        <motion.div initial={{opacity:0, y:20}} whileInView={{opacity:1, y:0}} viewport={{once:true}} transition={{delay: 0.1}} className="bg-primary-container p-10 rounded-3xl border border-primary/50 text-white flex flex-col">
+                        <motion.div 
+                            initial={{ opacity: 0, x: 80 }} 
+                            whileInView={{ opacity: 1, x: 0 }} 
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{ duration: 0.6, ease: "easeOut" }}
+                            className="bg-primary-container p-10 rounded-3xl border border-primary/50 text-white flex flex-col shadow-lg"
+                        >
                             <h4 className="text-xl font-medium tracking-wide mb-2 text-white">PPPoE Subscriptions</h4>
                             <div className="text-4xl font-semibold mb-6 text-white">KES 28<span className="text-base font-normal text-white/70 ml-2">/user</span></div>
                             <p className="text-sm text-white/70 mb-8">Billed monthly based on active database clients.</p>
@@ -223,73 +279,53 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Testimonial */}
-            <section className="py-24 max-w-5xl mx-auto px-6 lg:px-12">
-                <motion.div initial={{opacity:0, scale:0.95}} whileInView={{opacity:1, scale:1}} viewport={{once:true}} className="bg-surface-container-low p-16 rounded-3xl border border-white/5 text-center">
-                    <p className="text-xl font-normal leading-relaxed text-white mb-10 px-8">
-                        "PACE transformed our regional network from a manual nightmare into an automated engine. The Safaricom integration alone saved us countless hours of reconciliation."
-                    </p>
-                    <div className="flex flex-col items-center">
-                        <div className="text-lg font-medium text-white mb-1">RiftNet Solutions</div>
-                        <div className="text-sm text-on-surface-variant font-normal">Nairobi, Kenya</div>
-                    </div>
-                </motion.div>
-            </section>
-
             {/* FAQ Matrix */}
-            <section className="py-32 max-w-3xl mx-auto px-6 lg:px-12 font-inter">
-                <div className="text-center mb-16">
+            <section className="py-32 max-w-3xl mx-auto px-6 lg:px-12 font-inter overflow-hidden">
+                <motion.div 
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    className="text-center mb-16"
+                >
                     <h3 className="text-3xl font-semibold tracking-tight text-white">Common Questions</h3>
-                </div>
+                </motion.div>
                 
                 <div className="space-y-4">
-                    {faqs.map((faq, index) => (
-                        <div 
-                            key={index}
-                            className="bg-surface-container-low border border-white/5 rounded-2xl overflow-hidden transition-all hover:border-white/10"
-                        >
-                            <button 
-                                onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
-                                className="w-full flex items-center justify-between p-6 text-left group"
+                    {faqs.map((faq, index) => {
+                        const isEven = index % 2 === 0;
+                        return (
+                            <motion.div 
+                                key={index}
+                                initial={{ opacity: 0, x: isEven ? -60 : 60 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                transition={{ duration: 0.5 }}
+                                className="bg-surface-container-low border border-white/5 rounded-2xl overflow-hidden transition-all hover:border-white/10"
                             >
-                                <span className={`font-medium text-base transition-colors ${openFaq === index ? 'text-primary' : 'text-white'}`}>{faq.question}</span>
-                                <span className={`material-symbols-outlined transition-transform duration-300 ${openFaq === index ? 'rotate-180 text-primary' : 'text-on-surface-variant'}`}>
-                                    expand_more
-                                </span>
-                            </button>
-                            <AnimatePresence>
-                                {openFaq === index && (
-                                    <motion.div 
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: 'auto', opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        className="px-6 pb-6 text-on-surface-variant font-normal leading-relaxed text-sm bg-surface-container-low"
-                                    >
-                                        {faq.answer}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* Final CTA */}
-            <section className="py-24 relative overflow-hidden bg-surface-container-low">
-                <div className="max-w-4xl mx-auto text-center relative z-10 px-6">
-                    <h2 className="text-3xl lg:text-5xl font-semibold mb-6 tracking-tight text-white">
-                        We install so you can scale.
-                    </h2>
-                    <p className="text-on-surface-variant text-lg mb-10 max-w-xl mx-auto font-normal">
-                        Submit a form and watch our technical team interface directly with your routers.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/apply">
-                            <button className="bg-primary text-white border-transparent px-10 py-4 rounded-xl font-medium text-base hover:bg-primary/90 transition-all">
-                                Fill Application Form
-                            </button>
-                        </Link>
-                    </div>
+                                <button 
+                                    onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
+                                    className="w-full flex items-center justify-between p-6 text-left group"
+                                >
+                                    <span className={`font-medium text-base transition-colors ${openFaq === index ? 'text-primary' : 'text-white'}`}>{faq.question}</span>
+                                    <span className={`material-symbols-outlined transition-transform duration-300 ${openFaq === index ? 'rotate-180 text-primary' : 'text-on-surface-variant'}`}>
+                                        expand_more
+                                    </span>
+                                </button>
+                                <AnimatePresence>
+                                    {openFaq === index && (
+                                        <motion.div 
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            className="px-6 pb-6 text-on-surface-variant font-normal leading-relaxed text-sm bg-surface-container-low"
+                                        >
+                                            {faq.answer}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </section>
         </div>
