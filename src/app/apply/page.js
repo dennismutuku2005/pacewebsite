@@ -1,8 +1,8 @@
 "use client"
-import { useState } from 'react';
+import React, { useState } from 'react';
 import PageHero from '../components/PageHero';
-import ScrollReveal from '../components/ScrollReveal';
 import { apiService } from '@/services/apiService';
+import { motion } from 'framer-motion';
 
 export default function ApplyPage() {
     const [formData, setFormData] = useState({
@@ -36,11 +36,8 @@ export default function ApplyPage() {
         setErrorMessage('');
 
         try {
-            console.log("Submitting application payload:", formData);
-            // Artificial delay for better UX and to ensure loading state is visible
             await new Promise(resolve => setTimeout(resolve, 800));
 
-            // Map form data to backend expected format matching the new DB schema
             const payload = {
                 company_name: formData.companyName,
                 contact_person: formData.contactPerson,
@@ -60,7 +57,6 @@ export default function ApplyPage() {
             }
 
             setSubmitStatus('success');
-            // Reset form
             setFormData({
                 companyName: '',
                 contactPerson: '',
@@ -82,263 +78,190 @@ export default function ApplyPage() {
     };
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-background text-on-surface">
             <PageHero
-                title="Apply for Pace WISP"
-                subtitle="Join hundreds of WISPs already using our platform to streamline their operations"
+                title="Get Started Today"
+                subtitle="Join hundreds of infrastructure leads securely managing operations."
             />
 
-            <section className="py-20 bg-white">
-                <div className="max-w-4xl mx-auto px-2">
-                    <ScrollReveal>
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                                Get Started Today
-                            </h2>
-                            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                                Fill out the form below and our team will get back to you within 24 hours to set up your billing system.
-                            </p>
-                        </div>
-                    </ScrollReveal>
+            <section className="py-24 bg-background">
+                <div className="max-w-4xl mx-auto px-6 lg:px-12">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-center mb-12"
+                    >
+                        <h3 className="text-3xl font-semibold tracking-tight mb-4">Account Setup</h3>
+                        <p className="text-on-surface-variant font-normal max-w-2xl mx-auto leading-relaxed">
+                            Submit your network details below. Our team will contact you within 24 hours to begin integration.
+                        </p>
+                    </motion.div>
 
-                    <ScrollReveal delay={0.2}>
-                        <div className="bg-white rounded-3xl border border-gray-100 p-8 lg:p-12">
-                            {submitStatus === 'success' && (
-                                <div className="mb-8 p-4 bg-tappi-green/10 border border-tappi-green rounded-xl">
-                                    <p className="text-tappi-green font-semibold text-center">
-                                        ✓ Application submitted successfully! We'll contact you soon.
-                                    </p>
-                                </div>
-                            )}
-                            {submitStatus === 'error' && (
-                                <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-xl">
-                                    <p className="text-red-600 font-semibold text-center">
-                                        {errorMessage}
-                                    </p>
-                                </div>
-                            )}
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.1 }}
+                        className="bg-surface border border-white/5 shadow-xl rounded-2xl p-8 lg:p-12 relative overflow-hidden"
+                    >
+                        {submitStatus === 'success' && (
+                            <div className="mb-8 p-6 bg-tertiary/10 border border-tertiary/20 rounded-xl">
+                                <p className="text-tertiary font-medium text-center">
+                                    Application submitted successfully! We will contact you shortly.
+                                </p>
+                            </div>
+                        )}
+                        {submitStatus === 'error' && (
+                            <div className="mb-8 p-6 bg-error/10 border border-error/20 rounded-xl">
+                                <p className="text-error font-medium text-center">
+                                    {errorMessage}
+                                </p>
+                            </div>
+                        )}
 
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                {/* Company Information */}
-                                <div className="space-y-6">
-                                    <h3 className="text-xl font-bold text-gray-900 border-b border-gray-200 pb-3">
-                                        Company Information
-                                    </h3>
+                        <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+                            <div className="space-y-5">
+                                <h3 className="text-lg font-medium text-white border-b border-white/5 pb-3">
+                                    Company Details
+                                </h3>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div>
-                                            <label htmlFor="companyName" className="block text-sm font-semibold text-gray-700 mb-2">
-                                                Company Name *
-                                            </label>
-                                            <input
-                                                type="text"
-                                                id="companyName"
-                                                name="companyName"
-                                                value={formData.companyName}
-                                                onChange={handleChange}
-                                                required
-                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-tappi-purple focus:ring-2 focus:ring-tappi-purple/20 outline-none transition-all"
-                                                placeholder="Your WISP Name"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label htmlFor="contactPerson" className="block text-sm font-semibold text-gray-700 mb-2">
-                                                Contact Person *
-                                            </label>
-                                            <input
-                                                type="text"
-                                                id="contactPerson"
-                                                name="contactPerson"
-                                                value={formData.contactPerson}
-                                                onChange={handleChange}
-                                                required
-                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-tappi-purple focus:ring-2 focus:ring-tappi-purple/20 outline-none transition-all"
-                                                placeholder="John Doe"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
-                                                Email Address *
-                                            </label>
-                                            <input
-                                                type="email"
-                                                id="email"
-                                                name="email"
-                                                value={formData.email}
-                                                onChange={handleChange}
-                                                required
-                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-tappi-purple focus:ring-2 focus:ring-tappi-purple/20 outline-none transition-all"
-                                                placeholder="contact@yourwisp.com"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
-                                                Phone Number *
-                                            </label>
-                                            <input
-                                                type="tel"
-                                                id="phone"
-                                                name="phone"
-                                                value={formData.phone}
-                                                onChange={handleChange}
-                                                required
-                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-tappi-purple focus:ring-2 focus:ring-tappi-purple/20 outline-none transition-all"
-                                                placeholder="+254 700 000 000"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label htmlFor="location" className="block text-sm font-semibold text-gray-700 mb-2">
-                                                Location *
-                                            </label>
-                                            <input
-                                                type="text"
-                                                id="location"
-                                                name="location"
-                                                value={formData.location}
-                                                onChange={handleChange}
-                                                required
-                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-tappi-purple focus:ring-2 focus:ring-tappi-purple/20 outline-none transition-all"
-                                                placeholder="City, Country"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Service Selection */}
-                                <div className="space-y-6">
-                                    <h3 className="text-xl font-bold text-gray-900 border-b border-gray-200 pb-3">
-                                        Service Requirements
-                                    </h3>
-
-                                    <div>
-                                        <label htmlFor="serviceType" className="block text-sm font-semibold text-gray-700 mb-2">
-                                            Service Type *
-                                        </label>
-                                        <select
-                                            id="serviceType"
-                                            name="serviceType"
-                                            value={formData.serviceType}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <div className="space-y-1.5">
+                                        <label className="text-sm font-normal text-white/80">Company Name *</label>
+                                        <input
+                                            type="text"
+                                            name="companyName"
+                                            value={formData.companyName}
                                             onChange={handleChange}
                                             required
-                                            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-tappi-purple focus:ring-2 focus:ring-tappi-purple/20 outline-none transition-all bg-white"
-                                        >
-                                            <option value="">Select a service type</option>
-                                            <option value="hotspot">Hotspot Only</option>
-                                            <option value="pppoe">PPPoE Only</option>
-                                            <option value="both">Both Hotspot & PPPoE</option>
-                                        </select>
+                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            placeholder="Your WISP Name"
+                                        />
                                     </div>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div>
-                                            <label htmlFor="currentUsers" className="block text-sm font-semibold text-gray-700 mb-2">
-                                                Current Number of Users
-                                            </label>
-                                            <input
-                                                type="number"
-                                                id="currentUsers"
-                                                name="currentUsers"
-                                                value={formData.currentUsers}
-                                                onChange={handleChange}
-                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-tappi-purple focus:ring-2 focus:ring-tappi-purple/20 outline-none transition-all"
-                                                placeholder="e.g., 500"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label htmlFor="expectedGrowth" className="block text-sm font-semibold text-gray-700 mb-2">
-                                                Expected Monthly Growth
-                                            </label>
-                                            <input
-                                                type="text"
-                                                id="expectedGrowth"
-                                                name="expectedGrowth"
-                                                value={formData.expectedGrowth}
-                                                onChange={handleChange}
-                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-tappi-purple focus:ring-2 focus:ring-tappi-purple/20 outline-none transition-all"
-                                                placeholder="e.g., 10-15%"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Additional Information */}
-                                <div className="space-y-6">
-                                    <h3 className="text-xl font-bold text-gray-900 border-b border-gray-200 pb-3">
-                                        Additional Information
-                                    </h3>
-
-                                    <div>
-                                        <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
-                                            Tell us about your requirements
-                                        </label>
-                                        <textarea
-                                            id="message"
-                                            name="message"
-                                            value={formData.message}
+                                    <div className="space-y-1.5">
+                                        <label className="text-sm font-normal text-white/80">Contact Person *</label>
+                                        <input
+                                            type="text"
+                                            name="contactPerson"
+                                            value={formData.contactPerson}
                                             onChange={handleChange}
-                                            rows="5"
-                                            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-tappi-purple focus:ring-2 focus:ring-tappi-purple/20 outline-none transition-all resize-none"
-                                            placeholder="Any specific requirements or questions you have..."
-                                        ></textarea>
+                                            required
+                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            placeholder="John Doe"
+                                        />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className="text-sm font-normal text-white/80">Email Address *</label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            placeholder="contact@example.com"
+                                        />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className="text-sm font-normal text-white/80">Phone Number *</label>
+                                        <input
+                                            type="tel"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            placeholder="+254 700 000 000"
+                                        />
+                                    </div>
+                                    <div className="space-y-1.5 md:col-span-2">
+                                        <label className="text-sm font-normal text-white/80">Location *</label>
+                                        <input
+                                            type="text"
+                                            name="location"
+                                            value={formData.location}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            placeholder="City, Country"
+                                        />
                                     </div>
                                 </div>
+                            </div>
 
-                                {/* Submit Button */}
-                                <div className="pt-6">
-                                    <button
-                                        type="submit"
-                                        disabled={isSubmitting}
-                                        className="w-full bg-tappi-purple text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-tappi-purple-dark transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                            <div className="space-y-5">
+                                <h3 className="text-lg font-medium text-white border-b border-white/5 pb-3">
+                                    Service Requirements
+                                </h3>
+                                
+                                <div className="space-y-1.5">
+                                    <label className="text-sm font-normal text-white/80">Service Type *</label>
+                                    <select
+                                        name="serviceType"
+                                        value={formData.serviceType}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white"
                                     >
-                                        {isSubmitting ? 'Submitting...' : 'Submit Application'}
-                                    </button>
-                                    <p className="text-sm text-gray-500 text-center mt-4">
-                                        By submitting, you agree to our terms and conditions
-                                    </p>
+                                        <option value="">-- Select Service --</option>
+                                        <option value="hotspot">Hotspot Only</option>
+                                        <option value="pppoe">PPPoE Only</option>
+                                        <option value="both">Both Hotspot & PPPoE</option>
+                                    </select>
                                 </div>
-                            </form>
-                        </div>
-                    </ScrollReveal>
 
-                    {/* Why Choose Us */}
-                    <ScrollReveal delay={0.3}>
-                        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div className="text-center p-6">
-                                <div className="w-16 h-16 bg-tappi-purple/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg className="w-8 h-8 text-tappi-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                    </svg>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <div className="space-y-1.5">
+                                        <label className="text-sm font-normal text-white/80">Current Number of Users</label>
+                                        <input
+                                            type="number"
+                                            name="currentUsers"
+                                            value={formData.currentUsers}
+                                            onChange={handleChange}
+                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            placeholder="e.g. 100"
+                                        />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className="text-sm font-normal text-white/80">Expected Monthly Growth</label>
+                                        <input
+                                            type="text"
+                                            name="expectedGrowth"
+                                            value={formData.expectedGrowth}
+                                            onChange={handleChange}
+                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            placeholder="e.g. +10%"
+                                        />
+                                    </div>
                                 </div>
-                                <h3 className="font-bold text-gray-900 mb-2">Quick Setup</h3>
-                                <p className="text-gray-600 text-sm">Get up and running in less than 48 hours</p>
                             </div>
 
-                            <div className="text-center p-6">
-                                <div className="w-16 h-16 bg-tappi-green/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg className="w-8 h-8 text-tappi-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                                    </svg>
+                            <div className="space-y-5">
+                                <h3 className="text-lg font-medium text-white border-b border-white/5 pb-3">
+                                    Additional Info
+                                </h3>
+                                <div className="space-y-1.5">
+                                    <label className="text-sm font-normal text-white/80">Anything else we should know?</label>
+                                    <textarea
+                                        name="message"
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        rows="4"
+                                        className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all resize-none text-white placeholder-white/20"
+                                    ></textarea>
                                 </div>
-                                <h3 className="font-bold text-gray-900 mb-2">24/7 Support</h3>
-                                <p className="text-gray-600 text-sm">Round-the-clock assistance when you need it</p>
                             </div>
 
-                            <div className="text-center p-6">
-                                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg className="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                    </svg>
-                                </div>
-                                <h3 className="font-bold text-gray-900 mb-2">Secure & Reliable</h3>
-                                <p className="text-gray-600 text-sm">Enterprise-grade security for your data</p>
+                            <div className="pt-4 border-t border-white/5">
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="w-full bg-primary text-white px-8 py-4 rounded-xl font-medium text-base hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed my-2"
+                                >
+                                    {isSubmitting ? 'Submitting...' : 'Submit Application'}
+                                </button>
                             </div>
-                        </div>
-                    </ScrollReveal>
+                        </form>
+                    </motion.div>
                 </div>
             </section>
         </div>

@@ -1,63 +1,33 @@
-import { Figtree, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import FAQ from "./components/FAQ";
-import ChatWidget from "./components/ChatWidget";
+import WhatsAppWidget from "./components/WhatsAppWidget";
 
-const figtree = Figtree({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-figtree",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export const metadata = {
-  metadataBase: new URL("https://pacewisp.co.ke"),
-  title: "Pace WISP - Utility Software for Wireless Internet Providers",
-  description: "Empowering WISPs with cutting-edge billing systems and management tools. Streamline your operations with our Hotspot and PPPoE solutions.",
-  openGraph: {
-    title: "Pace WISP - Utility Software for Wireless Internet Providers",
-    description: "Empowering WISPs with cutting-edge billing systems and management tools. Streamline your operations with our Hotspot and PPPoE solutions.",
-    url: "https://pacewisp.co.ke",
-    siteName: "Pace WISP",
-    images: [
-      {
-        url: "https://pacewisp.co.ke/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Pace WISP - Wireless Internet Billing Solutions",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Pace WISP - Utility Software for Wireless Internet Providers",
-    description: "Empowering WISPs with cutting-edge billing systems and management tools.",
-    images: ["https://pacewisp.co.ke/og-image.jpg"],
-  },
-  alternates: {
-    canonical: "https://pacewisp.co.ke"
-  }
+  metadataBase: new URL("https://pace.co.ke"),
+  title: "Pace | WISP Billing & Management",
+  description: "Complete billing, user management and monitoring system for Wireless Internet Service Providers.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${figtree.variable} ${geistMono.variable}`}>
-      <body className="antialiased min-h-screen flex flex-col bg-white font-figtree">
+    <html lang="en" className={`${inter.variable} dark`}>
+      <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+      </head>
+      <body className="antialiased min-h-screen flex flex-col bg-background font-inter text-on-surface">
         <Header />
         <main className="flex-grow">
           {children}
         </main>
-        <FAQ />
         <Footer />
-        <ChatWidget />
+        <WhatsAppWidget />
       </body>
     </html>
   );

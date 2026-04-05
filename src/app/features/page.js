@@ -1,168 +1,134 @@
 "use client"
+import React from 'react';
 import PageHero from "../components/PageHero";
-import ScrollReveal from "../components/ScrollReveal";
 import Link from "next/link";
+import { motion } from 'framer-motion';
 
 export default function Features() {
     const features = [
         {
-            icon: (
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
-                </svg>
-            ),
-            title: "Hotspot Billing System",
-            description: "Complete voucher-based billing solution designed specifically for public WiFi hotspots. Generate, manage, and track vouchers with ease.",
+            icon: "wifi_tethering",
+            title: "Hotspot Access",
+            description: "A complete voucher-based authentication engine built for Wi-Fi deployments. Generate, manage, and distribute access tokens easily.",
             benefits: [
-                "Automated voucher generation",
-                "Reseller management portal",
-                "Real-time revenue tracking",
-                "Multiple package options"
-            ],
-            color: "purple"
+                "Automated Voucher Generation",
+                "Sub-Reseller Management",
+                "Live Revenue Logs",
+                "Multi-Tier Packages"
+            ]
         },
         {
-            icon: (
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                </svg>
-            ),
+            icon: "router",
             title: "PPPoE Management",
-            description: "Advanced user provisioning and bandwidth management for PPPoE connections. Automate your entire user lifecycle from signup to billing.",
+            description: "User provisioning for broadband operators. Manage your clients directly with MikroTik routers using strict bandwidth rules.",
             benefits: [
-                "Automated user provisioning",
-                "Bandwidth throttling & FUP",
-                "Package scheduling",
-                "Bulk operations support"
-            ],
-            color: "green"
+                "Automated Provisioning",
+                "Queue Management (QoS)",
+                "Automated Disconnects",
+                "Mass Network Operations"
+            ]
         },
         {
-            icon: (
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                </svg>
-            ),
-            title: "Payment Integration",
-            description: "Seamless integration with M-Pesa, bank transfers, and card payments. Automated reconciliation saves you hours of manual work.",
+            icon: "account_balance",
+            title: "Financial Integrations",
+            description: "Integrate Daraja API for STK push. Handle transactions to activate sessions seamlessly.",
             benefits: [
-                "M-Pesa STK Push",
-                "Automated reconciliation",
-                "Payment reminders",
-                "Invoice generation"
-            ],
-            color: "orange"
+                "STK Push Triggers",
+                "Automated Reconciliation",
+                "Instant Session Unlock",
+                "Financial Reports"
+            ]
         },
         {
-            icon: (
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-            ),
-            title: "Analytics & Reporting",
-            description: "Comprehensive business intelligence with real-time dashboards. Make data-driven decisions to grow your WISP business.",
-            benefits: [
-                "Revenue reports",
-                "Customer analytics",
-                "Growth metrics",
-                "Export to Excel/PDF"
-            ],
-            color: "blue"
-        },
-        {
-            icon: (
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-            ),
-            title: "Customer Portal",
-            description: "Self-service portal for your customers to manage their accounts, view usage, make payments, and submit support tickets.",
-            benefits: [
-                "Account management",
-                "Usage statistics",
-                "Package upgrades",
-                "Support tickets"
-            ],
-            color: "pink"
-        },
-        {
-            icon: (
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-            ),
+            icon: "query_stats",
             title: "Network Monitoring",
-            description: "Real-time monitoring of your network . Get instant alerts when issues arise and track performance metrics.",
+            description: "Observability for tracking your hardware. Get insights into CPU, active sessions, and core router health.",
             benefits: [
-                "Uptime monitoring",
-                "Bandwidth graphs",
-                "Device status tracking",
-                "Alert notifications"
-            ],
-            color: "indigo"
+                "Live Dashboard",
+                "Bandwidth Graphs",
+                "Node Health Status",
+                "Data Exports"
+            ]
+        },
+        {
+            icon: "person",
+            title: "Client Portal",
+            description: "Give end-users a clean interface to query their session expiry, initiate STK push, and log connection faults.",
+            benefits: [
+                "Session Viewing",
+                "M-Pesa Gateways",
+                "Package Scaling",
+                "Ticketing System"
+            ]
+        },
+        {
+            icon: "health_and_safety",
+            title: "System Reliability",
+            description: "Core session failover. Even if connection drops occur, active routing remains untouched.",
+            benefits: [
+                "Data Persistence",
+                "Automated Backups",
+                "Decoupled Webhooks",
+                "Scalable Architecture"
+            ]
         }
     ];
 
-    const getColorClasses = (color) => {
-        const colors = {
-            purple: { bg: "bg-purple-100", text: "text-tappi-purple", gradient: "from-tappi-purple to-tappi-purple-dark" },
-            green: { bg: "bg-green-100", text: "text-tappi-green", gradient: "from-tappi-green to-green-600" },
-            orange: { bg: "bg-orange-100", text: "text-orange-600", gradient: "from-orange-500 to-orange-600" },
-            blue: { bg: "bg-blue-100", text: "text-blue-600", gradient: "from-blue-500 to-blue-600" },
-            pink: { bg: "bg-pink-100", text: "text-pink-600", gradient: "from-pink-500 to-pink-600" },
-            indigo: { bg: "bg-indigo-100", text: "text-indigo-600", gradient: "from-indigo-500 to-indigo-600" }
-        };
-        return colors[color];
-    };
-
     return (
-        <div className="bg-white">
+        <div className="min-h-screen bg-background">
             <PageHero
-                title="Powerful Features for WISPs"
-                subtitle="Everything you need to run and grow your wireless internet service provider business."
+                title="System Features"
+                subtitle="High-performance tools for Internet Service Providers."
             />
 
-            {/* Features Grid */}
-            <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+            {/* Features Feed */}
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 py-24">
                 {features.map((feature, index) => {
-                    const colors = getColorClasses(feature.color);
                     const isReversed = index % 2 !== 0;
 
                     return (
                         <div key={index} className={`${index > 0 ? 'mt-32' : ''}`}>
-                            <div className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-16`}>
-                                <ScrollReveal className="flex-1">
-                                    <div className={`w-16 h-16 ${colors.bg} rounded-2xl flex items-center justify-center ${colors.text} mb-8`}>
-                                        {feature.icon}
+                            <div className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 lg:gap-20`}>
+                                <motion.div 
+                                    initial={{ opacity: 0, x: isReversed ? 20 : -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    className="flex-1"
+                                >
+                                    <div className="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary mb-6 border border-white/5">
+                                        <span className="material-symbols-outlined text-3xl">{feature.icon}</span>
                                     </div>
-                                    <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">{feature.title}</h2>
-                                    <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                                    <h3 className="text-3xl font-semibold text-white mb-4 tracking-tight">{feature.title}</h3>
+                                    <p className="text-base text-on-surface-variant font-normal leading-relaxed mb-8">
                                         {feature.description}
                                     </p>
-                                    <ul className="space-y-4 mb-8">
+                                    <ul className="space-y-4 mb-10">
                                         {feature.benefits.map((benefit, i) => (
-                                            <li key={i} className="flex items-center gap-3 text-gray-700">
-                                                <svg className="w-5 h-5 text-tappi-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                                </svg>
+                                            <li key={i} className="flex items-center gap-4 text-white/80 font-normal text-sm">
+                                                <span className="material-symbols-outlined text-sm text-primary">check_circle</span>
                                                 {benefit}
                                             </li>
                                         ))}
                                     </ul>
                                     <Link href="/apply">
-                                        <button className={`bg-gradient-to-r ${colors.gradient} text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg transition-all`}>
+                                        <button className="bg-surface-container-highest border border-white/5 text-white px-8 py-4 rounded-xl font-medium text-sm hover:bg-white/10 transition-all">
                                             Get Started
                                         </button>
                                     </Link>
-                                </ScrollReveal>
+                                </motion.div>
 
-                                <ScrollReveal delay={0.2} className="flex-1">
-                                    <div className={`bg-gradient-to-br ${colors.gradient} rounded-3xl p-12 h-[400px] flex items-center justify-center shadow-2xl`}>
-                                        <div className="text-white/20 text-center">
-                                            {feature.icon}
-                                        </div>
+                                <motion.div 
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.1 }}
+                                    className="flex-1 w-full"
+                                >
+                                    <div className="bg-surface-container-low rounded-3xl p-1 border border-white/5 h-[300px] lg:h-[400px] flex items-center justify-center shadow-lg group relative overflow-hidden">
+                                        <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors"></div>
+                                        <span className="material-symbols-outlined text-8xl text-primary/30 group-hover:scale-110 transition-transform duration-500 relative z-10">{feature.icon}</span>
                                     </div>
-                                </ScrollReveal>
+                                </motion.div>
                             </div>
                         </div>
                     );
@@ -170,28 +136,32 @@ export default function Features() {
             </div>
 
             {/* CTA Section */}
-            <div className="bg-gray-50 py-20">
-                <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-                    <ScrollReveal>
-                        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                            Ready to Transform Your WISP?
+            <div className="bg-primary-container relative overflow-hidden py-32 mt-20">
+                <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <h2 className="text-3xl lg:text-5xl font-semibold text-white mb-6">
+                            Ready to Start?
                         </h2>
-                        <p className="text-lg text-gray-600 mb-8">
-                            Join hundreds of WISPs already using Pace to streamline their operations and grow their business.
+                        <p className="text-lg text-white/70 mb-10 max-w-xl mx-auto font-normal">
+                            Join hundreds of WISPs running their operations seamlessly.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link href="/apply">
-                                <button className="bg-tappi-purple text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-tappi-purple-dark transition-all hover:-translate-y-1 shadow-lg">
-                                    Apply Now
+                                <button className="bg-white text-primary-container px-10 py-4 rounded-xl font-medium text-base shadow-md hover:bg-gray-100 transition-all">
+                                    Get Started
                                 </button>
                             </Link>
                             <Link href="/pricing">
-                                <button className="bg-white text-tappi-purple px-10 py-4 rounded-xl font-bold text-lg border-2 border-tappi-purple hover:bg-tappi-purple hover:text-white transition-all">
+                                <button className="px-10 py-4 border border-white/20 text-white rounded-xl font-medium text-base hover:bg-white/10 transition-all">
                                     View Pricing
                                 </button>
                             </Link>
                         </div>
-                    </ScrollReveal>
+                    </motion.div>
                 </div>
             </div>
         </div>

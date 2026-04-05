@@ -1,13 +1,13 @@
 "use client"
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import PageHero from '../components/PageHero';
-import ScrollReveal from '../components/ScrollReveal';
+import { motion } from 'framer-motion';
 
 function HotspotCalculator() {
     const [clients, setClients] = useState(110);
 
-    const baseFee = 1499;
+    const baseFee = 1500;
     const limit = 110;
     const overageRate = 8;
 
@@ -15,13 +15,14 @@ function HotspotCalculator() {
     const totalPrice = baseFee + (overageUnits * overageRate);
 
     return (
-        <div className="bg-white rounded-3xl p-8 lg:p-12 border border-gray-200 shadow-sm">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center font-figtree">Hotspot Price Calculator</h3>
+        <div className="bg-surface-container-low rounded-3xl p-8 lg:p-12 border border-white/5 shadow-xl relative overflow-hidden">
+            <h3 className="text-2xl font-semibold mb-8 text-center tracking-tight text-white">Price Calculator</h3>
 
-            <div className="max-w-md mx-auto space-y-8">
+            <div className="max-w-md mx-auto space-y-10 relative z-10">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-4 font-figtree">
-                        Estimated Number of Clients: <span className="text-tappi-purple font-bold text-lg">{clients}</span>
+                    <label className="flex items-center justify-between text-sm font-medium text-white mb-4">
+                        Estimated Concurrent Users: 
+                        <span className="text-primary text-xl tabular-nums">{clients}</span>
                     </label>
                     <input
                         type="range"
@@ -30,36 +31,35 @@ function HotspotCalculator() {
                         step="5"
                         value={clients}
                         onChange={(e) => setClients(parseInt(e.target.value))}
-                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-tappi-purple"
+                        className="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary"
                     />
-                    <div className="flex justify-between mt-2 text-xs text-gray-500 font-medium font-figtree">
-                        <span>0 Clients</span>
-                        <span>1000+ Clients</span>
+                    <div className="flex justify-between mt-3 text-xs text-on-surface-variant font-normal">
+                        <span>0 Users</span>
+                        <span>1000+ Users</span>
                     </div>
                 </div>
 
-                <div className="bg-purple-50 rounded-2xl p-6 border border-purple-100 transition-all duration-300">
-                    <div className="flex justify-between items-center mb-4 font-figtree">
-                        <span className="text-gray-600">Base Fee (Up to 110)</span>
-                        <span className="font-semibold text-gray-900">KES 1,499</span>
+                <div className="bg-surface rounded-2xl p-8 border border-white/5">
+                    <div className="flex justify-between items-center mb-5 border-b border-white/5 pb-5">
+                        <span className="text-sm font-medium text-on-surface-variant">Base Fee (Up to 110 users)</span>
+                        <span className="font-semibold text-white tabular-nums">KES 1,500</span>
                     </div>
                     {overageUnits > 0 && (
-                        <div className="flex justify-between items-center mb-4 text-sm font-figtree">
-                            <span className="text-gray-600">Overage ({overageUnits} x KES 8)</span>
-                            <span className="font-semibold text-gray-900">KES {overageUnits * overageRate}</span>
+                        <div className="flex justify-between items-center mb-5 text-sm border-b border-white/5 pb-5">
+                            <span className="text-sm font-medium text-tertiary">Overage ({overageUnits} x KES 8)</span>
+                            <span className="font-semibold text-tertiary tabular-nums">+ KES {overageUnits * overageRate}</span>
                         </div>
                     )}
-                    <div className="border-t border-purple-200 pt-4 mt-4 flex justify-between items-center font-figtree">
-                        <span className="text-gray-900 font-bold text-lg">Estimated Total</span>
+                    <div className="pt-2 flex justify-between items-center">
+                        <span className="text-white font-semibold text-lg">Estimated Total</span>
                         <div className="text-right">
-                            <span className="text-3xl font-bold text-tappi-purple">KES {totalPrice.toLocaleString()}</span>
-                            <p className="text-xs text-gray-500 mt-1">per month</p>
+                            <span className="text-3xl font-semibold text-primary tabular-nums">KES {totalPrice.toLocaleString()}</span>
                         </div>
                     </div>
                 </div>
 
-                <p className="text-center text-sm text-gray-500 italic font-figtree leading-relaxed">
-                    "Our Hotspot plan is a flat KSH 1,499 per month for up to 110 clients. Beyond that, it's just KSH 8 per additional client."
+                <p className="text-center text-sm text-on-surface-variant leading-relaxed font-normal">
+                    Predictable billing. You are paying a flat KES 1,500 for the first 110 clients. Any user beyond that is just KES 8 each.
                 </p>
             </div>
         </div>
@@ -68,255 +68,135 @@ function HotspotCalculator() {
 
 export default function PricingPage() {
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-background">
             <PageHero
-                title="Simple, Transparent Pricing"
-                subtitle="Pay only for what you use. No hidden fees, no surprises."
+                title="Simple Pricing"
+                subtitle="Transparent pricing built for scaling your network smoothly."
             />
 
-            <section className="py-20 bg-white">
-                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <section className="py-24 bg-background">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
                     {/* Pricing Cards */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24 max-w-5xl mx-auto">
 
                         {/* Hotspot Pricing */}
-                        <ScrollReveal delay={0.1}>
-                            <div className="relative bg-gradient-to-br from-tappi-purple to-tappi-purple-dark rounded-3xl p-8 lg:p-10 text-white border border-white/10 transition-all duration-300">
-                                <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
-
-                                <div className="relative z-10">
-                                    <div className="flex items-center justify-between mb-6">
-                                        <h3 className="text-2xl font-bold">Hotspot Billing</h3>
-                                        <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
-                                            </svg>
-                                        </div>
-                                    </div>
-
-                                    <div className="mb-8">
-                                        <div className="flex items-baseline gap-2 mb-2">
-                                            <span className="text-5xl lg:text-6xl font-bold">1,499</span>
-                                            <span className="text-2xl font-semibold">KES</span>
-                                        </div>
-                                        <p className="text-purple-200 text-lg">Monthly Flat Fee (Up to 110 clients)</p>
-                                    </div>
-
-                                    <div className="space-y-4 mb-8">
-                                        <div className="flex items-start gap-3">
-                                            <svg className="w-6 h-6 text-tappi-green flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            <span className="text-purple-100">Covers base allowance of 110 clients</span>
-                                        </div>
-                                        <div className="flex items-start gap-3">
-                                            <svg className="w-6 h-6 text-tappi-green flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            <span className="text-purple-100">Only KES 8 per additional client beyond 110</span>
-                                        </div>
-                                        <div className="flex items-start gap-3">
-                                            <svg className="w-6 h-6 text-tappi-green flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            <span className="text-purple-100">Predictable monthly revenue flow</span>
-                                        </div>
-                                        <div className="flex items-start gap-3">
-                                            <svg className="w-6 h-6 text-tappi-green flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            <span className="text-purple-100">Automated billing and invoicing</span>
-                                        </div>
-                                        <div className="flex items-start gap-3">
-                                            <svg className="w-6 h-6 text-tappi-green flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            <span className="text-purple-100">Voucher management system</span>
-                                        </div>
-                                        <div className="flex items-start gap-3">
-                                            <svg className="w-6 h-6 text-tappi-green flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            <span className="text-purple-100">24/7 technical support</span>
-                                        </div>
-                                    </div>
-
-                                    <Link href="/apply">
-                                        <button className="w-full bg-white text-tappi-purple px-6 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all">
-                                            Get Started with Hotspot
-                                        </button>
-                                    </Link>
-                                </div>
+                        <motion.div 
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="bg-surface-container-low rounded-3xl p-10 lg:p-14 text-white border border-white/5 transition-all hover:border-white/20 flex flex-col"
+                        >
+                            <div className="flex items-center justify-between mb-8">
+                                <h3 className="text-2xl font-semibold tracking-tight">Hotspot Billing</h3>
+                                <span className="material-symbols-outlined text-3xl text-primary">wifi_tethering</span>
                             </div>
-                        </ScrollReveal>
+
+                            <div className="mb-10 border-b border-white/5 pb-8">
+                                <div className="flex items-baseline gap-2 mb-2">
+                                    <span className="text-2xl font-medium text-primary">KES</span>
+                                    <span className="text-5xl lg:text-6xl font-semibold tracking-tight tabular-nums">1,500</span>
+                                </div>
+                                <p className="text-sm text-on-surface-variant font-normal">Monthly flat fee for up to 110 users</p>
+                            </div>
+
+                            <div className="space-y-4 mb-10 flex-grow">
+                                {[
+                                    "Up to 110 concurrent clients covered",
+                                    "KES 8 per additional user",
+                                    "Zero hidden transaction fees",
+                                    "Integrated STK Push Included",
+                                    "24/7 technical support"
+                                ].map((feature, i) => (
+                                    <div key={i} className="flex items-start gap-4 text-sm font-normal text-white">
+                                        <span className="material-symbols-outlined text-primary text-lg">check</span>
+                                        {feature}
+                                    </div>
+                                ))}
+                            </div>
+
+                            <Link href="/apply">
+                                <button className="w-full bg-primary text-white border-transparent px-6 py-4 rounded-xl font-medium text-base hover:bg-primary/90 transition-all border">
+                                    Get Started
+                                </button>
+                            </Link>
+                        </motion.div>
 
                         {/* PPPoE Pricing */}
-                        <ScrollReveal delay={0.2}>
-                            <div className="relative bg-gradient-to-br from-tappi-green to-green-600 rounded-3xl p-8 lg:p-10 text-white border border-white/10 transition-all duration-300">
-                                <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
-
-                                <div className="relative z-10">
-                                    <div className="flex items-center justify-between mb-6">
-                                        <h3 className="text-2xl font-bold">PPPoE Billing</h3>
-                                        <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                                            </svg>
-                                        </div>
-                                    </div>
-
-                                    <div className="mb-8">
-                                        <div className="flex items-baseline gap-2 mb-2">
-                                            <span className="text-5xl lg:text-6xl font-bold">28</span>
-                                            <span className="text-2xl font-semibold">KES</span>
-                                        </div>
-                                        <p className="text-green-100 text-lg">per active user per month</p>
-                                    </div>
-
-                                    <div className="space-y-4 mb-8">
-                                        <div className="flex items-start gap-3">
-                                            <svg className="w-6 h-6 text-white flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            <span className="text-green-50">Fixed per-user pricing</span>
-                                        </div>
-                                        <div className="flex items-start gap-3">
-                                            <svg className="w-6 h-6 text-white flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            <span className="text-green-50">Automated user management</span>
-                                        </div>
-                                        <div className="flex items-start gap-3">
-                                            <svg className="w-6 h-6 text-white flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            <span className="text-green-50">Bandwidth management tools</span>
-                                        </div>
-                                        <div className="flex items-start gap-3">
-                                            <svg className="w-6 h-6 text-white flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            <span className="text-green-50">Package & plan management</span>
-                                        </div>
-                                        <div className="flex items-start gap-3">
-                                            <svg className="w-6 h-6 text-white flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            <span className="text-green-50">Self-service customer portal</span>
-                                        </div>
-                                        <div className="flex items-start gap-3">
-                                            <svg className="w-6 h-6 text-white flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            <span className="text-green-50">Priority support included</span>
-                                        </div>
-                                    </div>
-
-                                    <Link href="/apply">
-                                        <button className="w-full bg-white text-tappi-green px-6 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all">
-                                            Get Started with PPPoE
-                                        </button>
-                                    </Link>
-                                </div>
+                        <motion.div 
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.1 }}
+                            className="bg-primary-container rounded-3xl p-10 lg:p-14 text-white border border-primary/40 transition-all flex flex-col shadow-xl"
+                        >
+                            <div className="flex items-center justify-between mb-8">
+                                <h3 className="text-2xl font-semibold tracking-tight">PPPoE Management</h3>
+                                <span className="material-symbols-outlined text-3xl text-white">router</span>
                             </div>
-                        </ScrollReveal>
+
+                            <div className="mb-10 border-b border-white/20 pb-8">
+                                <div className="flex items-baseline gap-2 mb-2">
+                                    <span className="text-2xl font-medium text-white">KES</span>
+                                    <span className="text-5xl lg:text-6xl font-semibold tracking-tight tabular-nums">28</span>
+                                </div>
+                                <p className="text-sm text-white/70 font-normal">Per active concurrent session / month</p>
+                            </div>
+
+                            <div className="space-y-4 mb-10 flex-grow">
+                                {[
+                                    "Only pay for active sessions",
+                                    "Dynamic bandwidth shaping",
+                                    "Subscriber self-care portal",
+                                    "Hardware independent setups",
+                                    "Automated disconnection logic"
+                                ].map((feature, i) => (
+                                    <div key={i} className="flex items-start gap-4 text-sm font-normal text-white">
+                                        <span className="material-symbols-outlined text-white text-lg">check</span>
+                                        {feature}
+                                    </div>
+                                ))}
+                            </div>
+
+                            <Link href="/apply">
+                                <button className="w-full bg-white text-primary-container border-transparent px-6 py-4 rounded-xl font-medium text-base hover:bg-gray-100 transition-all">
+                                    Get Started
+                                </button>
+                            </Link>
+                        </motion.div>
                     </div>
 
-                    {/* Combined Package */}
-                    <ScrollReveal delay={0.3}>
-                        <div className="relative bg-[#0A0A0A] rounded-3xl p-8 lg:p-12 text-white overflow-hidden border border-white/5">
-                            <div className="absolute top-0 right-0 w-60 h-60 bg-white/10 rounded-full blur-3xl"></div>
-                            <div className="absolute bottom-0 left-0 w-60 h-60 bg-white/10 rounded-full blur-3xl"></div>
-
-                            <div className="relative z-10 text-center max-w-4xl mx-auto">
-                                <div className="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                                    🎉 BEST VALUE
-                                </div>
-                                <h3 className="text-3xl lg:text-4xl font-bold mb-4">Complete WISP Solution</h3>
-                                <p className="text-xl text-orange-50 mb-8 max-w-2xl mx-auto">
-                                    Get both Hotspot and PPPoE billing systems with special bundled pricing
-                                </p>
-
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                                    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
-                                        <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                        </div>
-                                        <h4 className="font-bold mb-2">Save More</h4>
-                                        <p className="text-sm text-orange-100">Special discount on combined services</p>
-                                    </div>
-
-                                    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
-                                        <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                                            </svg>
-                                        </div>
-                                        <h4 className="font-bold mb-2">Unified Dashboard</h4>
-                                        <p className="text-sm text-orange-100">Manage everything from one place</p>
-                                    </div>
-
-                                    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
-                                        <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                            </svg>
-                                        </div>
-                                        <h4 className="font-bold mb-2">Priority Setup</h4>
-                                        <p className="text-sm text-orange-100">Fast-track implementation</p>
-                                    </div>
-                                </div>
-
-                                <Link href="/apply">
-                                    <button className="bg-white text-tappi-orange-mid px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all inline-flex items-center gap-2">
-                                        Get Complete Solution
-                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                        </svg>
-                                    </button>
-                                </Link>
-                            </div>
+                    {/* Combined Package - Sovereign Tier */}
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        className="bg-surface-container-low rounded-3xl p-12 lg:p-16 text-white border border-white/5 text-center mb-32 max-w-5xl mx-auto"
+                    >
+                        <div className="max-w-3xl mx-auto">
+                            <h3 className="text-3xl font-semibold mb-4 tracking-tight text-white">Unified Billing Package</h3>
+                            <p className="text-lg text-on-surface-variant mb-12 font-normal leading-relaxed">
+                                Need both services? Manage Hotspot profiles and PPPoE authentication all under a single dashboard panel.
+                            </p>
+                            <Link href="/apply">
+                                <button className="bg-primary text-white border-transparent px-10 py-4 rounded-xl font-medium text-base hover:bg-primary/90 transition-all shadow-md">
+                                    Get Started
+                                </button>
+                            </Link>
                         </div>
-                    </ScrollReveal>
+                    </motion.div>
 
-                    {/* Pricing Calculator */}
-                    <ScrollReveal delay={0.4}>
-                        <div className="mt-20 max-w-4xl mx-auto">
+                    {/* Calculator tool */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <div className="max-w-3xl mx-auto">
                             <HotspotCalculator />
                         </div>
-                    </ScrollReveal>
+                    </motion.div>
 
-                    {/* FAQ Section */}
-                    <ScrollReveal delay={0.4}>
-                        <div className="mt-20 max-w-3xl mx-auto">
-                            <h3 className="text-3xl font-bold text-gray-900 text-center mb-12">Pricing FAQs</h3>
-
-                            <div className="space-y-6">
-                                <div className="bg-gray-50 rounded-2xl p-6">
-                                    <h4 className="font-bold text-gray-900 mb-2">How is the Hotspot billing calculated?</h4>
-                                    <p className="text-gray-600">Our Hotspot plan is a flat KSH 1,499 per month. This covers up to 110 clients. If you go over 110, you are simply charged KSH 8 for each additional client beyond that limit.</p>
-                                </div>
-
-                                <div className="bg-gray-50 rounded-2xl p-6">
-                                    <h4 className="font-bold text-gray-900 mb-2">What counts as a "user" for PPPoE pricing?</h4>
-                                    <p className="text-gray-600">A user is any active PPPoE account in your system. You're only charged for active users each month - inactive accounts don't count.</p>
-                                </div>
-
-                                <div className="bg-gray-50 rounded-2xl p-6">
-                                    <h4 className="font-bold text-gray-900 mb-2">Are there any setup fees?</h4>
-                                    <p className="text-gray-600">No hidden fees! Setup and onboarding are completely free. You only pay the monthly fees based on your usage.</p>
-                                </div>
-
-                                <div className="bg-gray-50 rounded-2xl p-6">
-                                    <h4 className="font-bold text-gray-900 mb-2">Can I switch plans later?</h4>
-                                    <p className="text-gray-600">Absolutely! You can upgrade from Hotspot-only or PPPoE-only to the combined solution at any time. Contact our support team for assistance.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </ScrollReveal>
                 </div>
             </section>
         </div>

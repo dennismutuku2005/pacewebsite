@@ -1,48 +1,97 @@
+"use client"
+import React from 'react';
 import PageHero from "../components/PageHero";
+import { motion } from 'framer-motion';
 
 export default function Support() {
     return (
-        <div className="bg-white">
+        <div className="min-h-screen bg-background">
             <PageHero
                 title="Support Center"
-                subtitle="Need help? We are here for you. Find answers or get in touch with our team."
+                subtitle="Get assistance from our technical team. We are here to help."
             />
 
-            <div className="max-w-7xl mx-auto px-6 lg:px-8 py-24">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 py-24">
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-24">
                     {/* Contact Channels */}
-                    <div className="p-8 rounded-3xl bg-purple-50 border border-purple-100 text-center">
-                        <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center text-tappi-purple mx-auto mb-6 shadow-sm">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="p-10 rounded-2xl bg-surface-container-low border border-white/5 text-center relative overflow-hidden"
+                    >
+                        <div className="relative z-10">
+                            <div className="w-14 h-14 bg-surface-container-highest border border-white/5 rounded-xl flex items-center justify-center text-primary mx-auto mb-6">
+                                <span className="material-symbols-outlined text-3xl">mail</span>
+                            </div>
+                            <h3 className="text-xl font-medium text-white mb-2">Email Support</h3>
+                            <p className="text-on-surface-variant font-normal text-sm mb-6">For general inquiries</p>
+                            <a href="mailto:hey@pacewisp.co.ke" className="text-primary font-medium hover:underline text-sm inline-block bg-primary/5 px-6 py-3 rounded-lg border border-primary/20">hey@pace.com</a>
                         </div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">Email Us</h3>
-                        <p className="text-gray-500 mb-4">For general inquiries</p>
-                        <a href="mailto:hey@pacewisp.co.ke" className="text-tappi-purple font-semibold hover:underline">hey@tappi.app</a>
-                    </div>
+                    </motion.div>
 
-                    <div className="p-8 rounded-3xl bg-green-50 border border-green-100 text-center">
-                        <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center text-tappi-green mx-auto mb-6 shadow-sm">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                        className="p-10 rounded-2xl bg-surface-container-low border border-white/5 text-center relative overflow-hidden"
+                    >
+                        <div className="relative z-10">
+                            <div className="w-14 h-14 bg-surface-container-highest border border-white/5 rounded-xl flex items-center justify-center text-tertiary mx-auto mb-6">
+                                <span className="material-symbols-outlined text-3xl">call</span>
+                            </div>
+                            <h3 className="text-xl font-medium text-white mb-2">Phone Support</h3>
+                            <p className="text-on-surface-variant font-normal text-sm mb-6">Available Mon-Fri 8am-5pm</p>
+                            <a href="tel:+254741390949" className="text-tertiary font-medium hover:underline text-sm inline-block bg-tertiary/5 px-6 py-3 rounded-lg border border-tertiary/20">+254 74139 0949</a>
                         </div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">Call Us</h3>
-                        <p className="text-gray-500 mb-4">Mon-Fri from 8am to 5pm</p>
-                        <a href="tel:+254741390949" className="text-tappi-green font-semibold hover:underline">+254 74139 0949</a>
-                    </div>
+                    </motion.div>
                 </div>
 
-                <div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-8">Send us a message</h2>
-                    <form className="max-w-2xl mx-auto space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <input type="text" placeholder="First Name" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-tappi-purple focus:ring-2 focus:ring-purple-100 outline-none transition-all" />
-                            <input type="text" placeholder="Last Name" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-tappi-purple focus:ring-2 focus:ring-purple-100 outline-none transition-all" />
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="max-w-3xl mx-auto bg-surface border border-white/5 rounded-2xl p-8 lg:p-12 shadow-xl"
+                >
+
+                    <h3 className="text-2xl font-semibold text-white mb-8 tracking-tight">Send a Message</h3>
+                    
+                    <form className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <input 
+                                type="text" 
+                                placeholder="Your Name" 
+                                className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20 font-normal" 
+                            />
+                            <input 
+                                type="text" 
+                                placeholder="Company" 
+                                className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20 font-normal" 
+                            />
                         </div>
-                        <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-tappi-purple focus:ring-2 focus:ring-purple-100 outline-none transition-all" />
-                        <textarea rows="4" placeholder="How can we help?" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-tappi-purple focus:ring-2 focus:ring-purple-100 outline-none transition-all"></textarea>
-                        <button type="button" className="w-full bg-tappi-purple text-white font-bold py-4 rounded-xl hover:bg-purple-800 transition-colors">Send Message</button>
+                        <input 
+                            type="email" 
+                            placeholder="Email Address" 
+                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20 font-normal" 
+                        />
+                        <textarea 
+                            rows="5" 
+                            placeholder="Describe what you need help with..." 
+                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all resize-none text-white placeholder-white/20 font-normal"
+                        ></textarea>
+                        
+                        <div className="pt-4 border-t border-white/5">
+                            <button 
+                                type="button" 
+                                className="w-full bg-primary text-white px-8 py-4 rounded-xl font-medium text-base hover:bg-primary/90 transition-all border border-transparent"
+                            >
+                                Send Message
+                            </button>
+                        </div>
                     </form>
-                </div>
+                </motion.div>
             </div>
         </div>
     );

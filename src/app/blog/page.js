@@ -1,9 +1,9 @@
 "use client"
 import { useState, useEffect } from "react";
 import PageHero from "../components/PageHero";
-import ScrollReveal from "../components/ScrollReveal";
 import Link from "next/link";
 import { apiService } from '@/services/apiService';
+import { motion } from 'framer-motion';
 
 export default function Blog() {
     const [blogPosts, setBlogPosts] = useState([]);
@@ -37,52 +37,53 @@ export default function Blog() {
 
     if (isLoading) {
         return (
-            <div className="bg-white min-h-screen flex items-center justify-center">
-                <div className="text-gray-500 font-medium">Loading stories...</div>
+            <div className="bg-background min-h-screen flex items-center justify-center">
+                <div className="flex flex-col items-center gap-4">
+                    <span className="relative flex h-4 w-4">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-4 w-4 bg-primary"></span>
+                    </span>
+                    <div className="text-sm font-medium text-primary">Loading block...</div>
+                </div>
             </div>
         );
     }
 
     if (selectedPost) {
         return (
-            <div className="bg-white min-h-screen">
+            <div className="bg-background min-h-screen">
                 <PageHero
                     title={selectedPost.title}
-                    subtitle={`${selectedPost.author || 'Admin'} • ${new Date(selectedPost.created_at).toLocaleDateString()}`}
+                    subtitle={`Posted by ${selectedPost.author || 'Admin'} • ${new Date(selectedPost.created_at).toISOString().split('T')[0]}`}
                 />
 
-                <article className="max-w-4xl mx-auto px-6 lg:px-8 py-20">
+                <article className="max-w-4xl mx-auto px-6 lg:px-12 py-24">
                     <button
                         onClick={handleBackToList}
-                        className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 font-bold text-sm uppercase tracking-widest mb-12 transition-colors"
+                        className="inline-flex items-center gap-2 text-on-surface-variant hover:text-white font-medium text-sm mb-12 transition-colors group"
                     >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                        Back to all news
+                        <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                        Back to Posts
                     </button>
 
                     {selectedPost.image && (
-                        <div className="mb-12 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+                        <div className="mb-12 rounded-2xl overflow-hidden border border-white/5 shadow-lg relative">
                             <img src={selectedPost.image} alt={selectedPost.title} className="w-full h-auto object-cover max-h-[500px]" />
                         </div>
                     )}
 
-                    <div className="prose prose-lg prose-pace max-w-none">
-                        <div
-                            className="text-gray-700 leading-relaxed space-y-6"
-                            dangerouslySetInnerHTML={{ __html: selectedPost.content }}
-                        />
+                    <div className="prose prose-invert prose-lg max-w-none prose-headings:font-semibold prose-p:font-normal prose-p:leading-relaxed prose-a:text-primary hover:prose-a:text-primary/80 prose-strong:text-white">
+                        <div dangerouslySetInnerHTML={{ __html: selectedPost.content }} />
                     </div>
 
-                    <div className="mt-20 pt-10 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-6">
+                    <div className="mt-24 pt-10 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-6">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
-                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
+                            <div className="w-12 h-12 rounded-xl bg-surface-container-highest border border-white/5 flex items-center justify-center text-primary">
+                                <span className="material-symbols-outlined">person</span>
                             </div>
                             <div>
-                                <p className="text-sm font-bold text-gray-900 uppercase tracking-tight">{selectedPost.author || 'Admin'}</p>
-                                <p className="text-xs text-gray-500 font-medium">Content Contributor</p>
+                                <p className="text-sm font-medium text-white">{selectedPost.author || 'Admin'}</p>
+                                <p className="text-xs text-on-surface-variant">Author</p>
                             </div>
                         </div>
 
@@ -95,12 +96,10 @@ export default function Blog() {
                                     });
                                 }
                             }}
-                            className="flex items-center gap-2 px-6 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-700 font-bold text-xs uppercase tracking-widest hover:bg-gray-100 transition-all"
+                            className="flex items-center gap-2 px-6 py-3 bg-surface-container-low border border-white/5 rounded-xl text-white font-medium hover:bg-white/5 transition-all text-sm"
                         >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m.45 6.684a3 3 0 110-5.368 3 3 0 010 5.368zm0-10.736a3 3 0 110-5.368 3 3 0 010 5.368zM5 14a3 3 0 110-6 3 3 0 010 6z" />
-                            </svg>
-                            Share Story
+                            <span className="material-symbols-outlined text-sm">share</span>
+                            Share
                         </button>
                     </div>
                 </article>
@@ -109,53 +108,57 @@ export default function Blog() {
     }
 
     return (
-        <div className="bg-white min-h-screen">
+        <div className="bg-background min-h-screen">
             <PageHero
-                title="Pace WISP Blog"
-                subtitle="Insights, tips, and stories to help you run a better WISP business."
+                title="Pace Blog"
+                subtitle="Updates, features, and stories from our team."
             />
 
-            <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 py-24">
                 {blogPosts.length === 0 ? (
-                    <div className="text-center py-20">No blog posts found.</div>
+                    <div className="text-center py-20 bg-surface-container-low border border-white/5 rounded-3xl">
+                        <div className="text-base font-normal text-on-surface-variant">No posts available.</div>
+                    </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {blogPosts.map((post, index) => (
-                            <ScrollReveal key={post.id} delay={index * 0.1}>
-                                <div className="group h-full border-b border-gray-100 pb-8 flex flex-col cursor-pointer" onClick={() => handlePostClick(post)}>
-                                    <div className="bg-gray-50 h-56 w-full relative overflow-hidden rounded-2xl mb-6">
-                                        {post.image ? (
-                                            <img src={post.image} alt={post.title} className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-500" />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center bg-gray-50 text-gray-300">
-                                                <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className="flex-1 flex flex-col">
-                                        <div className="flex items-center gap-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">
-                                            <span>{post.author || 'Admin'}</span>
-                                            <span className="text-gray-200">•</span>
-                                            <span>{new Date(post.created_at).toLocaleDateString()}</span>
+                            <motion.div 
+                                key={post.id} 
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
+                                className="group bg-surface-container-low border border-white/5 rounded-2xl overflow-hidden flex flex-col cursor-pointer transition-all hover:border-white/20" 
+                                onClick={() => handlePostClick(post)}
+                            >
+                                <div className="h-56 w-full relative overflow-hidden bg-surface-container-highest border-b border-white/5">
+                                    {post.image ? (
+                                        <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500 relative z-0" />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-on-surface-variant/30 relative z-0">
+                                            <span className="material-symbols-outlined text-4xl">description</span>
                                         </div>
-                                        <h3 className="text-xl font-bold text-gray-900 mb-4 leading-tight group-hover:text-tappi-purple transition-colors">
-                                            {post.title}
-                                        </h3>
-                                        <div
-                                            className="text-gray-600 leading-relaxed line-clamp-2 text-sm prose prose-sm max-w-none mb-6 flex-1"
-                                            dangerouslySetInnerHTML={{ __html: post.excerpt || post.content }}
-                                        />
-                                        <button
-                                            className="inline-flex items-center gap-2 text-tappi-purple font-bold text-xs uppercase tracking-[0.2em] group/btn text-left"
-                                        >
-                                            Read More
-                                            <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                            </svg>
-                                        </button>
+                                    )}
+                                </div>
+                                <div className="flex-1 flex flex-col p-8">
+                                    <div className="flex items-center gap-2 text-xs font-medium text-on-surface-variant mb-3">
+                                        <span>{post.author || 'Admin'}</span>
+                                        <span className="text-primary">•</span>
+                                        <span>{new Date(post.created_at).toISOString().split('T')[0]}</span>
+                                    </div>
+                                    <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-primary transition-colors tracking-tight">
+                                        {post.title}
+                                    </h3>
+                                    <div
+                                        className="text-on-surface-variant font-normal leading-relaxed line-clamp-3 text-sm max-w-none mb-6 flex-1"
+                                        dangerouslySetInnerHTML={{ __html: post.excerpt || post.content }}
+                                    />
+                                    <div className="text-primary font-medium text-sm flex items-center gap-2 group/btn mt-auto">
+                                        Read Post
+                                        <span className="material-symbols-outlined text-sm transform group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
                                     </div>
                                 </div>
-                            </ScrollReveal>
+                            </motion.div>
                         ))}
                     </div>
                 )}
