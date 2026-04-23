@@ -7,9 +7,9 @@ import { motion } from 'framer-motion';
 function HotspotCalculator() {
     const [clients, setClients] = useState(110);
 
-    const baseFee = 1500;
+    const baseFee = 1499;
     const limit = 110;
-    const overageRate = 8;
+    const overageRate = 5;
 
     const overageUnits = Math.max(0, clients - limit);
     const totalPrice = baseFee + (overageUnits * overageRate);
@@ -42,11 +42,11 @@ function HotspotCalculator() {
                 <div className="bg-surface rounded-2xl p-8 border border-white/5">
                     <div className="flex justify-between items-center mb-5 border-b border-white/5 pb-5">
                         <span className="text-sm font-medium text-on-surface-variant">Base Fee (Up to 110 users)</span>
-                        <span className="font-semibold text-white tabular-nums">KES 1,500</span>
+                        <span className="font-semibold text-white tabular-nums">KES 1,499</span>
                     </div>
                     {overageUnits > 0 && (
                         <div className="flex justify-between items-center mb-5 text-sm border-b border-white/5 pb-5">
-                            <span className="text-sm font-medium text-tertiary">Overage ({overageUnits} x KES 8)</span>
+                            <span className="text-sm font-medium text-tertiary">Overage ({overageUnits} x KES 5)</span>
                             <span className="font-semibold text-tertiary tabular-nums">+ KES {overageUnits * overageRate}</span>
                         </div>
                     )}
@@ -58,9 +58,7 @@ function HotspotCalculator() {
                     </div>
                 </div>
 
-                <p className="text-center text-sm text-on-surface-variant leading-relaxed font-normal">
-                    Predictable billing. You are paying a flat KES 1,500 for the first 110 clients. Any user beyond that is just KES 8 each.
-                </p>
+                    Predictable billing. You are paying a flat KES 1,499 for the first 110 clients. Any user beyond that is just KES 5 each.
             </div>
         </div>
     );
@@ -95,7 +93,7 @@ export default function PricingPage() {
                             <div className="mb-10 border-b border-white/5 pb-8">
                                 <div className="flex items-baseline gap-2 mb-2">
                                     <span className="text-2xl font-medium text-primary">KES</span>
-                                    <span className="text-5xl lg:text-6xl font-semibold tracking-tight tabular-nums">1,500</span>
+                                    <span className="text-5xl lg:text-6xl font-semibold tracking-tight tabular-nums">1,499</span>
                                 </div>
                                 <p className="text-sm text-on-surface-variant font-normal">Monthly flat fee for up to 110 users</p>
                             </div>
@@ -103,7 +101,7 @@ export default function PricingPage() {
                             <div className="space-y-4 mb-10 flex-grow">
                                 {[
                                     "Up to 110 concurrent clients covered",
-                                    "KES 8 per additional user",
+                                    "KES 5 per additional user",
                                     "Zero hidden transaction fees",
                                     "Integrated STK Push Included",
                                     "24/7 technical support"
