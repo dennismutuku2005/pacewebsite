@@ -225,8 +225,8 @@ export default function Home() {
                             className="bg-surface-container-low border border-white/5 p-10 rounded-3xl flex flex-col hover:border-white/20 transition-colors shadow-lg"
                         >
                             <h4 className="text-xl font-medium tracking-wide mb-2 text-white">Hotspot Billing</h4>
-                            <div className="text-4xl font-semibold mb-6 text-white">KES 1,500<span className="text-base font-normal text-on-surface-variant ml-2">/mo</span></div>
-                            <p className="text-sm text-on-surface-variant mb-8">Covers up to 110 concurrent users. Overage is just KES 8 each.</p>
+                            <div className="text-4xl font-semibold mb-6 text-white">KES 1,499<span className="text-base font-normal text-on-surface-variant ml-2">/mo</span></div>
+                            <p className="text-sm text-on-surface-variant mb-8">Covers up to 110 concurrent users. Overage is just KES 5 each.</p>
                             <ul className="space-y-4 mb-10 flex-grow">
                                 <li className="flex items-center gap-3 text-sm text-white font-normal">
                                     <span className="material-symbols-outlined text-primary text-lg">check</span>
