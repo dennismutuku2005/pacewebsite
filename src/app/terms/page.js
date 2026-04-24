@@ -15,7 +15,7 @@ export default function Terms() {
         },
         {
             title: "3. Fees and Payments",
-            content: `By using Pace WISP, you agree to the following pricing structure:\n\n• Hotspot Billing: KES 1,499 flat fee (up to 110 clients) + KES 5 per additional client.\n• PPPoE Management: KES 28 per active user per month.\n• Bundled Services: Custom pricing applies for providers using both systems, as agreed upon during setup.\n\nPayment is due within 7 days of the invoice date. Late payments may result in temporary service suspension.`
+            content: `By using Pace WISP, you agree to the following pricing structure:\n\n• Hotspot Billing: KES 1,499 flat fee (up to 110 clients) + KES 8 per additional client.\n• PPPoE Management: KES 28 per active user per month.\n• Bundled Services: Custom pricing applies for providers using both systems, as agreed upon during setup.\n\nPayment is due within 7 days of the invoice date. Late payments may result in temporary service suspension.`
         },
         {
             title: "4. Account Responsibilities",
