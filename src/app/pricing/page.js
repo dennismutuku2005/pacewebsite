@@ -9,7 +9,7 @@ function HotspotCalculator() {
 
     const baseFee = 1499;
     const limit = 110;
-    const overageRate = 5;
+    const overageRate = 8;
 
     const overageUnits = Math.max(0, clients - limit);
     const totalPrice = baseFee + (overageUnits * overageRate);
@@ -46,7 +46,7 @@ function HotspotCalculator() {
                     </div>
                     {overageUnits > 0 && (
                         <div className="flex justify-between items-center mb-5 text-sm border-b border-white/5 pb-5">
-                            <span className="text-sm font-medium text-tertiary">Overage ({overageUnits} x KES 5)</span>
+                            <span className="text-sm font-medium text-tertiary">Overage ({overageUnits} x KES 8)</span>
                             <span className="font-semibold text-tertiary tabular-nums">+ KES {overageUnits * overageRate}</span>
                         </div>
                     )}
@@ -58,7 +58,7 @@ function HotspotCalculator() {
                     </div>
                 </div>
 
-                    Predictable billing. You are paying a flat KES 1,499 for the first 110 clients. Any user beyond that is just KES 5 each.
+                    Predictable billing. You are paying a flat KES 1,499 for the first 110 clients. Any user beyond that is just KES 8 each.
             </div>
         </div>
     );
@@ -101,7 +101,7 @@ export default function PricingPage() {
                             <div className="space-y-4 mb-10 flex-grow">
                                 {[
                                     "Up to 110 concurrent clients covered",
-                                    "KES 5 per additional user",
+                                    "KES 8 per additional user",
                                     "Zero hidden transaction fees",
                                     "Integrated STK Push Included",
                                     "24/7 technical support"
