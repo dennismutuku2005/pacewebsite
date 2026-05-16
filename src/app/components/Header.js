@@ -26,7 +26,7 @@ export default function Header() {
     return (
         <nav className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${
             scrolled ? 'bg-[#131313]/95 border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]' : 'bg-transparent border-transparent'
-        } backdrop-blur-xl py-3`}>
+        } backdrop-blur-xl py-6`}>
             <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
                 <Link href="/" className="hover:opacity-80 transition-opacity flex items-center">
                     <Image src="/logo.png" alt="PACE Logo" width={110} height={40} className="object-contain" />

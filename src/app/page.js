@@ -28,48 +28,51 @@ export default function Home() {
     ];
 
     return (
-        <div className="min-h-screen bg-background text-on-surface overflow-hidden">
-            {/* HERO SECTION - DARK MODE FORCED */}
-            <section className="relative pt-32 pb-10 lg:pt-40 lg:pb-32 overflow-hidden flex flex-col justify-center min-h-[85vh] bg-background">
-                {/* Left side contained content */}
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full relative z-10 flex flex-col lg:block">
-                    <div className="lg:w-1/2 lg:pr-12">
+        <div className="min-h-screen bg-[#0A0A0A] text-on-surface overflow-hidden">
+            {/* HERO SECTION */}
+            <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex flex-col justify-center">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full relative z-10 flex flex-col lg:flex-row items-center gap-16">
+                    <div className="lg:w-1/2 z-20">
                         <motion.div 
-                            initial={{ opacity: 0, x: -80 }}
-                            animate={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="relative z-10"
                         >
-                            <h1 className="text-4xl md:text-5xl lg:text-7xl font-semibold tracking-tight leading-loose lg:leading-tight mb-8 text-white">
-                                Reliable Control <br/>for ISP Billing
+                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-8 text-white">
+                                Reliable Control <br/>
+                                <span className="text-primary">for ISP Billing</span>
                             </h1>
-                            <p className="text-on-surface-variant text-lg max-w-lg mb-10 leading-relaxed font-normal">
-                                Orchestrate PPPoE, Hotspot Billing, and Network Operations with an easy-to-use ledger. Fully integrated and ready for scale.
+                            <p className="text-on-surface-variant text-lg md:text-xl max-w-xl mb-10 leading-relaxed font-normal">
+                                Orchestrate PPPoE, Hotspot Billing, and Network Operations with an intuitive ledger. Fully integrated and ready for scale.
                             </p>
-                            <div className="flex flex-wrap gap-4 mb-16 lg:mb-0">
+                            <div className="flex flex-wrap gap-4">
                                 <Link href="/apply">
-                                    <button className="px-10 py-4 bg-primary text-white rounded-xl font-medium transition-all hover:bg-primary/90 shadow-lg border border-transparent">
+                                    <button className="px-10 py-4 bg-primary text-white rounded-lg font-bold transition-all hover:bg-primary/90 shadow-xl">
                                         Get Started
+                                    </button>
+                                </Link>
+                                <Link href="/features">
+                                    <button className="px-10 py-4 bg-white/5 text-white border border-white/10 rounded-lg font-bold backdrop-blur-md hover:bg-white/10 transition-all">
+                                        Features
                                     </button>
                                 </Link>
                             </div>
                         </motion.div>
                     </div>
 
-                    {/* Right side bleeding / squeezed dashboard image */}
                     <motion.div 
-                        initial={{ opacity: 0, x: 80 }}
+                        initial={{ opacity: 0, x: 100 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                        className="relative w-full h-[280px] sm:h-[400px] mt-8 lg:mt-0 lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:right-0 lg:w-[55vw] lg:h-[120%] z-0"
+                        transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+                        className="lg:w-[90%] lg:absolute lg:-right-[45%] relative mt-16 lg:mt-0"
                     >
-                        {/* Hidden gradient mask on mobile (so image doesn't get cut off), shown on desktop */}
-                        <div className="w-full h-full relative lg:[mask-image:linear-gradient(to_right,transparent_0%,black_15%,black_100%)] [-webkit-mask-image:none] lg:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_15%,black_100%)]">
+                        <div className="relative z-10 rounded-none overflow-hidden border-y border-l border-white/10 shadow-[0_0_120px_rgba(75,29,143,0.2)]">
                             <Image 
                                 src="/hero.png" 
                                 alt="PACE Dashboard" 
-                                fill 
-                                className="object-contain lg:object-cover object-center lg:object-left-top"
+                                width={1600}
+                                height={1000}
+                                className="w-full h-auto object-cover"
                                 priority
                             />
                         </div>
@@ -77,256 +80,226 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* DEDICATED PARTNERS SECTION */}
-            <section className="py-16 border-y border-white/5 opacity-80 bg-surface-container-low overflow-hidden">
-                <motion.div 
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.6 }}
-                    className="max-w-7xl mx-auto px-6 lg:px-12 text-center"
-                >
-                    <p className="text-sm font-medium mb-12 text-on-surface-variant tracking-[0.2em] uppercase">Trusted Infrastructure Partners</p>
-                    <div className="relative w-full flex items-center justify-center">
-                        <div className="flex flex-nowrap justify-start lg:justify-center items-center gap-10 lg:gap-32 w-full overflow-x-auto snap-x snap-mandatory py-4" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
-                            <div className="relative w-28 h-12 lg:w-56 lg:h-24 flex-shrink-0 snap-center"><Image src="/cloudflare.png" alt="Cloudflare" fill className="object-contain" /></div>
-                            <div className="relative w-36 h-12 lg:w-64 lg:h-24 flex-shrink-0 snap-center"><Image src="/digitalocean.png" alt="DigitalOcean" fill className="object-contain" /></div>
-                            <div className="relative w-28 h-12 lg:w-48 lg:h-24 flex-shrink-0 snap-center"><Image src="/safaricom.png" alt="Safaricom" fill className="object-contain" /></div>
-                        </div>
+            {/* TRUSTED PARTNERS */}
+            <section className="py-40 relative z-10 border-y border-white/5 bg-[#0D0D0D]">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12">
+                    <p className="text-[10px] font-bold mb-16 text-center text-white/20 tracking-[0.4em] uppercase">Industry Standard Infrastructure</p>
+                    <div className="flex flex-wrap justify-center items-center gap-16 lg:gap-40 opacity-90">
+                        <Image src="/cloudflare.png" alt="Cloudflare" width={240} height={80} className="h-14 lg:h-20 w-auto object-contain" />
+                        <Image src="/digitalocean.png" alt="DigitalOcean" width={280} height={80} className="h-16 lg:h-24 w-auto object-contain" />
+                        <Image src="/safaricom.png" alt="Safaricom" width={240} height={80} className="h-16 lg:h-24 w-auto object-contain" />
                     </div>
-                </motion.div>
+                </div>
             </section>
 
-            {/* DARK MODE SECTIONS */}
-            <section className="py-32 max-w-7xl mx-auto px-6 lg:px-12 overflow-hidden">
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
-                    <motion.div
-                        initial={{ opacity: 0, x: -80 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
-                        <h3 className="text-3xl font-semibold tracking-tight mb-6 text-white">Live Network View</h3>
-                        <p className="text-on-surface-variant leading-relaxed font-normal mb-8 max-w-lg">
-                            Monitor every PPPoE session and Hotspot identity with ease. Our interface mirrors your network instantly without complex setups.
-                        </p>
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-4 p-4 bg-surface-container-low border border-white/5 rounded-xl">
-                                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary text-xl font-semibold">12</div>
-                                <div>
-                                    <p className="text-xs font-semibold text-white tracking-wider">Active Alerts</p>
-                                    <p className="text-[10px] text-on-surface-variant font-medium">Core Node Hub-01</p>
+            {/* NETWORK VIEW SECTION */}
+            <section className="py-32 relative z-10 overflow-hidden">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12">
+                    <div className="grid lg:grid-cols-2 gap-24 items-center">
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8 text-white leading-tight">
+                                Real-time <br/>Infrastructure <span className="text-primary">Intelligence</span>
+                            </h2>
+                            <p className="text-on-surface-variant text-lg leading-relaxed font-normal mb-10">
+                                Every session, every connection, every heartbeat. We monitor your network hierarchy so you can focus on expansion.
+                            </p>
+                        </motion.div>
+                        <motion.div 
+                            initial={{ opacity: 0, x: 100 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="lg:w-[90%] lg:absolute lg:-right-[45%] relative mt-16 lg:mt-0"
+                        >
+                            <div className="rounded-none overflow-hidden border-y border-l border-white/10 shadow-2xl">
+                                <Image 
+                                    src="/entries.png" 
+                                    alt="Live Entries" 
+                                    width={1200}
+                                    height={800}
+                                    className="w-full h-auto"
+                                />
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* SERVICES BENTO GRID */}
+            <section className="py-32 relative z-10 bg-[#0F0F0F]/50 backdrop-blur-3xl border-y border-white/5">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12">
+                    <div className="mb-20">
+                        <h2 className="text-4xl font-bold text-white tracking-tight mb-4">Core Ecosystem</h2>
+                        <p className="text-on-surface-variant text-lg font-normal">Everything you need to run a high-performance ISP.</p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="md:col-span-2 p-12 bg-white/5 border border-white/10 rounded-xl">
+                            <div className="w-14 h-14 bg-primary/20 rounded-xl flex items-center justify-center text-primary mb-8">
+                                <span className="material-symbols-outlined text-3xl">terminal</span>
+                            </div>
+                            <h3 className="text-2xl font-bold mb-6 text-white">PPPoE Orchestration</h3>
+                            <p className="text-on-surface-variant text-lg leading-relaxed font-normal max-w-md">
+                                Automated subscriber provisioning with precise bandwidth shaping. Native VLAN support and real-time disconnection logic.
+                            </p>
+                        </div>
+                        
+                        <div className="p-12 bg-primary text-white rounded-xl shadow-xl flex flex-col justify-between">
+                            <div>
+                                <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center mb-8">
+                                    <span className="material-symbols-outlined text-3xl">payments</span>
                                 </div>
+                                <h3 className="text-2xl font-bold mb-4">M-Pesa Native</h3>
+                                <p className="text-white/80 leading-relaxed font-normal">
+                                    Direct STK Push integration. Payments settle and sessions activate in seconds.
+                                </p>
                             </div>
                         </div>
-                    </motion.div>
-                    <motion.div 
-                        initial={{ opacity: 0, x: 80 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="bg-surface-container-low border border-white/5 rounded-2xl shadow-xl relative aspect-[16/9]"
-                    >
-                        <Image 
-                            src="/entries.png" 
-                            alt="Live Entries" 
-                            fill 
-                            className="object-contain sm:object-cover rounded-2xl"
-                        />
-                    </motion.div>
-                </div>
-            </section>
 
-            {/* Services Bento */}
-            <section className="py-24 max-w-7xl mx-auto px-6 lg:px-12 overflow-hidden">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <motion.div 
-                        initial={{ opacity: 0, x: -80 }} 
-                        whileInView={{ opacity: 1, x: 0 }} 
-                        viewport={{ once: true, margin: "-100px" }} 
-                        transition={{ duration: 0.6 }}
-                        className="md:col-span-2 bg-surface-container-low border border-white/5 p-12 rounded-2xl relative group shadow-lg"
-                    >
-                        <h3 className="text-2xl font-semibold mb-4 text-white">PPPoE Automation</h3>
-                        <p className="text-on-surface-variant leading-relaxed max-w-md font-normal">
-                            Complete subscriber provisioning with tight bandwidth control. Our system manages low-latency sessions for hundreds of concurrent users without manual input.
-                        </p>
-                        <div className="mt-8 flex gap-3">
-                            <span className="px-4 py-2 bg-background rounded-md text-xs font-medium text-white/80 border border-white/5">VLAN Support</span>
-                            <span className="px-4 py-2 bg-background rounded-md text-xs font-medium text-white/80 border border-white/5">Dynamic Shaping</span>
+                        <div className="p-12 bg-white/5 border border-white/10 rounded-xl">
+                            <h3 className="text-xl font-bold mb-4 text-white">Smart Graphing</h3>
+                            <p className="text-on-surface-variant leading-relaxed font-normal">
+                                Deep visibility into bandwidth usage and hardware health.
+                            </p>
                         </div>
-                    </motion.div>
-                    
-                    <motion.div 
-                        initial={{ opacity: 0, x: 80 }} 
-                        whileInView={{ opacity: 1, x: 0 }} 
-                        viewport={{ once: true, margin: "-100px" }} 
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="bg-surface-container-low border border-white/5 p-12 rounded-2xl shadow-lg"
-                    >
-                        <h3 className="text-xl font-semibold mb-4 text-white">M-Pesa Built In</h3>
-                        <p className="text-on-surface-variant text-sm leading-relaxed mb-8 font-normal">
-                            Zero-friction payment collection. We handle the Daraja configuration so sessions activate immediately via MPESA STK push.
-                        </p>
-                    </motion.div>
 
-                    <motion.div 
-                        initial={{ opacity: 0, x: -80 }} 
-                        whileInView={{ opacity: 1, x: 0 }} 
-                        viewport={{ once: true, margin: "-100px" }} 
-                        transition={{ duration: 0.6 }}
-                        className="bg-surface-container-low border border-white/5 p-12 rounded-2xl shadow-lg"
-                    >
-                        <h3 className="text-xl font-semibold mb-4 text-white">Network Graphing</h3>
-                        <p className="text-on-surface-variant text-sm leading-relaxed font-normal">
-                            View bandwidth spikes and active routing faults in a unified console. Monitor hardware stress proactively.
-                        </p>
-                    </motion.div>
-
-                    <motion.div 
-                        initial={{ opacity: 0, y: 80 }} 
-                        whileInView={{ opacity: 1, y: 0 }} 
-                        viewport={{ once: true, margin: "-100px" }} 
-                        transition={{ duration: 0.6 }}
-                        className="md:col-span-2 bg-primary-container border border-primary/20 p-12 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 group shadow-lg"
-                    >
-                        <div>
-                            <h3 className="text-2xl font-semibold mb-2 text-white">Bring your operations online</h3>
-                            <p className="text-white/70 max-w-sm font-normal">No coding or deployment required from you. Fill out the application form and our team configures your network.</p>
+                        <div className="md:col-span-2 p-12 bg-white/5 border border-white/10 rounded-xl flex flex-col md:flex-row items-center justify-between gap-12">
+                            <div>
+                                <h3 className="text-3xl font-bold mb-4 text-white">Scale Effortlessly</h3>
+                                <p className="text-on-surface-variant text-lg font-normal max-w-sm">From 10 to 10,000+ users without changing your management workflow.</p>
+                            </div>
+                            <Link href="/apply">
+                                <button className="px-10 py-4 bg-white text-black rounded-lg font-bold hover:scale-105 transition-all shadow-xl">
+                                    Apply Now
+                                </button>
+                            </Link>
                         </div>
-                        <Link href="/apply">
-                            <button className="px-8 py-3 bg-white text-primary-container rounded-xl font-medium hover:bg-gray-200 transition-colors">
-                                Fill Application Form
-                            </button>
-                        </Link>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Pricing Section */}
-            <section className="py-32 bg-surface-container-lowest border-y border-white/5 overflow-hidden">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                    <motion.div 
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-center mb-20"
-                    >
-                        <h3 className="text-4xl font-semibold tracking-tight text-white">Simple Pricing</h3>
-                    </motion.div>
-                    
-                    <div className="grid md:grid-cols-2 max-w-4xl mx-auto gap-8">
-                        {/* Hotspot Pricing */}
-                        <motion.div 
-                            initial={{ opacity: 0, x: -80 }} 
-                            whileInView={{ opacity: 1, x: 0 }} 
-                            viewport={{ once: true, margin: "-100px" }}
-                            transition={{ duration: 0.6, ease: "easeOut" }}
-                            className="bg-surface-container-low border border-white/5 p-10 rounded-3xl flex flex-col hover:border-white/20 transition-colors shadow-lg"
-                        >
-                            <h4 className="text-xl font-medium tracking-wide mb-2 text-white">Hotspot Billing</h4>
-                            <div className="text-4xl font-semibold mb-6 text-white">KES 1,499<span className="text-base font-normal text-on-surface-variant ml-2">/mo</span></div>
-                            <p className="text-sm text-on-surface-variant mb-8">Covers up to 110 concurrent users. Overage is just KES 5 each.</p>
-                            <ul className="space-y-4 mb-10 flex-grow">
-                                <li className="flex items-center gap-3 text-sm text-white font-normal">
-                                    <span className="material-symbols-outlined text-primary text-lg">check</span>
-                                    Voucher Generation Engine
-                                </li>
-                                <li className="flex items-center gap-3 text-sm text-white font-normal">
-                                    <span className="material-symbols-outlined text-primary text-lg">check</span>
-                                    M-PESA STK Push Ready
-                                </li>
-                                <li className="flex items-center gap-3 text-sm text-white font-normal">
-                                    <span className="material-symbols-outlined text-primary text-lg">check</span>
-                                    Daily Income Ledgers
-                                </li>
-                            </ul>
-                            <Link href="/apply">
-                                <button className="w-full py-4 bg-primary text-white font-medium rounded-xl hover:bg-primary/90 transition-all border border-transparent">Get Started</button>
-                            </Link>
-                        </motion.div>
-                        
-                        {/* PPPoE Pricing */}
-                        <motion.div 
-                            initial={{ opacity: 0, x: 80 }} 
-                            whileInView={{ opacity: 1, x: 0 }} 
-                            viewport={{ once: true, margin: "-100px" }}
-                            transition={{ duration: 0.6, ease: "easeOut" }}
-                            className="bg-primary-container p-10 rounded-3xl border border-primary/50 text-white flex flex-col shadow-lg"
-                        >
-                            <h4 className="text-xl font-medium tracking-wide mb-2 text-white">PPPoE Subscriptions</h4>
-                            <div className="text-4xl font-semibold mb-6 text-white">KES 28<span className="text-base font-normal text-white/70 ml-2">/user</span></div>
-                            <p className="text-sm text-white/70 mb-8">Billed monthly based on active database clients.</p>
-                            <ul className="space-y-4 mb-10 flex-grow">
-                                <li className="flex items-center gap-3 text-sm font-normal text-white">
-                                    <span className="material-symbols-outlined text-primary text-lg">check</span>
-                                    Automated Activations
-                                </li>
-                                <li className="flex items-center gap-3 text-sm font-normal text-white">
-                                    <span className="material-symbols-outlined text-primary text-lg">check</span>
-                                    Bandwidth Throttling Scripts
-                                </li>
-                                <li className="flex items-center gap-3 text-sm font-normal text-white">
-                                    <span className="material-symbols-outlined text-primary text-lg">check</span>
-                                    Automated Suspension Rules
-                                </li>
-                            </ul>
-                            <Link href="/apply">
-                                <button className="w-full py-4 bg-white text-primary-container font-medium rounded-xl hover:bg-gray-200 transition-all">Get Started</button>
-                            </Link>
-                        </motion.div>
                     </div>
                 </div>
             </section>
 
-            {/* FAQ Matrix */}
-            <section className="py-32 max-w-3xl mx-auto px-6 lg:px-12 font-inter overflow-hidden">
-                <motion.div 
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    className="text-center mb-16"
-                >
-                    <h3 className="text-3xl font-semibold tracking-tight text-white">Common Questions</h3>
-                </motion.div>
+            {/* PRICING SECTION */}
+            <section className="py-32 relative z-10">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12">
+                    <div className="text-center mb-24">
+                        <h2 className="text-5xl font-bold tracking-tight text-white mb-6">Designed for Growth</h2>
+                        <p className="text-on-surface-variant text-xl font-normal">Simple, predictable, and transparent.</p>
+                    </div>
+                    
+                    <div className="grid md:grid-cols-2 max-w-5xl mx-auto gap-8">
+                        {/* Hotspot */}
+                        <div className="p-10 bg-white/5 border border-white/10 rounded-lg flex flex-col hover:border-white/20 transition-all shadow-xl">
+                            <h3 className="text-xl font-bold mb-8 text-white">Hotspot Billing</h3>
+                            <div className="mb-10">
+                                <div className="flex items-baseline gap-2 mb-2">
+                                    <span className="text-4xl font-bold text-white">KES 1,499</span>
+                                    <span className="text-sm text-on-surface-variant">/mo</span>
+                                </div>
+                                <p className="text-sm text-on-surface-variant">First 110 clients. Then <span className="text-white font-bold">KES 8</span> per extra user.</p>
+                            </div>
+                            <ul className="space-y-4 mb-10 flex-grow">
+                                {[
+                                    "Unlimited Voucher Generation",
+                                    "Automated STK Verification",
+                                    "Real-time Session Control",
+                                    "Daily Income Ledgers"
+                                ].map((f, i) => (
+                                    <li key={i} className="flex items-center gap-3 text-sm text-white/70">
+                                        <span className="material-symbols-outlined text-primary text-lg">check</span>
+                                        {f}
+                                    </li>
+                                ))}
+                            </ul>
+                            <Link href="/apply">
+                                <button className="w-full py-4 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-all">Get Started</button>
+                            </Link>
+                        </div>
+                        
+                        {/* PPPoE */}
+                        <div className="p-10 bg-primary text-white rounded-lg flex flex-col shadow-2xl">
+                            <h3 className="text-xl font-bold mb-8">PPPoE Enterprise</h3>
+                            <div className="mb-10">
+                                <div className="flex items-baseline gap-2 mb-2">
+                                    <span className="text-4xl font-bold">KES 28</span>
+                                    <span className="text-sm text-white/70">/user</span>
+                                </div>
+                                <p className="text-sm text-white/70">Per active concurrent session.</p>
+                            </div>
+                            <ul className="space-y-4 mb-10 flex-grow">
+                                {[
+                                    "Dynamic Queue Management",
+                                    "Self-Service Client Portal",
+                                    "Auto-Suspension Logic",
+                                    "Mikrotik API Integration"
+                                ].map((f, i) => (
+                                    <li key={i} className="flex items-center gap-3 text-sm text-white/90">
+                                        <span className="material-symbols-outlined text-lg">check</span>
+                                        {f}
+                                    </li>
+                                ))}
+                            </ul>
+                            <Link href="/apply">
+                                <button className="w-full py-4 bg-white text-primary font-bold rounded-lg hover:bg-gray-100 transition-all">Get Started</button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* FAQ */}
+            <section className="py-32 max-w-3xl mx-auto px-6 lg:px-12 relative z-10">
+                <div className="text-center mb-24">
+                    <h2 className="text-4xl font-bold text-white tracking-tight">Intelligence Base</h2>
+                </div>
                 
                 <div className="space-y-4">
-                    {faqs.map((faq, index) => {
-                        const isEven = index % 2 === 0;
-                        return (
-                            <motion.div 
-                                key={index}
-                                initial={{ opacity: 0, x: isEven ? -60 : 60 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true, margin: "-50px" }}
-                                transition={{ duration: 0.5 }}
-                                className="bg-surface-container-low border border-white/5 rounded-2xl overflow-hidden transition-all hover:border-white/10"
+                    {faqs.map((faq, index) => (
+                        <div 
+                            key={index}
+                            className="bg-white/5 border border-white/10 rounded-xl overflow-hidden"
+                        >
+                            <button 
+                                onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
+                                className="w-full flex items-center justify-between p-8 text-left group"
                             >
-                                <button 
-                                    onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
-                                    className="w-full flex items-center justify-between p-6 text-left group"
-                                >
-                                    <span className={`font-medium text-base transition-colors ${openFaq === index ? 'text-primary' : 'text-white'}`}>{faq.question}</span>
-                                    <span className={`material-symbols-outlined transition-transform duration-300 ${openFaq === index ? 'rotate-180 text-primary' : 'text-on-surface-variant'}`}>
-                                        expand_more
-                                    </span>
-                                </button>
-                                <AnimatePresence>
-                                    {openFaq === index && (
-                                        <motion.div 
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: 'auto', opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            className="px-6 pb-6 text-on-surface-variant font-normal leading-relaxed text-sm bg-surface-container-low"
-                                        >
-                                            {faq.answer}
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </motion.div>
-                        );
-                    })}
+                                <span className={`font-bold transition-colors ${openFaq === index ? 'text-primary' : 'text-white'}`}>{faq.question}</span>
+                                <span className={`material-symbols-outlined transition-transform duration-300 ${openFaq === index ? 'rotate-180 text-primary' : 'text-white/20'}`}>
+                                    expand_more
+                                </span>
+                            </button>
+                            <AnimatePresence>
+                                {openFaq === index && (
+                                    <motion.div 
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: 'auto', opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        className="px-8 pb-8 text-white/60 font-normal leading-relaxed"
+                                    >
+                                        {faq.answer}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+                    ))}
                 </div>
+            </section>
+
+            {/* FOOTER CTA */}
+            <section className="py-40 text-center relative z-10">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    className="max-w-4xl mx-auto px-6"
+                >
+                    <h2 className="text-5xl md:text-6xl font-bold text-white tracking-tight mb-12">Ready to PACE?</h2>
+                    <Link href="/apply">
+                        <button className="px-12 py-5 bg-primary text-white rounded-lg font-bold text-lg hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/40">
+                            Apply for Access
+                        </button>
+                    </Link>
+                </motion.div>
             </section>
         </div>
     );

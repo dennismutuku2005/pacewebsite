@@ -101,17 +101,17 @@ export default function ApplyPage() {
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.1 }}
-                        className="bg-surface border border-white/5 shadow-xl rounded-2xl p-8 lg:p-12 relative overflow-hidden"
+                        className="bg-white/5 border border-white/10 shadow-2xl rounded-md p-8 lg:p-12 relative overflow-hidden"
                     >
                         {submitStatus === 'success' && (
-                            <div className="mb-8 p-6 bg-tertiary/10 border border-tertiary/20 rounded-xl">
+                            <div className="mb-8 p-6 bg-tertiary/10 border border-tertiary/20 rounded-md">
                                 <p className="text-tertiary font-medium text-center">
                                     Application submitted successfully! We will contact you shortly.
                                 </p>
                             </div>
                         )}
                         {submitStatus === 'error' && (
-                            <div className="mb-8 p-6 bg-error/10 border border-error/20 rounded-xl">
+                            <div className="mb-8 p-6 bg-error/10 border border-error/20 rounded-md">
                                 <p className="text-error font-medium text-center">
                                     {errorMessage}
                                 </p>
@@ -133,7 +133,7 @@ export default function ApplyPage() {
                                             value={formData.companyName}
                                             onChange={handleChange}
                                             required
-                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            className="w-full bg-white/5 px-4 py-3 rounded-sm border border-white/10 focus:border-primary focus:ring-0 outline-none transition-all text-white placeholder-white/30 text-sm"
                                             placeholder="Your WISP Name"
                                         />
                                     </div>
@@ -145,7 +145,7 @@ export default function ApplyPage() {
                                             value={formData.contactPerson}
                                             onChange={handleChange}
                                             required
-                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            className="w-full bg-white/5 px-4 py-3 rounded-sm border border-white/10 focus:border-primary focus:ring-0 outline-none transition-all text-white placeholder-white/30 text-sm"
                                             placeholder="John Doe"
                                         />
                                     </div>
@@ -157,7 +157,7 @@ export default function ApplyPage() {
                                             value={formData.email}
                                             onChange={handleChange}
                                             required
-                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            className="w-full bg-white/5 px-4 py-3 rounded-sm border border-white/10 focus:border-primary focus:ring-0 outline-none transition-all text-white placeholder-white/30 text-sm"
                                             placeholder="contact@example.com"
                                         />
                                     </div>
@@ -169,7 +169,7 @@ export default function ApplyPage() {
                                             value={formData.phone}
                                             onChange={handleChange}
                                             required
-                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            className="w-full bg-white/5 px-4 py-3 rounded-sm border border-white/10 focus:border-primary focus:ring-0 outline-none transition-all text-white placeholder-white/30 text-sm"
                                             placeholder="+254 700 000 000"
                                         />
                                     </div>
@@ -181,7 +181,7 @@ export default function ApplyPage() {
                                             value={formData.location}
                                             onChange={handleChange}
                                             required
-                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            className="w-full bg-white/5 px-4 py-3 rounded-sm border border-white/10 focus:border-primary focus:ring-0 outline-none transition-all text-white placeholder-white/30 text-sm"
                                             placeholder="City, Country"
                                         />
                                     </div>
@@ -200,12 +200,12 @@ export default function ApplyPage() {
                                         value={formData.serviceType}
                                         onChange={handleChange}
                                         required
-                                        className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white"
+                                        className="w-full bg-[#1A1A1A] px-4 py-3 rounded-sm border border-white/10 focus:border-primary focus:ring-0 outline-none transition-all text-white text-sm appearance-none cursor-pointer"
                                     >
-                                        <option value="">-- Select Service --</option>
-                                        <option value="hotspot">Hotspot Only</option>
-                                        <option value="pppoe">PPPoE Only</option>
-                                        <option value="both">Both Hotspot & PPPoE</option>
+                                        <option value="" className="bg-[#1A1A1A] text-white">-- Select Service --</option>
+                                        <option value="hotspot" className="bg-[#1A1A1A] text-white">Hotspot Only</option>
+                                        <option value="pppoe" className="bg-[#1A1A1A] text-white">PPPoE Only</option>
+                                        <option value="both" className="bg-[#1A1A1A] text-white">Both Hotspot & PPPoE</option>
                                     </select>
                                 </div>
 
@@ -217,7 +217,7 @@ export default function ApplyPage() {
                                             name="currentUsers"
                                             value={formData.currentUsers}
                                             onChange={handleChange}
-                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            className="w-full bg-white/5 px-4 py-3 rounded-sm border border-white/10 focus:border-primary focus:ring-0 outline-none transition-all text-white placeholder-white/30 text-sm"
                                             placeholder="e.g. 100"
                                         />
                                     </div>
@@ -228,7 +228,7 @@ export default function ApplyPage() {
                                             name="expectedGrowth"
                                             value={formData.expectedGrowth}
                                             onChange={handleChange}
-                                            className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-white placeholder-white/20"
+                                            className="w-full bg-white/5 px-4 py-3 rounded-sm border border-white/10 focus:border-primary focus:ring-0 outline-none transition-all text-white placeholder-white/30 text-sm"
                                             placeholder="e.g. +10%"
                                         />
                                     </div>
@@ -246,7 +246,7 @@ export default function ApplyPage() {
                                         value={formData.message}
                                         onChange={handleChange}
                                         rows="4"
-                                        className="w-full bg-surface-container-low px-4 py-3 rounded-xl border border-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all resize-none text-white placeholder-white/20"
+                                        className="w-full bg-white/5 px-4 py-3 rounded-sm border border-white/10 focus:border-primary focus:ring-0 outline-none transition-all resize-none text-white placeholder-white/30 text-sm"
                                     ></textarea>
                                 </div>
                             </div>
@@ -255,7 +255,7 @@ export default function ApplyPage() {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full bg-primary text-white px-8 py-4 rounded-xl font-medium text-base hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed my-2"
+                                    className="w-full bg-primary text-white px-8 py-5 rounded-sm font-bold text-lg hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed my-2 shadow-xl active:scale-95"
                                 >
                                     {isSubmitting ? 'Submitting...' : 'Submit Application'}
                                 </button>

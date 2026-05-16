@@ -15,14 +15,14 @@ function HotspotCalculator() {
     const totalPrice = baseFee + (overageUnits * overageRate);
 
     return (
-        <div className="bg-surface-container-low rounded-3xl p-8 lg:p-12 border border-white/5 shadow-xl relative overflow-hidden">
-            <h3 className="text-2xl font-semibold mb-8 text-center tracking-tight text-white">Price Calculator</h3>
+        <div className="bg-white/5 rounded-xl p-10 lg:p-14 border border-white/10 shadow-xl relative overflow-hidden">
+            <h3 className="text-2xl font-semibold mb-10 text-center text-white">Price Calculator</h3>
 
             <div className="max-w-md mx-auto space-y-10 relative z-10">
                 <div>
-                    <label className="flex items-center justify-between text-sm font-medium text-white mb-4">
-                        Estimated Concurrent Users: 
-                        <span className="text-primary text-xl tabular-nums">{clients}</span>
+                    <label className="flex items-center justify-between text-sm font-medium text-on-surface-variant mb-4">
+                        Concurrent Users: 
+                        <span className="text-primary text-xl font-bold tabular-nums">{clients}</span>
                     </label>
                     <input
                         type="range"
@@ -31,34 +31,34 @@ function HotspotCalculator() {
                         step="5"
                         value={clients}
                         onChange={(e) => setClients(parseInt(e.target.value))}
-                        className="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary"
+                        className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-primary"
                     />
-                    <div className="flex justify-between mt-3 text-xs text-on-surface-variant font-normal">
-                        <span>0 Users</span>
-                        <span>1000+ Users</span>
+                    <div className="flex justify-between mt-3 text-xs text-on-surface-variant/50">
+                        <span>0</span>
+                        <span>1,000+</span>
                     </div>
                 </div>
 
-                <div className="bg-surface rounded-2xl p-8 border border-white/5">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/5">
                     <div className="flex justify-between items-center mb-5 border-b border-white/5 pb-5">
-                        <span className="text-sm font-medium text-on-surface-variant">Base Fee (Up to 110 users)</span>
-                        <span className="font-semibold text-white tabular-nums">KES 1,499</span>
+                        <span className="text-sm font-medium text-on-surface-variant">Base Fee (110 users)</span>
+                        <span className="font-semibold text-white">KES 1,499</span>
                     </div>
                     {overageUnits > 0 && (
-                        <div className="flex justify-between items-center mb-5 text-sm border-b border-white/5 pb-5">
-                            <span className="text-sm font-medium text-tertiary">Overage ({overageUnits} x KES 8)</span>
-                            <span className="font-semibold text-tertiary tabular-nums">+ KES {overageUnits * overageRate}</span>
+                        <div className="flex justify-between items-center mb-5 border-b border-white/5 pb-5">
+                            <span className="text-sm font-medium text-primary">Overage ({overageUnits} x KES 8)</span>
+                            <span className="font-semibold text-primary">+ KES {(overageUnits * overageRate).toLocaleString()}</span>
                         </div>
                     )}
                     <div className="pt-2 flex justify-between items-center">
                         <span className="text-white font-semibold text-lg">Estimated Total</span>
-                        <div className="text-right">
-                            <span className="text-3xl font-semibold text-primary tabular-nums">KES {totalPrice.toLocaleString()}</span>
-                        </div>
+                        <span className="text-3xl font-bold text-white tabular-nums">KES {totalPrice.toLocaleString()}</span>
                     </div>
                 </div>
 
-                    Predictable billing. You are paying a flat KES 1,499 for the first 110 clients. Any user beyond that is just KES 8 each.
+                <p className="text-center text-sm text-on-surface-variant/70 italic">
+                    Pay a flat KES 1,499 for the first 110 clients. Beyond that, just KES 8 per user.
+                </p>
             </div>
         </div>
     );
@@ -66,24 +66,24 @@ function HotspotCalculator() {
 
 export default function PricingPage() {
     return (
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen bg-[#0A0A0A] text-on-surface">
             <PageHero
                 title="Simple Pricing"
                 subtitle="Transparent pricing built for scaling your network smoothly."
             />
 
-            <section className="py-24 bg-background">
+            <section className="py-24 relative z-10">
                 <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
                     {/* Pricing Cards */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24 max-w-5xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24 max-w-5xl mx-auto">
 
                         {/* Hotspot Pricing */}
                         <motion.div 
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="bg-surface-container-low rounded-3xl p-10 lg:p-14 text-white border border-white/5 transition-all hover:border-white/20 flex flex-col"
+                            className="bg-white/5 border border-white/10 rounded-xl p-10 lg:p-14 text-white flex flex-col group shadow-xl hover:border-white/20 transition-all"
                         >
                             <div className="flex items-center justify-between mb-8">
                                 <h3 className="text-2xl font-semibold tracking-tight">Hotspot Billing</h3>
@@ -92,8 +92,8 @@ export default function PricingPage() {
 
                             <div className="mb-10 border-b border-white/5 pb-8">
                                 <div className="flex items-baseline gap-2 mb-2">
-                                    <span className="text-2xl font-medium text-primary">KES</span>
-                                    <span className="text-5xl lg:text-6xl font-semibold tracking-tight tabular-nums">1,499</span>
+                                    <span className="text-5xl lg:text-6xl font-bold tracking-tight text-white">1,499</span>
+                                    <span className="text-xl font-medium text-white/40">KES / mo</span>
                                 </div>
                                 <p className="text-sm text-on-surface-variant font-normal">Monthly flat fee for up to 110 users</p>
                             </div>
@@ -106,7 +106,7 @@ export default function PricingPage() {
                                     "Integrated STK Push Included",
                                     "24/7 technical support"
                                 ].map((feature, i) => (
-                                    <div key={i} className="flex items-start gap-4 text-sm font-normal text-white">
+                                    <div key={i} className="flex items-start gap-4 text-sm font-normal text-white/80">
                                         <span className="material-symbols-outlined text-primary text-lg">check</span>
                                         {feature}
                                     </div>
@@ -114,7 +114,7 @@ export default function PricingPage() {
                             </div>
 
                             <Link href="/apply">
-                                <button className="w-full bg-primary text-white border-transparent px-6 py-4 rounded-xl font-medium text-base hover:bg-primary/90 transition-all border">
+                                <button className="w-full bg-primary text-white px-6 py-4 rounded-xl font-medium text-base hover:bg-primary/90 transition-all border border-transparent">
                                     Get Started
                                 </button>
                             </Link>
@@ -126,17 +126,17 @@ export default function PricingPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="bg-primary-container rounded-3xl p-10 lg:p-14 text-white border border-primary/40 transition-all flex flex-col shadow-xl"
+                            className="bg-primary text-white rounded-3xl p-10 lg:p-14 flex flex-col shadow-2xl"
                         >
                             <div className="flex items-center justify-between mb-8">
                                 <h3 className="text-2xl font-semibold tracking-tight">PPPoE Management</h3>
-                                <span className="material-symbols-outlined text-3xl text-white">router</span>
+                                <span className="material-symbols-outlined text-3xl text-white/40">router</span>
                             </div>
 
                             <div className="mb-10 border-b border-white/20 pb-8">
                                 <div className="flex items-baseline gap-2 mb-2">
-                                    <span className="text-2xl font-medium text-white">KES</span>
-                                    <span className="text-5xl lg:text-6xl font-semibold tracking-tight tabular-nums">28</span>
+                                    <span className="text-5xl lg:text-6xl font-bold tracking-tight">28</span>
+                                    <span className="text-xl font-medium text-white/60">KES / user</span>
                                 </div>
                                 <p className="text-sm text-white/70 font-normal">Per active concurrent session / month</p>
                             </div>
@@ -149,7 +149,7 @@ export default function PricingPage() {
                                     "Hardware independent setups",
                                     "Automated disconnection logic"
                                 ].map((feature, i) => (
-                                    <div key={i} className="flex items-start gap-4 text-sm font-normal text-white">
+                                    <div key={i} className="flex items-start gap-4 text-sm font-normal text-white/90">
                                         <span className="material-symbols-outlined text-white text-lg">check</span>
                                         {feature}
                                     </div>
@@ -157,37 +157,17 @@ export default function PricingPage() {
                             </div>
 
                             <Link href="/apply">
-                                <button className="w-full bg-white text-primary-container border-transparent px-6 py-4 rounded-xl font-medium text-base hover:bg-gray-100 transition-all">
+                                <button className="w-full bg-white text-primary px-6 py-4 rounded-xl font-medium text-base hover:bg-gray-100 transition-all border border-transparent">
                                     Get Started
                                 </button>
                             </Link>
                         </motion.div>
                     </div>
 
-                    {/* Combined Package - Sovereign Tier */}
+                    {/* Calculator tool */}
                     <motion.div 
                         initial={{ opacity: 0, scale: 0.98 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        className="bg-surface-container-low rounded-3xl p-12 lg:p-16 text-white border border-white/5 text-center mb-32 max-w-5xl mx-auto"
-                    >
-                        <div className="max-w-3xl mx-auto">
-                            <h3 className="text-3xl font-semibold mb-4 tracking-tight text-white">Unified Billing Package</h3>
-                            <p className="text-lg text-on-surface-variant mb-12 font-normal leading-relaxed">
-                                Need both services? Manage Hotspot profiles and PPPoE authentication all under a single dashboard panel.
-                            </p>
-                            <Link href="/apply">
-                                <button className="bg-primary text-white border-transparent px-10 py-4 rounded-xl font-medium text-base hover:bg-primary/90 transition-all shadow-md">
-                                    Get Started
-                                </button>
-                            </Link>
-                        </div>
-                    </motion.div>
-
-                    {/* Calculator tool */}
-                    <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
                         <div className="max-w-3xl mx-auto">
