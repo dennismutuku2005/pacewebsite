@@ -194,10 +194,10 @@ export default function Home() {
                             <h3 className="text-xl font-bold mb-8 text-white">Hotspot Billing</h3>
                             <div className="mb-10">
                                 <div className="flex items-baseline gap-2 mb-2">
-                                    <span className="text-4xl font-bold text-white">KES 1,499</span>
+                                    <span className="text-4xl font-bold text-white">KES 1,500</span>
                                     <span className="text-sm text-on-surface-variant">/mo</span>
                                 </div>
-                                <p className="text-sm text-on-surface-variant">First 110 clients. Then <span className="text-white font-bold">KES 8</span> per extra user.</p>
+                                <p className="text-sm text-on-surface-variant">First 110 clients. Then <span className="text-white font-bold">KES 13</span> per extra user.</p>
                             </div>
                             <ul className="space-y-4 mb-10 flex-grow">
                                 {[
