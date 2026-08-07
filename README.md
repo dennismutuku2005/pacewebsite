@@ -1,7 +1,6 @@
-﻿<p align="center">
-  <img src="public/logo.png" alt="PACE Website Logo" width="140" />
-</p>
+﻿<div align="center">
+  <img src="public/logo.png" alt="PACE Website Logo" width="240" />
 
-PACE Website is the public Next.js site for PACE WISP.
-
-Copyright PACE WISP 2026
+  <p>PACE Website is the public Next.js site for PACE WISP.</p>
+  <p>Copyright PACE WISP 2026</p>
+</div>
