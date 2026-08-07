@@ -28,96 +28,102 @@ export default function Home() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#0A0A0A] text-on-surface overflow-hidden">
+        <div className="min-h-screen bg-[#06070A] text-on-surface overflow-hidden relative">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(75,29,143,0.28),_transparent_36%),radial-gradient(circle_at_85%_15%,_rgba(98,255,173,0.12),_transparent_24%)]" />
+
             {/* HERO SECTION */}
-            <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex flex-col justify-center">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full relative z-10 flex flex-col lg:flex-row items-center gap-16">
-                    <div className="lg:w-1/2 z-20">
-                        <motion.div 
-                            initial={{ opacity: 0, y: 30 }}
+            <section className="relative min-h-screen flex items-center pt-24 pb-20 lg:pt-32 lg:pb-24 overflow-hidden">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full relative z-10">
+                    <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-center">
+                        <motion.div
+                            initial={{ opacity: 0, y: 24 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            transition={{ duration: 0.7, ease: 'easeOut' }}
+                            className="max-w-2xl"
                         >
-                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-8 text-white">
-                                Reliable Control <br/>
-                                <span className="text-primary">for ISP Billing</span>
+                            <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05] text-white">
+                                Reliable control <br />
+                                <span className="text-primary">for ISP billing</span>
                             </h1>
-                            <p className="text-on-surface-variant text-lg md:text-xl max-w-xl mb-10 leading-relaxed font-normal">
-                                Orchestrate PPPoE, Hotspot Billing, and Network Operations with an intuitive ledger. Fully integrated and ready for scale.
+                            <p className="mt-6 text-lg text-on-surface-variant leading-8 max-w-xl">
+                                Orchestrate PPPoE, Hotspot billing, and network operations with a calmer, more focused workflow.
                             </p>
-                            <div className="flex flex-wrap gap-4">
+                            <div className="mt-8 flex flex-wrap gap-3">
                                 <Link href="/apply">
-                                    <button className="px-10 py-4 bg-primary text-white rounded-lg font-bold transition-all hover:bg-primary/90 shadow-xl">
+                                    <button className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-primary/90">
                                         Get Started
                                     </button>
                                 </Link>
                                 <Link href="/features">
-                                    <button className="px-10 py-4 bg-white/5 text-white border border-white/10 rounded-lg font-bold backdrop-blur-md hover:bg-white/10 transition-all">
-                                        Features
+                                    <button className="rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white/90 backdrop-blur-md transition hover:bg-white/10">
+                                        Explore Features
                                     </button>
                                 </Link>
                             </div>
                         </motion.div>
-                    </div>
 
-                    <motion.div 
-                        initial={{ opacity: 0, x: 100 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-                        className="lg:w-[90%] lg:absolute lg:-right-[45%] relative mt-16 lg:mt-0"
-                    >
-                        <div className="relative z-10 rounded-none overflow-hidden border-y border-l border-white/10 shadow-[0_0_120px_rgba(75,29,143,0.2)]">
-                            <Image 
-                                src="/hero.png" 
-                                alt="PACE Dashboard" 
-                                width={1600}
-                                height={1000}
-                                className="w-full h-auto object-cover"
-                                priority
-                            />
-                        </div>
-                    </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, x: 24 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
+                            className="lg:w-[90%] lg:absolute lg:-right-[45%] relative mt-16 lg:mt-0"
+                        >
+                            <div className="relative z-10 overflow-hidden border-y border-l border-white/10 shadow-[0_0_120px_rgba(75,29,143,0.2)]">
+                                <Image
+                                    src="/hero.png"
+                                    alt="PACE Dashboard"
+                                    width={1600}
+                                    height={1000}
+                                    className="w-full h-auto object-cover"
+                                    priority
+                                />
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 
             {/* TRUSTED PARTNERS */}
-            <section className="py-40 relative z-10 border-y border-white/5 bg-[#0D0D0D]">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                    <p className="text-[10px] font-bold mb-16 text-center text-white/20 tracking-[0.4em] uppercase">Industry Standard Infrastructure</p>
-                    <div className="flex flex-wrap justify-center items-center gap-16 lg:gap-40 opacity-90">
-                        <Image src="/cloudflare.png" alt="Cloudflare" width={240} height={80} className="h-14 lg:h-20 w-auto object-contain" />
-                        <Image src="/digitalocean.png" alt="DigitalOcean" width={280} height={80} className="h-16 lg:h-24 w-auto object-contain" />
-                        <Image src="/safaricom.png" alt="Safaricom" width={240} height={80} className="h-16 lg:h-24 w-auto object-contain" />
+            <section className="relative z-10 min-h-screen flex items-center border-y border-white/5 bg-white/[0.025] py-14">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
+                    <p className="mb-8 text-center text-[11px] font-medium uppercase tracking-[0.35em] text-white/35">
+                        Industry standard infrastructure
+                    </p>
+                    <div className="flex flex-wrap justify-center items-center gap-10 sm:gap-14 lg:gap-20 opacity-100">
+                        <Image src="/cloudflare.png" alt="Cloudflare" width={240} height={80} className="h-16 sm:h-20 lg:h-24 w-auto max-w-[220px] object-contain" />
+                        <Image src="/digitalocean.png" alt="DigitalOcean" width={280} height={80} className="h-16 sm:h-20 lg:h-24 w-auto max-w-[260px] object-contain" />
+                        <Image src="/safaricom.png" alt="Safaricom" width={240} height={80} className="h-16 sm:h-20 lg:h-24 w-auto max-w-[220px] object-contain" />
                     </div>
                 </div>
             </section>
 
             {/* NETWORK VIEW SECTION */}
-            <section className="py-32 relative z-10 overflow-hidden">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                    <div className="grid lg:grid-cols-2 gap-24 items-center">
+            <section className="relative z-10 min-h-screen flex items-center overflow-hidden py-20 lg:py-24">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
+                    <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-10 lg:gap-16 items-center">
                         <motion.div
-                            initial={{ opacity: 0, x: -50 }}
+                            initial={{ opacity: 0, x: -24 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                         >
-                            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8 text-white leading-tight">
-                                Real-time <br/>Infrastructure <span className="text-primary">Intelligence</span>
+                            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-5 text-white leading-tight">
+                                Real-time <br />
+                                <span className="text-primary">infrastructure intelligence</span>
                             </h2>
-                            <p className="text-on-surface-variant text-lg leading-relaxed font-normal mb-10">
-                                Every session, every connection, every heartbeat. We monitor your network hierarchy so you can focus on expansion.
+                            <p className="text-lg leading-8 text-on-surface-variant">
+                                Every session, every connection, and every heartbeat is visible in one place.
                             </p>
                         </motion.div>
-                        <motion.div 
-                            initial={{ opacity: 0, x: 100 }}
+                        <motion.div
+                            initial={{ opacity: 0, x: 24 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             className="lg:w-[90%] lg:absolute lg:-right-[45%] relative mt-16 lg:mt-0"
                         >
-                            <div className="rounded-none overflow-hidden border-y border-l border-white/10 shadow-2xl">
-                                <Image 
-                                    src="/entries.png" 
-                                    alt="Live Entries" 
+                            <div className="overflow-hidden border-y border-l border-white/10 shadow-2xl">
+                                <Image
+                                    src="/entries.png"
+                                    alt="Live Entries"
                                     width={1200}
                                     height={800}
                                     className="w-full h-auto"
@@ -129,49 +135,51 @@ export default function Home() {
             </section>
 
             {/* SERVICES BENTO GRID */}
-            <section className="py-32 relative z-10 bg-[#0F0F0F]/50 backdrop-blur-3xl border-y border-white/5">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                    <div className="mb-20">
-                        <h2 className="text-4xl font-bold text-white tracking-tight mb-4">Core Ecosystem</h2>
-                        <p className="text-on-surface-variant text-lg font-normal">Everything you need to run a high-performance ISP.</p>
+            <section className="relative z-10 min-h-screen flex items-center border-y border-white/5 bg-white/[0.025] py-20 lg:py-24">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
+                    <div className="mb-10 max-w-2xl">
+                        <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white">Core Ecosystem</h2>
+                        <p className="mt-3 text-lg text-on-surface-variant">
+                            Everything you need to run a high-performance ISP, wrapped in a calmer experience.
+                        </p>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="md:col-span-2 p-12 bg-white/5 border border-white/10 rounded-xl">
-                            <div className="w-14 h-14 bg-primary/20 rounded-xl flex items-center justify-center text-primary mb-8">
-                                <span className="material-symbols-outlined text-3xl">terminal</span>
+                    <div className="grid gap-4 md:grid-cols-3">
+                        <div className="md:col-span-2 rounded-[24px] border border-white/10 bg-white/[0.05] p-8 shadow-[0_10px_40px_rgba(0,0,0,0.18)]">
+                            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/15 text-primary">
+                                <span className="material-symbols-outlined text-2xl">terminal</span>
                             </div>
-                            <h3 className="text-2xl font-bold mb-6 text-white">PPPoE Orchestration</h3>
-                            <p className="text-on-surface-variant text-lg leading-relaxed font-normal max-w-md">
-                                Automated subscriber provisioning with precise bandwidth shaping. Native VLAN support and real-time disconnection logic.
+                            <h3 className="text-xl font-semibold text-white">PPPoE orchestration</h3>
+                            <p className="mt-3 max-w-md text-base leading-7 text-on-surface-variant">
+                                Automated provisioning, precise shaping, and real-time disconnect logic for modern network teams.
                             </p>
                         </div>
-                        
-                        <div className="p-12 bg-primary text-white rounded-xl shadow-xl flex flex-col justify-between">
+
+                        <div className="rounded-[24px] bg-primary p-8 text-white shadow-[0_20px_60px_rgba(75,29,143,0.25)]">
+                            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/20">
+                                <span className="material-symbols-outlined text-2xl">payments</span>
+                            </div>
+                            <h3 className="text-xl font-semibold">M-Pesa native</h3>
+                            <p className="mt-3 text-sm leading-7 text-white/80">
+                                Direct STK push integration keeps billing flowing and sessions activating in seconds.
+                            </p>
+                        </div>
+
+                        <div className="rounded-[24px] border border-white/10 bg-white/[0.05] p-8">
+                            <h3 className="text-lg font-semibold text-white">Smart graphing</h3>
+                            <p className="mt-3 text-base leading-7 text-on-surface-variant">
+                                Deep visibility into bandwidth usage and hardware health without clutter.
+                            </p>
+                        </div>
+
+                        <div className="md:col-span-2 flex flex-col justify-between gap-6 rounded-[24px] border border-white/10 bg-white/[0.05] p-8 md:flex-row md:items-center">
                             <div>
-                                <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center mb-8">
-                                    <span className="material-symbols-outlined text-3xl">payments</span>
-                                </div>
-                                <h3 className="text-2xl font-bold mb-4">M-Pesa Native</h3>
-                                <p className="text-white/80 leading-relaxed font-normal">
-                                    Direct STK Push integration. Payments settle and sessions activate in seconds.
+                                <h3 className="text-2xl font-semibold text-white">Scale effortlessly</h3>
+                                <p className="mt-2 max-w-md text-base leading-7 text-on-surface-variant">
+                                    Move from a handful of subscribers to thousands without changing your management workflow.
                                 </p>
                             </div>
-                        </div>
-
-                        <div className="p-12 bg-white/5 border border-white/10 rounded-xl">
-                            <h3 className="text-xl font-bold mb-4 text-white">Smart Graphing</h3>
-                            <p className="text-on-surface-variant leading-relaxed font-normal">
-                                Deep visibility into bandwidth usage and hardware health.
-                            </p>
-                        </div>
-
-                        <div className="md:col-span-2 p-12 bg-white/5 border border-white/10 rounded-xl flex flex-col md:flex-row items-center justify-between gap-12">
-                            <div>
-                                <h3 className="text-3xl font-bold mb-4 text-white">Scale Effortlessly</h3>
-                                <p className="text-on-surface-variant text-lg font-normal max-w-sm">From 10 to 10,000+ users without changing your management workflow.</p>
-                            </div>
                             <Link href="/apply">
-                                <button className="px-10 py-4 bg-white text-black rounded-lg font-bold hover:scale-105 transition-all shadow-xl">
+                                <button className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5">
                                     Apply Now
                                 </button>
                             </Link>
@@ -181,58 +189,60 @@ export default function Home() {
             </section>
 
             {/* PRICING SECTION */}
-            <section className="py-32 relative z-10">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                    <div className="text-center mb-24">
-                        <h2 className="text-5xl font-bold tracking-tight text-white mb-6">Designed for Growth</h2>
-                        <p className="text-on-surface-variant text-xl font-normal">Simple, predictable, and transparent.</p>
+            <section className="relative z-10 min-h-screen flex items-center py-20 lg:py-24">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
+                    <div className="mb-12 text-center">
+                        <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white">Designed for growth</h2>
+                        <p className="mt-3 text-lg text-on-surface-variant">Simple, predictable, and transparent.</p>
                     </div>
-                    
-                    <div className="grid md:grid-cols-2 max-w-5xl mx-auto gap-8">
-                        {/* Hotspot */}
-                        <div className="p-10 bg-white/5 border border-white/10 rounded-lg flex flex-col hover:border-white/20 transition-all shadow-xl">
-                            <h3 className="text-xl font-bold mb-8 text-white">Hotspot Billing</h3>
-                            <div className="mb-10">
-                                <div className="flex items-baseline gap-2 mb-2">
-                                    <span className="text-4xl font-bold text-white">KES 1,500</span>
+
+                    <div className="mx-auto grid max-w-5xl gap-5 md:grid-cols-2">
+                        <div className="flex flex-col rounded-[24px] border border-white/10 bg-white/[0.05] p-8 shadow-[0_10px_40px_rgba(0,0,0,0.16)]">
+                            <h3 className="text-xl font-semibold text-white">Hotspot billing</h3>
+                            <div className="mt-8">
+                                <div className="flex items-baseline gap-2">
+                                    <span className="text-4xl font-semibold text-white">KES 1,500</span>
                                     <span className="text-sm text-on-surface-variant">/mo</span>
                                 </div>
-                                <p className="text-sm text-on-surface-variant">First 110 clients. Then <span className="text-white font-bold">KES 13</span> per extra user.</p>
+                                <p className="mt-2 text-sm text-on-surface-variant">
+                                    First 110 clients. Then <span className="font-semibold text-white">KES 13</span> per extra user.
+                                </p>
                             </div>
-                            <ul className="space-y-4 mb-10 flex-grow">
+                            <ul className="mt-8 flex-grow space-y-3">
                                 {[
-                                    "Unlimited Voucher Generation",
-                                    "Automated STK Verification",
-                                    "Real-time Session Control",
-                                    "Daily Income Ledgers"
+                                    "Unlimited voucher generation",
+                                    "Automated STK verification",
+                                    "Real-time session control",
+                                    "Daily income ledgers"
                                 ].map((f, i) => (
-                                    <li key={i} className="flex items-center gap-3 text-sm text-white/70">
+                                    <li key={i} className="flex items-center gap-3 text-sm text-white/75">
                                         <span className="material-symbols-outlined text-primary text-lg">check</span>
                                         {f}
                                     </li>
                                 ))}
                             </ul>
                             <Link href="/apply">
-                                <button className="w-full py-4 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-all">Get Started</button>
+                                <button className="mt-8 w-full rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary/90">
+                                    Get Started
+                                </button>
                             </Link>
                         </div>
-                        
-                        {/* PPPoE */}
-                        <div className="p-10 bg-primary text-white rounded-lg flex flex-col shadow-2xl">
-                            <h3 className="text-xl font-bold mb-8">PPPoE Enterprise</h3>
-                            <div className="mb-10">
-                                <div className="flex items-baseline gap-2 mb-2">
-                                    <span className="text-4xl font-bold">KES 28</span>
+
+                        <div className="flex flex-col rounded-[24px] bg-primary p-8 text-white shadow-[0_20px_60px_rgba(75,29,143,0.28)]">
+                            <h3 className="text-xl font-semibold">PPPoE enterprise</h3>
+                            <div className="mt-8">
+                                <div className="flex items-baseline gap-2">
+                                    <span className="text-4xl font-semibold">KES 28</span>
                                     <span className="text-sm text-white/70">/user</span>
                                 </div>
-                                <p className="text-sm text-white/70">Per active concurrent session.</p>
+                                <p className="mt-2 text-sm text-white/70">Per active concurrent session.</p>
                             </div>
-                            <ul className="space-y-4 mb-10 flex-grow">
+                            <ul className="mt-8 flex-grow space-y-3">
                                 {[
-                                    "Dynamic Queue Management",
-                                    "Self-Service Client Portal",
-                                    "Auto-Suspension Logic",
-                                    "Mikrotik API Integration"
+                                    "Dynamic queue management",
+                                    "Self-service client portal",
+                                    "Auto-suspension logic",
+                                    "Mikrotik API integration"
                                 ].map((f, i) => (
                                     <li key={i} className="flex items-center gap-3 text-sm text-white/90">
                                         <span className="material-symbols-outlined text-lg">check</span>
@@ -241,7 +251,9 @@ export default function Home() {
                                 ))}
                             </ul>
                             <Link href="/apply">
-                                <button className="w-full py-4 bg-white text-primary font-bold rounded-lg hover:bg-gray-100 transition-all">Get Started</button>
+                                <button className="mt-8 w-full rounded-full bg-white px-5 py-3 text-sm font-semibold text-primary transition hover:bg-gray-100">
+                                    Get Started
+                                </button>
                             </Link>
                         </div>
                     </div>
@@ -249,33 +261,35 @@ export default function Home() {
             </section>
 
             {/* FAQ */}
-            <section className="py-32 max-w-3xl mx-auto px-6 lg:px-12 relative z-10">
-                <div className="text-center mb-24">
-                    <h2 className="text-4xl font-bold text-white tracking-tight">Intelligence Base</h2>
+            <section className="relative z-10 min-h-screen flex items-center mx-auto max-w-3xl px-6 py-20 lg:px-12">
+                <div className="w-full mb-10 text-center">
+                    <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white">Intelligence base</h2>
                 </div>
-                
-                <div className="space-y-4">
+
+                <div className="space-y-3">
                     {faqs.map((faq, index) => (
-                        <div 
+                        <div
                             key={index}
-                            className="bg-white/5 border border-white/10 rounded-xl overflow-hidden"
+                            className="overflow-hidden rounded-[20px] border border-white/10 bg-white/[0.05]"
                         >
-                            <button 
+                            <button
                                 onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
-                                className="w-full flex items-center justify-between p-8 text-left group"
+                                className="flex w-full items-center justify-between p-6 text-left"
                             >
-                                <span className={`font-bold transition-colors ${openFaq === index ? 'text-primary' : 'text-white'}`}>{faq.question}</span>
-                                <span className={`material-symbols-outlined transition-transform duration-300 ${openFaq === index ? 'rotate-180 text-primary' : 'text-white/20'}`}>
+                                <span className={`font-medium transition-colors ${openFaq === index ? 'text-primary' : 'text-white'}`}>
+                                    {faq.question}
+                                </span>
+                                <span className={`material-symbols-outlined transition-transform duration-300 ${openFaq === index ? 'rotate-180 text-primary' : 'text-white/25'}`}>
                                     expand_more
                                 </span>
                             </button>
                             <AnimatePresence>
                                 {openFaq === index && (
-                                    <motion.div 
+                                    <motion.div
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: 'auto', opacity: 1 }}
                                         exit={{ height: 0, opacity: 0 }}
-                                        className="px-8 pb-8 text-white/60 font-normal leading-relaxed"
+                                        className="px-6 pb-6 text-sm leading-7 text-white/70"
                                     >
                                         {faq.answer}
                                     </motion.div>
@@ -287,15 +301,15 @@ export default function Home() {
             </section>
 
             {/* FOOTER CTA */}
-            <section className="py-40 text-center relative z-10">
+            <section className="relative z-10 min-h-screen flex items-center justify-center py-16 text-center">
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    className="max-w-4xl mx-auto px-6"
+                    className="mx-auto max-w-4xl px-6"
                 >
-                    <h2 className="text-5xl md:text-6xl font-bold text-white tracking-tight mb-12">Ready to PACE?</h2>
+                    <h2 className="mb-8 text-4xl sm:text-5xl font-semibold tracking-tight text-white">Ready to PACE?</h2>
                     <Link href="/apply">
-                        <button className="px-12 py-5 bg-primary text-white rounded-lg font-bold text-lg hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/40">
+                        <button className="rounded-full bg-primary px-8 py-4 text-lg font-semibold text-white transition hover:-translate-y-0.5 hover:bg-primary/90">
                             Apply for Access
                         </button>
                     </Link>
