@@ -261,42 +261,44 @@ export default function Home() {
             </section>
 
             {/* FAQ */}
-            <section className="relative z-10 min-h-screen flex items-center mx-auto max-w-3xl px-6 py-20 lg:px-12">
-                <div className="w-full mb-10 text-center">
-                    <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white">Intelligence base</h2>
-                </div>
+            <section className="relative z-10 min-h-screen flex items-center mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-12">
+                <div className="w-full">
+                    <div className="mb-6 text-center sm:mb-8">
+                        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">Intelligence base</h2>
+                    </div>
 
-                <div className="space-y-3">
-                    {faqs.map((faq, index) => (
-                        <div
-                            key={index}
-                            className="overflow-hidden rounded-[20px] border border-white/10 bg-white/[0.05]"
-                        >
-                            <button
-                                onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
-                                className="flex w-full items-center justify-between p-6 text-left"
+                    <div className="space-y-2 sm:space-y-3">
+                        {faqs.map((faq, index) => (
+                            <div
+                                key={index}
+                                className="overflow-hidden rounded-[16px] border border-white/10 bg-white/[0.05]"
                             >
-                                <span className={`font-medium transition-colors ${openFaq === index ? 'text-primary' : 'text-white'}`}>
-                                    {faq.question}
-                                </span>
-                                <span className={`material-symbols-outlined transition-transform duration-300 ${openFaq === index ? 'rotate-180 text-primary' : 'text-white/25'}`}>
-                                    expand_more
-                                </span>
-                            </button>
-                            <AnimatePresence>
-                                {openFaq === index && (
-                                    <motion.div
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: 'auto', opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        className="px-6 pb-6 text-sm leading-7 text-white/70"
-                                    >
-                                        {faq.answer}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    ))}
+                                <button
+                                    onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
+                                    className="flex w-full items-center justify-between gap-3 p-4 text-left sm:p-5"
+                                >
+                                    <span className={`text-sm font-medium leading-6 transition-colors sm:text-base ${openFaq === index ? 'text-primary' : 'text-white'}`}>
+                                        {faq.question}
+                                    </span>
+                                    <span className={`flex-shrink-0 material-symbols-outlined text-lg transition-transform duration-300 sm:text-xl ${openFaq === index ? 'rotate-180 text-primary' : 'text-white/25'}`}>
+                                        expand_more
+                                    </span>
+                                </button>
+                                <AnimatePresence>
+                                    {openFaq === index && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            className="px-4 pb-4 text-sm leading-7 text-white/70 sm:px-5 sm:pb-5"
+                                        >
+                                            {faq.answer}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
 
