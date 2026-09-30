@@ -37,13 +37,13 @@ export default function Blog() {
 
     if (isLoading) {
         return (
-            <div className="bg-background min-h-screen flex items-center justify-center">
+            <div className="bg-[#08090E] min-h-screen flex items-center justify-center font-inter">
                 <div className="flex flex-col items-center gap-4">
-                    <span className="relative flex h-4 w-4">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-4 w-4 bg-primary"></span>
+                    <span className="relative flex h-5 w-5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-500 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-5 w-5 bg-purple-600"></span>
                     </span>
-                    <div className="text-sm font-medium text-primary">Loading block...</div>
+                    <div className="text-xs uppercase tracking-wider font-semibold text-purple-400">Loading articles...</div>
                 </div>
             </div>
         );
@@ -51,39 +51,40 @@ export default function Blog() {
 
     if (selectedPost) {
         return (
-            <div className="bg-background min-h-screen">
+            <div className="bg-[#08090E] min-h-screen font-inter text-slate-200">
                 <PageHero
+                    badge="Article"
                     title={selectedPost.title}
-                    subtitle={`Posted by ${selectedPost.author || 'Admin'} • ${new Date(selectedPost.created_at).toISOString().split('T')[0]}`}
+                    subtitle={`Published by ${selectedPost.author || 'PACE Engineering'} • ${new Date(selectedPost.created_at).toISOString().split('T')[0]}`}
                 />
 
-                <article className="max-w-4xl mx-auto px-6 lg:px-12 py-24">
+                <article className="max-w-4xl mx-auto px-6 lg:px-12 py-20">
                     <button
                         onClick={handleBackToList}
-                        className="inline-flex items-center gap-2 text-on-surface-variant hover:text-white font-medium text-sm mb-12 transition-colors group"
+                        className="inline-flex items-center gap-2 text-slate-400 hover:text-white font-medium text-xs uppercase tracking-wider mb-10 transition-colors group cursor-pointer"
                     >
                         <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back</span>
-                        Back to Posts
+                        Back to Articles
                     </button>
 
                     {selectedPost.image && (
-                        <div className="mb-12 rounded-2xl overflow-hidden border border-white/5 shadow-lg relative">
+                        <div className="mb-10 rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative">
                             <img src={selectedPost.image} alt={selectedPost.title} className="w-full h-auto object-cover max-h-[500px]" />
                         </div>
                     )}
 
-                    <div className="prose prose-invert prose-lg max-w-none prose-headings:font-semibold prose-p:font-normal prose-p:leading-relaxed prose-a:text-primary hover:prose-a:text-primary/80 prose-strong:text-white">
+                    <div className="prose prose-invert prose-lg max-w-none prose-headings:font-semibold prose-headings:text-white prose-p:font-normal prose-p:leading-relaxed prose-p:text-slate-300 prose-a:text-purple-400 hover:prose-a:text-purple-300 prose-strong:text-white">
                         <div dangerouslySetInnerHTML={{ __html: selectedPost.content }} />
                     </div>
 
-                    <div className="mt-24 pt-10 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-6">
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-xl bg-surface-container-highest border border-white/5 flex items-center justify-center text-primary">
-                                <span className="material-symbols-outlined">person</span>
+                    <div className="mt-16 pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row justify-between items-center gap-6">
+                        <div className="flex items-center gap-3.5">
+                            <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+                                <span className="material-symbols-outlined text-xl">person</span>
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-white">{selectedPost.author || 'Admin'}</p>
-                                <p className="text-xs text-on-surface-variant">Author</p>
+                                <p className="text-sm font-semibold text-white">{selectedPost.author || 'PACE Team'}</p>
+                                <p className="text-xs text-slate-400">Author</p>
                             </div>
                         </div>
 
@@ -96,7 +97,7 @@ export default function Blog() {
                                     });
                                 }
                             }}
-                            className="flex items-center gap-2 px-6 py-3 bg-surface-container-low border border-white/5 rounded-xl text-white font-medium hover:bg-white/5 transition-all text-sm"
+                            className="flex items-center gap-2 px-5 py-2.5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-xl text-white font-medium text-xs uppercase tracking-wider transition-all cursor-pointer"
                         >
                             <span className="material-symbols-outlined text-sm">share</span>
                             Share
@@ -108,54 +109,55 @@ export default function Blog() {
     }
 
     return (
-        <div className="bg-background min-h-screen">
+        <div className="bg-[#08090E] min-h-screen font-inter text-slate-200">
             <PageHero
-                title="Pace Blog"
-                subtitle="Updates, features, and stories from our team."
+                badge="Engineering & Updates"
+                title="PACE Insights & Blog"
+                subtitle="Technical deep dives, ISP business guides, and product updates from the PACE team."
             />
 
-            <div className="max-w-7xl mx-auto px-6 lg:px-12 py-24">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
                 {blogPosts.length === 0 ? (
-                    <div className="text-center py-20 bg-surface-container-low border border-white/5 rounded-3xl">
-                        <div className="text-base font-normal text-on-surface-variant">No posts available.</div>
+                    <div className="text-center py-20 bg-[#0E111C]/80 border border-white/10 rounded-3xl max-w-2xl mx-auto shadow-xl">
+                        <div className="text-sm font-normal text-slate-400">No blog posts published yet. Stay tuned!</div>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {blogPosts.map((post, index) => (
                             <motion.div 
                                 key={post.id} 
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
-                                className="group bg-surface-container-low border border-white/5 rounded-2xl overflow-hidden flex flex-col cursor-pointer transition-all hover:border-white/20" 
+                                transition={{ delay: index * 0.08 }}
+                                className="group bg-[#0E111C]/80 border border-white/10 rounded-2xl overflow-hidden flex flex-col cursor-pointer transition-all hover:border-purple-500/30 hover:shadow-[0_10px_40px_rgba(139,92,246,0.12)]" 
                                 onClick={() => handlePostClick(post)}
                             >
-                                <div className="h-56 w-full relative overflow-hidden bg-surface-container-highest border-b border-white/5">
+                                <div className="h-48 w-full relative overflow-hidden bg-white/[0.02] border-b border-white/[0.08]">
                                     {post.image ? (
                                         <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500 relative z-0" />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-on-surface-variant/30 relative z-0">
+                                        <div className="w-full h-full flex items-center justify-center text-slate-600 relative z-0">
                                             <span className="material-symbols-outlined text-4xl">description</span>
                                         </div>
                                     )}
                                 </div>
-                                <div className="flex-1 flex flex-col p-8">
-                                    <div className="flex items-center gap-2 text-xs font-medium text-on-surface-variant mb-3">
+                                <div className="flex-1 flex flex-col p-6">
+                                    <div className="flex items-center gap-2 text-[11px] font-medium text-slate-400 mb-2.5">
                                         <span>{post.author || 'Admin'}</span>
-                                        <span className="text-primary">•</span>
+                                        <span className="text-purple-400">•</span>
                                         <span>{new Date(post.created_at).toISOString().split('T')[0]}</span>
                                     </div>
-                                    <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-primary transition-colors tracking-tight">
+                                    <h3 className="text-lg font-semibold text-white mb-2.5 group-hover:text-purple-300 transition-colors tracking-tight line-clamp-2">
                                         {post.title}
                                     </h3>
                                     <div
-                                        className="text-on-surface-variant font-normal leading-relaxed line-clamp-3 text-sm max-w-none mb-6 flex-1"
+                                        className="text-slate-300/80 font-normal leading-relaxed line-clamp-3 text-xs mb-5 flex-1"
                                         dangerouslySetInnerHTML={{ __html: post.excerpt || post.content }}
                                     />
-                                    <div className="text-primary font-medium text-sm flex items-center gap-2 group/btn mt-auto">
-                                        Read Post
-                                        <span className="material-symbols-outlined text-sm transform group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                                    <div className="text-purple-400 font-medium text-xs uppercase tracking-wider flex items-center gap-1.5 group/btn mt-auto">
+                                        <span>Read Article</span>
+                                        <span className="transform group-hover/btn:translate-x-1 transition-transform">&rarr;</span>
                                     </div>
                                 </div>
                             </motion.div>

@@ -1,22 +1,26 @@
-export default function PageHero({ title, subtitle }) {
+export default function PageHero({ title, subtitle, badge }) {
     return (
-        <div className="bg-primary-container text-white pt-48 pb-24 lg:pt-60 lg:pb-32 relative overflow-hidden">
-            {/* Structural glow and grain */}
-            <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/10 blur-[150px] rounded-full pointer-events-none translate-x-1/3"></div>
+        <div className="bg-[#08090E] text-white pt-36 pb-20 lg:pt-44 lg:pb-24 relative overflow-hidden font-inter border-b border-white/[0.06]">
+            {/* Ambient Background Glows */}
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_-10%,rgba(139,92,246,0.18),transparent_70%)]" />
+            <div className="pointer-events-none absolute top-1/4 right-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[140px]" />
+            <div className="pointer-events-none absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-600/8 rounded-full blur-[120px]" />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 text-center lg:text-left">
-                <h1 className="text-4xl lg:text-6xl font-semibold mb-6 tracking-tight animate-in fade-in slide-in-from-bottom-4 duration-700">
+                {badge && (
+                    <span className="inline-block text-xs font-semibold uppercase tracking-wider text-purple-400 mb-3 px-3 py-1 rounded-full border border-purple-500/20 bg-purple-500/10">
+                        {badge}
+                    </span>
+                )}
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold mb-5 tracking-tight text-white leading-tight">
                     {title}
                 </h1>
                 {subtitle && (
-                    <p className="text-white/70 text-lg lg:text-xl max-w-2xl leading-relaxed font-normal animate-in fade-in slide-in-from-bottom-2 delay-150 duration-700">
+                    <p className="text-slate-300/85 text-base sm:text-lg max-w-2xl leading-relaxed font-normal">
                         {subtitle}
                     </p>
                 )}
             </div>
-            
-            {/* Bottom edge transition */}
-            <div className="absolute bottom-0 left-0 w-full h-px bg-white/5"></div>
         </div>
     );
 }

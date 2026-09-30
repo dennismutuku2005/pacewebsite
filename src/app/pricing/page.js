@@ -15,14 +15,14 @@ function HotspotCalculator() {
     const totalPrice = baseFee + (overageUnits * overageRate);
 
     return (
-        <div className="bg-white/5 rounded-xl p-10 lg:p-14 border border-white/10 shadow-xl relative overflow-hidden">
-            <h3 className="text-2xl font-semibold mb-10 text-center text-white">Price Calculator</h3>
+        <div className="bg-[#0E111C]/90 rounded-2xl p-8 lg:p-12 border border-white/10 shadow-2xl relative overflow-hidden">
+            <h3 className="text-xl sm:text-2xl font-semibold mb-8 text-center text-white">Interactive Price Calculator</h3>
 
-            <div className="max-w-md mx-auto space-y-10 relative z-10">
+            <div className="max-w-md mx-auto space-y-8 relative z-10">
                 <div>
-                    <label className="flex items-center justify-between text-sm font-medium text-on-surface-variant mb-4">
-                        Concurrent Users: 
-                        <span className="text-primary text-xl font-bold tabular-nums">{clients}</span>
+                    <label className="flex items-center justify-between text-xs sm:text-sm font-medium text-slate-300 mb-3">
+                        <span>Concurrent Users:</span>
+                        <span className="text-purple-400 text-lg font-bold tabular-nums">{clients}</span>
                     </label>
                     <input
                         type="range"
@@ -31,32 +31,32 @@ function HotspotCalculator() {
                         step="5"
                         value={clients}
                         onChange={(e) => setClients(parseInt(e.target.value))}
-                        className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-primary"
+                        className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-purple-500"
                     />
-                    <div className="flex justify-between mt-3 text-xs text-on-surface-variant/50">
-                        <span>0</span>
-                        <span>1,000+</span>
+                    <div className="flex justify-between mt-2 text-[11px] text-slate-500">
+                        <span>0 users</span>
+                        <span>1,000+ users</span>
                     </div>
                 </div>
 
-                <div className="bg-white/5 rounded-xl p-8 border border-white/5">
-                    <div className="flex justify-between items-center mb-5 border-b border-white/5 pb-5">
-                        <span className="text-sm font-medium text-on-surface-variant">Base Fee (110 users)</span>
+                <div className="bg-white/[0.03] rounded-xl p-6 border border-white/[0.06]">
+                    <div className="flex justify-between items-center mb-4 border-b border-white/[0.06] pb-4 text-xs sm:text-sm">
+                        <span className="text-slate-400">Base Fee (110 users)</span>
                         <span className="font-semibold text-white">KES 1,500</span>
                     </div>
                     {overageUnits > 0 && (
-                        <div className="flex justify-between items-center mb-5 border-b border-white/5 pb-5">
-                            <span className="text-sm font-medium text-primary">Overage ({overageUnits} x KES 13)</span>
-                            <span className="font-semibold text-primary">+ KES {(overageUnits * overageRate).toLocaleString()}</span>
+                        <div className="flex justify-between items-center mb-4 border-b border-white/[0.06] pb-4 text-xs sm:text-sm">
+                            <span className="text-purple-400">Overage ({overageUnits} x KES 13)</span>
+                            <span className="font-semibold text-purple-300">+ KES {(overageUnits * overageRate).toLocaleString()}</span>
                         </div>
                     )}
                     <div className="pt-2 flex justify-between items-center">
-                        <span className="text-white font-semibold text-lg">Estimated Total</span>
-                        <span className="text-3xl font-bold text-white tabular-nums">KES {totalPrice.toLocaleString()}</span>
+                        <span className="text-white font-semibold text-sm sm:text-base">Estimated Total</span>
+                        <span className="text-2xl sm:text-3xl font-bold text-white tabular-nums">KES {totalPrice.toLocaleString()}</span>
                     </div>
                 </div>
 
-                <p className="text-center text-sm text-on-surface-variant/70 italic">
+                <p className="text-center text-xs text-slate-400 leading-relaxed">
                     Pay a flat KES 1,500 for the first 110 clients. Beyond that, just KES 13 per user.
                 </p>
             </div>
@@ -66,55 +66,58 @@ function HotspotCalculator() {
 
 export default function PricingPage() {
     return (
-        <div className="min-h-screen bg-[#0A0A0A] text-on-surface">
+        <div className="min-h-screen bg-[#08090E] text-slate-200 font-inter">
             <PageHero
-                title="Simple Pricing"
-                subtitle="Transparent pricing built for scaling your network smoothly."
+                badge="Transparent Billing"
+                title="Simple, Scalable Pricing"
+                subtitle="Predictable cost models built for growing and enterprise Internet Service Providers."
             />
 
-            <section className="py-24 relative z-10">
+            <section className="py-20 relative z-10">
                 <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
                     {/* Pricing Cards */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24 max-w-5xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20 max-w-5xl mx-auto">
 
                         {/* Hotspot Pricing */}
                         <motion.div 
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="bg-white/5 border border-white/10 rounded-xl p-10 lg:p-14 text-white flex flex-col group shadow-xl hover:border-white/20 transition-all"
+                            className="bg-[#0E111C]/80 border border-white/10 rounded-2xl p-8 sm:p-10 text-white flex flex-col group shadow-xl hover:border-white/20 transition-all"
                         >
-                            <div className="flex items-center justify-between mb-8">
-                                <h3 className="text-2xl font-semibold tracking-tight">Hotspot Billing</h3>
-                                <span className="material-symbols-outlined text-3xl text-primary">wifi_tethering</span>
-                            </div>
-
-                            <div className="mb-10 border-b border-white/5 pb-8">
-                                <div className="flex items-baseline gap-2 mb-2">
-                                    <span className="text-5xl lg:text-6xl font-bold tracking-tight text-white">1,500</span>
-                                    <span className="text-xl font-medium text-white/40">KES / mo</span>
+                            <div className="flex items-center justify-between mb-6">
+                                <h3 className="text-xl sm:text-2xl font-semibold tracking-tight">Hotspot Billing</h3>
+                                <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+                                    <span className="material-symbols-outlined text-2xl">wifi_tethering</span>
                                 </div>
-                                <p className="text-sm text-on-surface-variant font-normal">Monthly flat fee for up to 110 users</p>
                             </div>
 
-                            <div className="space-y-4 mb-10 flex-grow">
+                            <div className="mb-8 border-b border-white/[0.08] pb-6">
+                                <div className="flex items-baseline gap-2 mb-2">
+                                    <span className="text-4xl sm:text-5xl font-bold tracking-tight text-white">1,500</span>
+                                    <span className="text-sm font-medium text-slate-400">KES / mo</span>
+                                </div>
+                                <p className="text-xs text-slate-400 font-normal">Monthly flat fee for up to 110 concurrent users</p>
+                            </div>
+
+                            <div className="space-y-3 mb-8 flex-grow">
                                 {[
                                     "Up to 110 concurrent clients covered",
-                                    "KES 13 per additional user",
+                                    "KES 13 per additional active user",
                                     "Zero hidden transaction fees",
                                     "Integrated STK Push Included",
                                     "24/7 technical support"
                                 ].map((feature, i) => (
-                                    <div key={i} className="flex items-start gap-4 text-sm font-normal text-white/80">
-                                        <span className="material-symbols-outlined text-primary text-lg">check</span>
+                                    <div key={i} className="flex items-start gap-3 text-xs sm:text-sm text-slate-300">
+                                        <span className="text-purple-400 font-bold">✓</span>
                                         {feature}
                                     </div>
                                 ))}
                             </div>
 
                             <Link href="/apply">
-                                <button className="w-full bg-primary text-white px-6 py-4 rounded-xl font-medium text-base hover:bg-primary/90 transition-all border border-transparent">
+                                <button className="w-full bg-white/[0.05] hover:bg-white/[0.1] text-white border border-white/10 px-6 py-3.5 rounded-xl text-xs font-medium uppercase tracking-wider transition-all active:scale-95 cursor-pointer">
                                     Get Started
                                 </button>
                             </Link>
@@ -126,38 +129,40 @@ export default function PricingPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="bg-primary text-white rounded-3xl p-10 lg:p-14 flex flex-col shadow-2xl"
+                            className="bg-gradient-to-b from-purple-950/40 via-[#0E111C] to-[#0E111C] border border-purple-500/30 rounded-2xl p-8 sm:p-10 flex flex-col shadow-[0_15px_50px_rgba(139,92,246,0.15)] relative overflow-hidden"
                         >
-                            <div className="flex items-center justify-between mb-8">
-                                <h3 className="text-2xl font-semibold tracking-tight">PPPoE Management</h3>
-                                <span className="material-symbols-outlined text-3xl text-white/40">router</span>
-                            </div>
-
-                            <div className="mb-10 border-b border-white/20 pb-8">
-                                <div className="flex items-baseline gap-2 mb-2">
-                                    <span className="text-5xl lg:text-6xl font-bold tracking-tight">28</span>
-                                    <span className="text-xl font-medium text-white/60">KES / user</span>
+                            <div className="flex items-center justify-between mb-6">
+                                <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">PPPoE Management</h3>
+                                <div className="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-300">
+                                    <span className="material-symbols-outlined text-2xl">router</span>
                                 </div>
-                                <p className="text-sm text-white/70 font-normal">Per active concurrent session / month</p>
                             </div>
 
-                            <div className="space-y-4 mb-10 flex-grow">
+                            <div className="mb-8 border-b border-white/[0.08] pb-6">
+                                <div className="flex items-baseline gap-2 mb-2">
+                                    <span className="text-4xl sm:text-5xl font-bold tracking-tight text-white">28</span>
+                                    <span className="text-sm font-medium text-purple-300">KES / user</span>
+                                </div>
+                                <p className="text-xs text-slate-300 font-normal">Per active concurrent session / month</p>
+                            </div>
+
+                            <div className="space-y-3 mb-8 flex-grow">
                                 {[
                                     "Only pay for active sessions",
-                                    "Dynamic bandwidth shaping",
+                                    "Dynamic bandwidth rate-limiting",
                                     "Subscriber self-care portal",
                                     "Hardware independent setups",
                                     "Automated disconnection logic"
                                 ].map((feature, i) => (
-                                    <div key={i} className="flex items-start gap-4 text-sm font-normal text-white/90">
-                                        <span className="material-symbols-outlined text-white text-lg">check</span>
+                                    <div key={i} className="flex items-start gap-3 text-xs sm:text-sm text-slate-200">
+                                        <span className="text-purple-400 font-bold">✓</span>
                                         {feature}
                                     </div>
                                 ))}
                             </div>
 
                             <Link href="/apply">
-                                <button className="w-full bg-white text-primary px-6 py-4 rounded-xl font-medium text-base hover:bg-gray-100 transition-all border border-transparent">
+                                <button className="w-full bg-purple-600 hover:bg-purple-500 text-white px-6 py-3.5 rounded-xl text-xs font-medium uppercase tracking-wider transition-all shadow-lg shadow-purple-600/25 active:scale-95 cursor-pointer">
                                     Get Started
                                 </button>
                             </Link>

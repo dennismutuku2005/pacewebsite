@@ -11,176 +11,206 @@ export default function Home() {
     const faqs = [
         {
             question: "What infrastructure does PACE support?",
-            answer: "PACE integrates directly with MikroTik API ports, OLTs, and RADIUS hubs. It supports PPPoE, IPOE, and Hotspot vouchers with real-time session management."
+            answer: "PACE integrates directly with MikroTik RouterOS API ports, OLTs, and RADIUS authentication hubs. It supports PPPoE queues, IPoE, and Hotspot vouchers with instantaneous session control."
         },
         {
             question: "How does the M-Pesa STK Push integration work?",
-            answer: "Our system connects to Safaricom's Daraja API. When a user checks out, an STK push is instantly sent to their phone. Upon PIN entry, PACE verifies the payment and activates the subscriber's session within 60 seconds."
+            answer: "Our system connects securely to Safaricom's Daraja API. When a subscriber checks out, an STK push prompt is sent immediately to their mobile number. Upon PIN verification, PACE reconciles the payment and activates the user session within seconds."
         },
         {
             question: "Is there a limit on concurrent subscribers?",
-            answer: "Our system supports unlimited subscribers. The actual network scaling is only limited by your hardware (NAS) throughput."
+            answer: "PACE is engineered for horizontal scalability with unlimited subscriber support. Your network throughput is only bounded by your physical MikroTik hardware capacity."
         },
         {
-            question: "How reliable is the database connection?",
-            answer: "Even if your core database connection is momentarily interrupted, active sessions remain stable. Data reconnects and synchronizes seamlessly when the link restores."
+            question: "How reliable is the database and session synchronization?",
+            answer: "Even during momentary upstream interruptions, active customer sessions continue uninterrupted on your MikroTik core. Data and accounting ledgers automatically reconnect and synchronize as soon as connectivity resumes."
         }
     ];
 
     return (
-        <div className="min-h-screen bg-[#06070A] text-on-surface overflow-hidden relative">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(75,29,143,0.28),_transparent_36%),radial-gradient(circle_at_85%_15%,_rgba(98,255,173,0.12),_transparent_24%)]" />
+        <div className="min-h-screen bg-[#08090E] text-on-surface overflow-hidden relative selection:bg-purple-600/30 selection:text-white font-inter">
+            {/* Ambient Background Glows */}
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(139,92,246,0.18),transparent_70%)]" />
+            <div className="pointer-events-none absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[150px]" />
+            <div className="pointer-events-none absolute top-[55%] left-[-10%] w-[600px] h-[600px] bg-indigo-600/8 rounded-full blur-[160px]" />
 
             {/* HERO SECTION */}
-            <section className="relative min-h-screen flex items-center pt-24 pb-20 lg:pt-32 lg:pb-24 overflow-hidden">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full relative z-10">
-                    <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-center">
+            <section className="relative pt-28 pb-16 lg:pt-32 lg:pb-20 overflow-hidden">
+                <div className="w-full relative z-10">
+                    <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+                        {/* Text Left Column (5 cols) */}
                         <motion.div
-                            initial={{ opacity: 0, y: 24 }}
+                            initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, ease: 'easeOut' }}
-                            className="max-w-2xl"
+                            transition={{ duration: 0.6, ease: 'easeOut' }}
+                            className="lg:col-span-5 max-w-xl pl-6 sm:pl-10 lg:pl-16 xl:pl-28 pr-6 z-20"
                         >
-                            <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05] text-white">
+                            <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-semibold tracking-tight leading-[1.08] text-white">
                                 Reliable control <br />
-                                <span className="text-primary">for ISP billing</span>
+                                <span className="bg-gradient-to-r from-purple-400 via-purple-300 to-indigo-300 bg-clip-text text-transparent">
+                                    for ISP billing & core.
+                                </span>
                             </h1>
-                            <p className="mt-6 text-lg text-on-surface-variant leading-8 max-w-xl">
-                                Orchestrate PPPoE, Hotspot billing, and network operations with a calmer, more focused workflow.
+
+                            <p className="mt-5 text-base text-slate-300/85 leading-relaxed">
+                                Orchestrate PPPoE subscriber queues, Hotspot captive portals, and M-Pesa automated billing with a high-performance, focused interface.
                             </p>
-                            <div className="mt-8 flex flex-wrap gap-3">
+
+                            <div className="mt-8 flex flex-wrap items-center gap-3.5">
                                 <Link href="/apply">
-                                    <button className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-primary/90">
+                                    <button className="rounded-xl bg-purple-600 hover:bg-purple-500 text-white px-7 py-3.5 text-xs font-medium uppercase tracking-wider transition-all shadow-lg shadow-purple-600/25 active:scale-95 cursor-pointer">
                                         Get Started
                                     </button>
                                 </Link>
                                 <Link href="/features">
-                                    <button className="rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white/90 backdrop-blur-md transition hover:bg-white/10">
+                                    <button className="rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] px-7 py-3.5 text-xs font-medium uppercase tracking-wider text-white transition-all backdrop-blur-md active:scale-95 cursor-pointer">
                                         Explore Features
                                     </button>
                                 </Link>
                             </div>
                         </motion.div>
 
+                        {/* Image Right Column (7 cols - Touches Screen Edge, Cut Directly by Right Edge) */}
                         <motion.div
-                            initial={{ opacity: 0, x: 24 }}
+                            initial={{ opacity: 0, x: 40 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
-                            className="lg:w-[90%] lg:absolute lg:-right-[45%] relative mt-16 lg:mt-0"
+                            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
+                            className="lg:col-span-7 relative w-full pl-6 sm:pl-10 lg:pl-0 pr-0"
                         >
-                            <div className="relative z-10 overflow-hidden border-y border-l border-white/10 shadow-[0_0_120px_rgba(75,29,143,0.2)]">
+                            <div className="relative w-full h-[380px] sm:h-[480px] lg:h-[75vh] min-h-[460px] max-h-[820px] rounded-2xl lg:rounded-r-none lg:rounded-l-3xl overflow-hidden border border-white/10 lg:border-r-0 bg-[#0E111C]/90 shadow-[0_25px_80px_rgba(0,0,0,0.85),0_0_100px_rgba(139,92,246,0.2)]">
                                 <Image
                                     src="/hero.png"
-                                    alt="PACE Dashboard"
-                                    width={1600}
-                                    height={1000}
-                                    className="w-full h-auto object-cover"
+                                    alt="PACE Dashboard Interface"
+                                    fill
+                                    className="object-cover object-left-top block"
                                     priority
+                                    unoptimized
                                 />
+                                {/* Clean glass sheen overlay on left border */}
+                                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-transparent" />
                             </div>
                         </motion.div>
                     </div>
                 </div>
             </section>
 
-            {/* TRUSTED PARTNERS */}
-            <section className="relative z-10 min-h-screen flex items-center border-y border-white/5 bg-white/[0.025] py-14">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
-                    <p className="mb-8 text-center text-[11px] font-medium uppercase tracking-[0.35em] text-white/35">
-                        Industry standard infrastructure
-                    </p>
-                    <div className="flex flex-wrap justify-center items-center gap-10 sm:gap-14 lg:gap-20 opacity-100">
-                        <Image src="/cloudflare.png" alt="Cloudflare" width={240} height={80} className="h-16 sm:h-20 lg:h-24 w-auto max-w-[220px] object-contain" />
-                        <Image src="/digitalocean.png" alt="DigitalOcean" width={280} height={80} className="h-16 sm:h-20 lg:h-24 w-auto max-w-[260px] object-contain" />
-                        <Image src="/safaricom.png" alt="Safaricom" width={240} height={80} className="h-16 sm:h-20 lg:h-24 w-auto max-w-[220px] object-contain" />
-                    </div>
-                </div>
-            </section>
-
-            {/* NETWORK VIEW SECTION */}
-            <section className="relative z-10 min-h-screen flex items-center overflow-hidden py-20 lg:py-24">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
-                    <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-10 lg:gap-16 items-center">
+            {/* CLEAN DATA VIEW (Left Screen Edge Bleed Image) */}
+            <section className="relative z-10 py-20 lg:py-28 overflow-hidden">
+                <div className="w-full relative z-10">
+                    <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+                        {/* Image Left Column (7 cols - Touches Left Screen Edge, Cut Directly by Left Edge) */}
                         <motion.div
-                            initial={{ opacity: 0, x: -24 }}
+                            initial={{ opacity: 0, x: -40 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
+                            transition={{ duration: 0.7, ease: 'easeOut' }}
+                            className="lg:col-span-7 relative w-full pr-6 sm:pr-10 lg:pr-0 pl-0 order-2 lg:order-1"
                         >
-                            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-5 text-white leading-tight">
-                                Real-time <br />
-                                <span className="text-primary">infrastructure intelligence</span>
-                            </h2>
-                            <p className="text-lg leading-8 text-on-surface-variant">
-                                Every session, every connection, and every heartbeat is visible in one place.
-                            </p>
-                        </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, x: 24 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className="lg:w-[90%] lg:absolute lg:-right-[45%] relative mt-16 lg:mt-0"
-                        >
-                            <div className="overflow-hidden border-y border-l border-white/10 shadow-2xl">
+                            <div className="relative w-full h-[380px] sm:h-[480px] lg:h-[75vh] min-h-[460px] max-h-[820px] rounded-2xl lg:rounded-l-none lg:rounded-r-3xl overflow-hidden border border-white/10 lg:border-l-0 bg-[#0E111C]/90 shadow-[0_25px_80px_rgba(0,0,0,0.85),0_0_100px_rgba(139,92,246,0.2)]">
                                 <Image
                                     src="/entries.png"
-                                    alt="Live Entries"
-                                    width={1200}
-                                    height={800}
-                                    className="w-full h-auto"
+                                    alt="Clean Data View Ledger"
+                                    fill
+                                    className="object-cover object-left-top block"
+                                    unoptimized
                                 />
+                                {/* Clean glass sheen overlay on right border */}
+                                <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-purple-500/10 via-transparent to-transparent" />
+                            </div>
+                        </motion.div>
+
+                        {/* Text Right Column (5 cols) */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5 }}
+                            className="lg:col-span-5 max-w-xl pl-6 sm:pl-10 lg:pl-4 xl:pl-8 pr-6 sm:pr-10 lg:pr-16 xl:pr-28 z-20 order-1 lg:order-2"
+                        >
+                            <span className="text-xs font-semibold uppercase tracking-wider text-purple-400 block mb-2">Clean Data View</span>
+                            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white leading-tight">
+                                Real-time infrastructure <br />
+                                <span className="bg-gradient-to-r from-purple-400 to-indigo-300 bg-clip-text text-transparent">
+                                    intelligence & monitoring.
+                                </span>
+                            </h2>
+                            <p className="mt-4 text-base text-slate-300/80 leading-relaxed">
+                                Every subscriber session, bandwidth spike, and router heartbeat is indexed in real-time. Gain complete visibility into your ISP operations without cognitive overload.
+                            </p>
+                            
+                            <div className="mt-8 space-y-3">
+                                <div className="flex items-start gap-3 p-3.5 rounded-xl border border-white/[0.06] bg-white/[0.02]">
+                                    <div className="w-6 h-6 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">1</div>
+                                    <div>
+                                        <h4 className="text-xs font-semibold text-white">Automated Provisioning</h4>
+                                        <p className="text-xs text-slate-400 mt-0.5">Dynamic creation and modification of PPPoE secrets and hotspot users.</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-3 p-3.5 rounded-xl border border-white/[0.06] bg-white/[0.02]">
+                                    <div className="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">2</div>
+                                    <div>
+                                        <h4 className="text-xs font-semibold text-white">Instant Payment Reconciliation</h4>
+                                        <p className="text-xs text-slate-400 mt-0.5">Automatic M-Pesa transaction matching with zero operator intervention.</p>
+                                    </div>
+                                </div>
                             </div>
                         </motion.div>
                     </div>
                 </div>
             </section>
 
-            {/* SERVICES BENTO GRID */}
-            <section className="relative z-10 min-h-screen flex items-center border-y border-white/5 bg-white/[0.025] py-20 lg:py-24">
+            {/* CORE ECOSYSTEM BENTO GRID */}
+            <section className="relative z-10 border-t border-white/[0.06] bg-white/[0.015] py-20 lg:py-28">
                 <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
-                    <div className="mb-10 max-w-2xl">
-                        <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white">Core Ecosystem</h2>
-                        <p className="mt-3 text-lg text-on-surface-variant">
-                            Everything you need to run a high-performance ISP, wrapped in a calmer experience.
+                    <div className="mb-12 max-w-2xl">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-purple-400 block mb-2">Capabilities</span>
+                        <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white">Engineered for Modern WISPs</h2>
+                        <p className="mt-3 text-base text-slate-300/80">
+                            Everything you need to operate, bill, and scale your internet service provider with ease.
                         </p>
                     </div>
-                    <div className="grid gap-4 md:grid-cols-3">
-                        <div className="md:col-span-2 rounded-[24px] border border-white/10 bg-white/[0.05] p-8 shadow-[0_10px_40px_rgba(0,0,0,0.18)]">
-                            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/15 text-primary">
-                                <span className="material-symbols-outlined text-2xl">terminal</span>
+
+                    <div className="grid gap-5 md:grid-cols-3">
+                        <div className="md:col-span-2 rounded-2xl border border-white/[0.08] bg-white/[0.025] hover:bg-white/[0.04] p-8 transition-colors">
+                            <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
+                                <span className="material-symbols-outlined text-xl">terminal</span>
                             </div>
-                            <h3 className="text-xl font-semibold text-white">PPPoE orchestration</h3>
-                            <p className="mt-3 max-w-md text-base leading-7 text-on-surface-variant">
-                                Automated provisioning, precise shaping, and real-time disconnect logic for modern network teams.
+                            <h3 className="text-xl font-medium text-white">PPPoE & Queue Orchestration</h3>
+                            <p className="mt-2 text-sm text-slate-400 leading-relaxed max-w-lg">
+                                Automated client provisioning, granular bandwidth rate-limiting, and instant disconnect logic triggered upon billing cycle completion.
                             </p>
                         </div>
 
-                        <div className="rounded-[24px] bg-primary p-8 text-white shadow-[0_20px_60px_rgba(75,29,143,0.25)]">
-                            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/20">
-                                <span className="material-symbols-outlined text-2xl">payments</span>
+                        <div className="rounded-2xl border border-purple-500/20 bg-purple-950/20 hover:bg-purple-950/30 p-8 transition-colors">
+                            <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-purple-500/20 text-purple-300">
+                                <span className="material-symbols-outlined text-xl">payments</span>
                             </div>
-                            <h3 className="text-xl font-semibold">M-Pesa native</h3>
-                            <p className="mt-3 text-sm leading-7 text-white/80">
-                                Direct STK push integration keeps billing flowing and sessions activating in seconds.
+                            <h3 className="text-xl font-medium text-white">Native M-Pesa Engine</h3>
+                            <p className="mt-2 text-sm text-slate-300/80 leading-relaxed">
+                                Direct STK push integration ensures fast subscriber renewals and automated account activation in under 30 seconds.
                             </p>
                         </div>
 
-                        <div className="rounded-[24px] border border-white/10 bg-white/[0.05] p-8">
-                            <h3 className="text-lg font-semibold text-white">Smart graphing</h3>
-                            <p className="mt-3 text-base leading-7 text-on-surface-variant">
-                                Deep visibility into bandwidth usage and hardware health without clutter.
+                        <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] hover:bg-white/[0.04] p-8 transition-colors">
+                            <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                                <span className="material-symbols-outlined text-xl">signal_cellular_alt</span>
+                            </div>
+                            <h3 className="text-lg font-medium text-white">Bandwidth & Traffic Graphing</h3>
+                            <p className="mt-2 text-sm text-slate-400 leading-relaxed">
+                                Deep visual metrics on real-time port utilization, interface dropouts, and hardware resource health.
                             </p>
                         </div>
 
-                        <div className="md:col-span-2 flex flex-col justify-between gap-6 rounded-[24px] border border-white/10 bg-white/[0.05] p-8 md:flex-row md:items-center">
+                        <div className="md:col-span-2 flex flex-col justify-between gap-6 rounded-2xl border border-white/[0.08] bg-white/[0.025] hover:bg-white/[0.04] p-8 md:flex-row md:items-center transition-colors">
                             <div>
-                                <h3 className="text-2xl font-semibold text-white">Scale effortlessly</h3>
-                                <p className="mt-2 max-w-md text-base leading-7 text-on-surface-variant">
-                                    Move from a handful of subscribers to thousands without changing your management workflow.
+                                <h3 className="text-xl font-medium text-white">Scale from 50 to 50,000+ Subscribers</h3>
+                                <p className="mt-1.5 max-w-lg text-sm text-slate-400 leading-relaxed">
+                                    Expand your network footprint across multiple MikroTik routers without modifying your administration workflow.
                                 </p>
                             </div>
                             <Link href="/apply">
-                                <button className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5">
-                                    Apply Now
+                                <button className="rounded-xl bg-purple-600 hover:bg-purple-500 text-white px-6 py-3 text-xs font-medium uppercase tracking-wider transition-all whitespace-nowrap active:scale-95 shadow-md shadow-purple-600/20 cursor-pointer">
+                                    Apply For Access
                                 </button>
                             </Link>
                         </div>
@@ -188,71 +218,81 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* PRICING SECTION */}
-            <section className="relative z-10 min-h-screen flex items-center py-20 lg:py-24">
+            {/* PRICING PLANS */}
+            <section className="relative z-10 py-20 lg:py-28">
                 <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
                     <div className="mb-12 text-center">
-                        <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white">Designed for growth</h2>
-                        <p className="mt-3 text-lg text-on-surface-variant">Simple, predictable, and transparent.</p>
+                        <span className="text-xs font-semibold uppercase tracking-wider text-purple-400 block mb-2">Transparent Pricing</span>
+                        <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white">Simple, Predictable Plans</h2>
+                        <p className="mt-3 text-base text-slate-400">Everything is billed on actual usage without hidden maintenance fees.</p>
                     </div>
 
-                    <div className="mx-auto grid max-w-5xl gap-5 md:grid-cols-2">
-                        <div className="flex flex-col rounded-[24px] border border-white/10 bg-white/[0.05] p-8 shadow-[0_10px_40px_rgba(0,0,0,0.16)]">
-                            <h3 className="text-xl font-semibold text-white">Hotspot billing</h3>
-                            <div className="mt-8">
-                                <div className="flex items-baseline gap-2">
-                                    <span className="text-4xl font-semibold text-white">KES 1,500</span>
-                                    <span className="text-sm text-on-surface-variant">/mo</span>
+                    <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
+                        {/* Hotspot Plan */}
+                        <div className="flex flex-col rounded-2xl border border-white/[0.08] bg-white/[0.025] p-8 transition-all hover:border-white/[0.15]">
+                            <span className="text-xs font-medium uppercase tracking-wider text-purple-400">Captive Portal</span>
+                            <h3 className="text-xl font-medium text-white mt-1">Hotspot Billing</h3>
+                            <div className="mt-6 pb-6 border-b border-white/[0.06]">
+                                <div className="flex items-baseline gap-1.5">
+                                    <span className="text-3xl sm:text-4xl font-semibold text-white">KES 1,500</span>
+                                    <span className="text-xs text-slate-400 font-normal">/month</span>
                                 </div>
-                                <p className="mt-2 text-sm text-on-surface-variant">
-                                    First 110 clients. Then <span className="font-semibold text-white">KES 13</span> per extra user.
+                                <p className="mt-2 text-xs text-slate-400">
+                                    Covers first 110 active clients. Then only <span className="font-semibold text-white">KES 13</span> per extra user.
                                 </p>
                             </div>
-                            <ul className="mt-8 flex-grow space-y-3">
+                            <ul className="mt-6 flex-grow space-y-3">
                                 {[
                                     "Unlimited voucher generation",
-                                    "Automated STK verification",
-                                    "Real-time session control",
-                                    "Daily income ledgers"
+                                    "Instant M-Pesa STK verification",
+                                    "Custom captive portal themes",
+                                    "Real-time session authorization",
+                                    "Daily automated revenue ledger"
                                 ].map((f, i) => (
-                                    <li key={i} className="flex items-center gap-3 text-sm text-white/75">
-                                        <span className="material-symbols-outlined text-primary text-lg">check</span>
+                                    <li key={i} className="flex items-center gap-2.5 text-xs text-slate-300">
+                                        <span className="text-emerald-400 font-bold">✓</span>
                                         {f}
                                     </li>
                                 ))}
                             </ul>
                             <Link href="/apply">
-                                <button className="mt-8 w-full rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary/90">
+                                <button className="mt-8 w-full rounded-xl border border-purple-500/30 bg-purple-600/10 hover:bg-purple-600 text-purple-300 hover:text-white px-5 py-3 text-xs font-medium uppercase tracking-wider transition-all active:scale-95 cursor-pointer">
                                     Get Started
                                 </button>
                             </Link>
                         </div>
 
-                        <div className="flex flex-col rounded-[24px] bg-primary p-8 text-white shadow-[0_20px_60px_rgba(75,29,143,0.28)]">
-                            <h3 className="text-xl font-semibold">PPPoE enterprise</h3>
-                            <div className="mt-8">
-                                <div className="flex items-baseline gap-2">
-                                    <span className="text-4xl font-semibold">KES 28</span>
-                                    <span className="text-sm text-white/70">/user</span>
-                                </div>
-                                <p className="mt-2 text-sm text-white/70">Per active concurrent session.</p>
+                        {/* PPPoE Plan */}
+                        <div className="flex flex-col rounded-2xl border border-purple-500/30 bg-purple-950/20 p-8 relative shadow-[0_0_50px_rgba(139,92,246,0.12)]">
+                            <div className="absolute top-4 right-4">
+                                <span className="text-[10px] font-medium uppercase px-2.5 py-1 rounded-full bg-purple-500 text-white shadow-sm">Popular</span>
                             </div>
-                            <ul className="mt-8 flex-grow space-y-3">
+                            <span className="text-xs font-medium uppercase tracking-wider text-purple-300">Enterprise Fiber</span>
+                            <h3 className="text-xl font-medium text-white mt-1">PPPoE Enterprise</h3>
+                            <div className="mt-6 pb-6 border-b border-purple-500/20">
+                                <div className="flex items-baseline gap-1.5">
+                                    <span className="text-3xl sm:text-4xl font-semibold text-white">KES 28</span>
+                                    <span className="text-xs text-purple-200/70 font-normal">/user/mo</span>
+                                </div>
+                                <p className="mt-2 text-xs text-purple-200/70">Per active concurrent customer session.</p>
+                            </div>
+                            <ul className="mt-6 flex-grow space-y-3">
                                 {[
-                                    "Dynamic queue management",
-                                    "Self-service client portal",
-                                    "Auto-suspension logic",
-                                    "Mikrotik API integration"
+                                    "Dynamic queue & rate management",
+                                    "Automated overdue service suspension",
+                                    "Direct MikroTik RouterOS API sync",
+                                    "Client self-care payment portal",
+                                    "SMS alert dispatch integrations"
                                 ].map((f, i) => (
-                                    <li key={i} className="flex items-center gap-3 text-sm text-white/90">
-                                        <span className="material-symbols-outlined text-lg">check</span>
+                                    <li key={i} className="flex items-center gap-2.5 text-xs text-white">
+                                        <span className="text-emerald-400 font-bold">✓</span>
                                         {f}
                                     </li>
                                 ))}
                             </ul>
                             <Link href="/apply">
-                                <button className="mt-8 w-full rounded-full bg-white px-5 py-3 text-sm font-semibold text-primary transition hover:bg-gray-100">
-                                    Get Started
+                                <button className="mt-8 w-full rounded-xl bg-purple-600 hover:bg-purple-500 text-white px-5 py-3 text-xs font-medium uppercase tracking-wider transition-all shadow-md shadow-purple-600/25 active:scale-95 cursor-pointer">
+                                    Deploy PPPoE
                                 </button>
                             </Link>
                         </div>
@@ -260,27 +300,28 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* FAQ */}
-            <section className="relative z-10 min-h-screen flex items-center mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-12">
-                <div className="w-full">
-                    <div className="mb-6 text-center sm:mb-8">
-                        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">Intelligence base</h2>
+            {/* FAQ SECTION */}
+            <section className="relative z-10 border-t border-white/[0.06] bg-white/[0.015] py-20 lg:py-28">
+                <div className="max-w-3xl mx-auto px-6 w-full">
+                    <div className="mb-10 text-center">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-purple-400 block mb-2">FAQ</span>
+                        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">Frequently Asked Questions</h2>
                     </div>
 
-                    <div className="space-y-2 sm:space-y-3">
+                    <div className="space-y-3">
                         {faqs.map((faq, index) => (
                             <div
                                 key={index}
-                                className="overflow-hidden rounded-[16px] border border-white/10 bg-white/[0.05]"
+                                className="overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.02]"
                             >
                                 <button
                                     onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
-                                    className="flex w-full items-center justify-between gap-3 p-4 text-left sm:p-5"
+                                    className="flex w-full items-center justify-between gap-3 p-4 text-left sm:p-5 transition-colors hover:bg-white/[0.02] cursor-pointer"
                                 >
-                                    <span className={`text-sm font-medium leading-6 transition-colors sm:text-base ${openFaq === index ? 'text-primary' : 'text-white'}`}>
+                                    <span className={`text-xs sm:text-sm font-medium transition-colors ${openFaq === index ? 'text-purple-400' : 'text-white'}`}>
                                         {faq.question}
                                     </span>
-                                    <span className={`flex-shrink-0 material-symbols-outlined text-lg transition-transform duration-300 sm:text-xl ${openFaq === index ? 'rotate-180 text-primary' : 'text-white/25'}`}>
+                                    <span className={`material-symbols-outlined text-lg transition-transform duration-200 ${openFaq === index ? 'rotate-180 text-purple-400' : 'text-slate-400'}`}>
                                         expand_more
                                     </span>
                                 </button>
@@ -290,7 +331,8 @@ export default function Home() {
                                             initial={{ height: 0, opacity: 0 }}
                                             animate={{ height: 'auto', opacity: 1 }}
                                             exit={{ height: 0, opacity: 0 }}
-                                            className="px-4 pb-4 text-sm leading-7 text-white/70 sm:px-5 sm:pb-5"
+                                            transition={{ duration: 0.2 }}
+                                            className="px-4 pb-4 text-xs leading-relaxed text-slate-300 sm:px-5 sm:pb-5 border-t border-white/[0.04] pt-3"
                                         >
                                             {faq.answer}
                                         </motion.div>
@@ -302,20 +344,23 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* FOOTER CTA */}
-            <section className="relative z-10 min-h-screen flex items-center justify-center py-16 text-center">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    className="mx-auto max-w-4xl px-6"
-                >
-                    <h2 className="mb-8 text-4xl sm:text-5xl font-semibold tracking-tight text-white">Ready to PACE?</h2>
-                    <Link href="/apply">
-                        <button className="rounded-full bg-primary px-8 py-4 text-lg font-semibold text-white transition hover:-translate-y-0.5 hover:bg-primary/90">
-                            Apply for Access
-                        </button>
-                    </Link>
-                </motion.div>
+            {/* CALL TO ACTION */}
+            <section className="relative z-10 py-20 lg:py-28 text-center overflow-hidden">
+                <div className="max-w-3xl mx-auto px-6">
+                    <div className="p-10 sm:p-14 rounded-3xl border border-purple-500/20 bg-gradient-to-b from-purple-950/30 to-transparent relative shadow-[0_0_60px_rgba(139,92,246,0.1)]">
+                        <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white mb-4">
+                            Ready to Transform Your ISP?
+                        </h2>
+                        <p className="text-sm text-slate-300 max-w-md mx-auto mb-8 font-normal">
+                            Join high-growth ISPs in Kenya running automated billing and MikroTik operations with PACE.
+                        </p>
+                        <Link href="/apply">
+                            <button className="rounded-xl bg-purple-600 hover:bg-purple-500 text-white px-8 py-3.5 text-xs font-medium uppercase tracking-wider transition-all shadow-lg shadow-purple-600/30 active:scale-95 cursor-pointer">
+                                Apply For Access
+                            </button>
+                        </Link>
+                    </div>
+                </div>
             </section>
         </div>
     );
